@@ -1,4 +1,5 @@
 from fpdf import FPDF
+# make an import of yaml so you can easily edit a yaml and have it appear nicely in your pdf
 
 class PDF(FPDF):
     def header(self):
@@ -7,7 +8,7 @@ class PDF(FPDF):
         self.set_fill_color(23, 54, 93)
         self.WIDTH = 210
         self.HEIGHT = 297
-        self.rect(0, 0, 40, self.HEIGHT, 'F')
+        self.rect(0, 0, 60, self.HEIGHT, 'F')
         # Set font and size for the header text
         self.set_font('Arial', 'B', 15)
         # Move to the right
