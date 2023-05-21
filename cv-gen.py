@@ -1,5 +1,8 @@
 from fpdf import FPDF
+import yaml
 # make an import of yaml so you can easily edit a yaml and have it appear nicely in your pdf
+with open('wijnand.yaml', 'r') as f:
+    config = yaml.safe_load(f)
 
 class PDF(FPDF):
     def header(self):
@@ -22,7 +25,7 @@ class PDF(FPDF):
         # Set font for the personal info
         self.set_font('Arial', '', 12)
         # Add name
-        self.cell(0, 10, 'Wijnand van der Meijs', 0, 1)
+        self.cell(0, 10, config['name'], 0, 1)
         # Add address
         self.cell(0, 10, 'Your Address', 0, 1)
         # Add phone number
