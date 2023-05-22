@@ -57,8 +57,10 @@ class PDF(FPDF):
         self.cell(0, 10, 'Work Experience', 0, 1)
         # Set font for the work experience details
         self.set_font('Arial', '', 12)
-        # Add work experience details
-        self.cell(0, 10, 'Job Title, Company Name, Year', 0, 1)
+        # Loop through work experience details in the YAMLL file
+        for details in config['cv']['experience'].values():
+            # Add experience details to the PDF
+            self.cell(0, 10, details, 0, 1)
         # Add line break
         self.ln(10)
 
