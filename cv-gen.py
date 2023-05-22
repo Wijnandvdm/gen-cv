@@ -1,7 +1,8 @@
 from fpdf import FPDF
 import yaml
-# make an import of yaml so you can easily edit a yaml and have it appear nicely in your pdf
-with open('wijnand.yaml', 'r') as f:
+
+# import config yaml
+with open('config/wijnand.yaml', 'r') as f:
     config = yaml.safe_load(f)
 
 class PDF(FPDF):
@@ -25,13 +26,13 @@ class PDF(FPDF):
         # Set font for the personal info
         self.set_font('Arial', '', 12)
         # Add name
-        self.cell(0, 10, config['name'], 0, 1)
+        self.cell(0, 10, config['cv']['personal-info']['name'], 0, 1)
         # Add address
-        self.cell(0, 10, 'Your Address', 0, 1)
+        self.cell(0, 10, config['cv']['personal-info']['address'], 0, 1)
         # Add phone number
-        self.cell(0, 10, 'Your Phone Number', 0, 1)
+        self.cell(0, 10, config['cv']['personal-info']['phone-number'], 0, 1)
         # Add email address
-        self.cell(0, 10, 'Your Email Address', 0, 1)
+        self.cell(0, 10, config['cv']['personal-info']['email-address'], 0, 1)
         # Add line break
         self.ln(10)
 
