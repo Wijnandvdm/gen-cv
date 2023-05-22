@@ -43,8 +43,10 @@ class PDF(FPDF):
         self.cell(0, 10, 'Education', 0, 1)
         # Set font for the education details
         self.set_font('Arial', '', 12)
-        # Add education details
-        self.cell(0, 10, 'Degree Name, Institution Name, Year', 0, 1)
+        # Loop through education details in the YAML file
+        for details in config['cv']['education'].values():
+            # Add education details to the PDF
+            self.cell(0, 10, details, 0, 1)
         # Add line break
         self.ln(10)
 
