@@ -51,13 +51,13 @@ class PDF(FPDF):
         # Set font for the education section
         self.set_font(font, 'B', 14)
         # Add section title
-        self.cell(10, 70, 'Education', 0, 0)
+        self.cell(0, 10, 'Education', 0, 1)
         # Set font for the education details
         self.set_font(font, '', 12)
         # Loop through education details in the YAML file
         for details in config['cv']['education'].values():
             # Add education details to the PDF
-            self.cell(10, 70, details, 0, 0)
+            self.cell(0, 10, details, 0, 1)
         # Add line break
         self.ln(10)
 
