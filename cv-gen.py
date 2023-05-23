@@ -14,6 +14,8 @@ name = sys.argv[1]
 with open(f'config/{name}.yaml', 'r') as f:
     config = yaml.safe_load(f)
 
+font = config['cv']['layout']['font']
+
 class PDF(FPDF):
     def header(self):
         # Add logo image
@@ -23,7 +25,7 @@ class PDF(FPDF):
         self.HEIGHT = 297
         self.rect(0, 0, 60, self.HEIGHT, 'F')
         # Set font and size for the header text
-        self.set_font('Arial', 'B', 15)
+        self.set_font(font, 'B', 15)
         # Move to the right
         self.cell(80)
         # Title
@@ -33,7 +35,7 @@ class PDF(FPDF):
 
     def personal_info(self):
         # Set font for the personal info
-        self.set_font('Arial', '', 12)
+        self.set_font(font, '', 12)
         # Add name
         self.cell(0, 10, config['cv']['personal-info']['name'], 0, 1)
         # Add address
@@ -47,25 +49,25 @@ class PDF(FPDF):
 
     def education(self):
         # Set font for the education section
-        self.set_font('Arial', 'B', 14)
+        self.set_font(font, 'B', 14)
         # Add section title
-        self.cell(0, 10, 'Education', 0, 1)
+        self.cell(10, 70, 'Education', 0, 0)
         # Set font for the education details
-        self.set_font('Arial', '', 12)
+        self.set_font(font, '', 12)
         # Loop through education details in the YAML file
         for details in config['cv']['education'].values():
             # Add education details to the PDF
-            self.cell(0, 10, details, 0, 1)
+            self.cell(10, 70, details, 0, 0)
         # Add line break
         self.ln(10)
 
     def work_experience(self):
         # Set font for the work experience section
-        self.set_font('Arial', 'B', 14)
+        self.set_font(font, 'B', 14)
         # Add section title
         self.cell(50, 10, 'Work Experience', 100, 1)
         # Set font for the work experience details
-        self.set_font('Arial', '', 12)
+        self.set_font(font, '', 12)
         # Loop through work experience details in the YAML file
         for details in config['cv']['experience'].values():
             # Add experience details to the PDF
