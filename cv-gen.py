@@ -18,7 +18,7 @@ class PDF(FPDF):
     def header(self):
         # Add logo image
         # self.image('logo.png', 10, 10, 33)
-        self.set_fill_color(23, 54, 93)
+        self.set_fill_color(config['cv']['layout']['red'], config['cv']['layout']['green'], config['cv']['layout']['blue'])
         self.WIDTH = 210
         self.HEIGHT = 297
         self.rect(0, 0, 60, self.HEIGHT, 'F')
@@ -63,7 +63,7 @@ class PDF(FPDF):
         # Set font for the work experience section
         self.set_font('Arial', 'B', 14)
         # Add section title
-        self.cell(0, 10, 'Work Experience', 0, 1)
+        self.cell(50, 10, 'Work Experience', 100, 1)
         # Set font for the work experience details
         self.set_font('Arial', '', 12)
         # Loop through work experience details in the YAML file
@@ -78,5 +78,5 @@ pdf.add_page()
 pdf.personal_info()
 pdf.education()
 pdf.work_experience()
-pdf.output(f'{name}cv.pdf', 'F')
+pdf.output(f'{name}_cv.pdf', 'F')
 print("CV created succesfully!")

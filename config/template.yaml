@@ -1,4 +1,8 @@
 cv:
+  layout:
+    red: 50
+    green: 50
+    blue: 100
   personal-info:
     name: Wijnand van der Meijs
     job-experience: ACompany
