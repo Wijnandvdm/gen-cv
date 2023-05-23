@@ -1,8 +1,17 @@
 from fpdf import FPDF
 import yaml
+import sys
+
+# Check if the correct number of arguments are provided
+if len(sys.argv) != 2:
+    print("Usage: python3 cv-gen.py yourname")
+    sys.exit(1)
+
+# Get the config file name from the command-line argument
+name = sys.argv[1]
 
 # import config yaml
-with open('config/wijnand.yaml', 'r') as f:
+with open(f'config/{name}.yaml', 'r') as f:
     config = yaml.safe_load(f)
 
 class PDF(FPDF):
@@ -57,7 +66,7 @@ class PDF(FPDF):
         self.cell(0, 10, 'Work Experience', 0, 1)
         # Set font for the work experience details
         self.set_font('Arial', '', 12)
-        # Loop through work experience details in the YAMLL file
+        # Loop through work experience details in the YAML file
         for details in config['cv']['experience'].values():
             # Add experience details to the PDF
             self.cell(0, 10, details, 0, 1)
@@ -69,5 +78,5 @@ pdf.add_page()
 pdf.personal_info()
 pdf.education()
 pdf.work_experience()
-pdf.output('cv.pdf', 'F')
+pdf.output(f'{name}cv.pdf', 'F')
 print("CV created succesfully!")
