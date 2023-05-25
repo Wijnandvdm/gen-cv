@@ -4,7 +4,7 @@ import sys
 
 # Check if the correct number of arguments are provided
 if len(sys.argv) != 2:
-    print("Usage: python3 cv-gen.py yourname")
+    print("Wrong input. Instead use: python3 cv-gen.py template")
     sys.exit(1)
 
 # Get the config file name from the command-line argument
@@ -15,9 +15,11 @@ with open(f'config/{name}.yaml', 'r') as f:
     config = yaml.safe_load(f)
 
 class PDF(FPDF):
+    def add_profile_picture(self):
+        # Add profile picture
+        self.image('profile_picture.png', 10, 45, 40)
+
     def header(self):
-        # Add logo image
-        # self.image('logo.png', 10, 10, 33)
         self.set_fill_color(config['cv']['layout']['red'], config['cv']['layout']['green'], config['cv']['layout']['blue'])
         self.WIDTH = 210
         self.HEIGHT = 297
@@ -75,6 +77,7 @@ class PDF(FPDF):
 
 pdf = PDF()
 pdf.add_page()
+pdf.add_profile_picture()
 pdf.personal_info()
 pdf.education()
 pdf.work_experience()
