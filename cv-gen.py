@@ -39,30 +39,33 @@ class PDF(FPDF):
         # Set font for the personal info
         self.set_font(font, '', details_font_size)
         # Add name
-        self.cell(0, 10, config['cv']['personal-info']['name'], 0, 1)
+        self.cell(60, 10, config['cv']['personal-info']['name'], 0, 1)
         # Add address
-        self.cell(0, 10, config['cv']['personal-info']['address'], 0, 1)
+        self.cell(60, 10, config['cv']['personal-info']['address'], 0, 1)
         # Add phone number
-        self.cell(0, 10, config['cv']['personal-info']['phone-number'], 0, 1)
+        self.cell(60, 10, config['cv']['personal-info']['phone-number'], 0, 1)
         # Add email address
-        self.cell(0, 10, config['cv']['personal-info']['email-address'], 0, 1)
+        self.cell(60, 10, config['cv']['personal-info']['email-address'], 0, 1)
         # Add line break
         self.ln(10)
 
     def education(self):
         # Set font for the education section
         self.set_font(font, 'B', header_font_size)
-        # Move cell to the right
-        self.cell(80)
+        # Set current position
+        x = 70
+        y = 20
+        self.set_xy(x = x, y = y)
         # Add section title
         self.cell(0, 10, 'Education', 0, 1)
         # Set font for the education details
         self.set_font(font, '', details_font_size)
         # Loop through education details in the YAML file
         for details in config['cv']['education'].values():
+            y += 10
+            # Set current position
+            self.set_xy(x = x, y = y)
             # Add education details to the PDF
-            # Move cell to the right
-            self.cell(80)
             self.cell(0, 10, details, 0, 1)
         # Add line break
         self.ln(10)
