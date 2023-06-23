@@ -1,0 +1,21 @@
+cv:
+  layout:
+    font: Arial
+    header-font-size: 14
+    details-font-size: 12
+    red: 50
+    green: 50
+    blue: 100
+    x-coordinate-bar: 80
+  personal-info:
+    name: Wijnand van der Meijs
+    address: AnAddress
+    phone-number: +03161111118
+    email-address: w@gmail.com
+  education:
+    first: High School # add year
+    second: Bachelor on an interesting subject, University of a Place # add year
+    third: Master on an interesting subject, University of a Place # add year
+  experience:
+    first: Intersting Job # Job Title, Company Name, Year
+    second: Intersting Job number 2 # Job Title, Company Name, Year
