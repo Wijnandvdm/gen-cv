@@ -1,9 +1,12 @@
 cv:
   layout:
     font: Arial
+    header-font-size: 14
+    details-font-size: 12
     red: 50
     green: 50
     blue: 100
+    x-coordinate-bar: 80
   personal-info:
     name: Wijnand van der Meijs
     address: AnAddress
