@@ -39,19 +39,23 @@ class PDF(FPDF):
         self.ln(20)
 
     def personal_info(self):
-        self.set_xy(x = 10, y = 50)
         # Set font for the personal info
         self.set_font(font, '', details_font_size)
-        # Add name
-        self.cell(60, 10, config['cv']['personal-info']['name'], 0, 1)
-        # Add address
-        self.cell(60, 10, config['cv']['personal-info']['address'], 0, 1)
-        # Add phone number
-        self.cell(60, 10, config['cv']['personal-info']['phone-number'], 0, 1)
-        # Add email address
-        self.cell(60, 10, config['cv']['personal-info']['email-address'], 0, 1)
+        # Set current position
+        x = 10
+        y = 50
+        self.set_xy(x = x, y = y)
+        # Loop through education details in the YAML file
+        for details in config['cv']['personal-info'].values():
+            y += 10
+            # Set current position
+            self.set_xy(x = x, y = y)
+            # Add education details to the PDF
+            self.cell(0, 10, details, 0, 1)
         # Add line break
         self.ln(10)
+        current_y = self.get_y()
+        return current_y
 
     def education(self):
         # Set font for the education section
