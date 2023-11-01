@@ -18,6 +18,7 @@ font = config['cv']['layout']['font']
 header_font_size = config['cv']['layout']['header-font-size']
 details_font_size = config['cv']['layout']['details-font-size']
 x_coordinate_bar = config['cv']['layout']['x-coordinate-bar']
+left_band_color = (config['cv']['layout']['red'], config['cv']['layout']['green'], config['cv']['layout']['blue'])
 
 class PDF(FPDF):
     def add_profile_picture(self):
@@ -25,7 +26,7 @@ class PDF(FPDF):
         self.image('profile_picture.png', 10, 10, 40)
     
     def header(self):
-        self.set_fill_color(config['cv']['layout']['red'], config['cv']['layout']['green'], config['cv']['layout']['blue'])
+        self.set_fill_color(*left_band_color)
         self.WIDTH = 210
         self.HEIGHT = 297
         self.rect(0, 0, x_coordinate_bar, self.HEIGHT, 'F')
@@ -64,7 +65,8 @@ def add_section(section_title, section_details, current_y):
     pdf.set_xy(x=x, y=y)
     pdf.cell(0, 10, section_title, 0, 1)
     
-    # Add a line underneath the section header
+    # Add a colored line underneath the section header
+    pdf.set_draw_color(*left_band_color)
     pdf.line(x, y + 10, x + 190, y + 10)
     
     pdf.set_font(font, '', details_font_size)
