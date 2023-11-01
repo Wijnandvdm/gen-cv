@@ -57,56 +57,36 @@ class PDF(FPDF):
         current_y = self.get_y()
         return current_y
 
-    def education(self):
-        # Set font for the education section
-        self.set_font(font, 'B', header_font_size)
-        # Set current position
-        x = x_coordinate_bar + 10
-        y = 20
-        self.set_xy(x = x, y = y)
-        # Add section title
-        self.cell(0, 10, 'Education', 0, 1)
-        # Set font for the education details
-        self.set_font(font, '', details_font_size)
-        # Loop through education details in the YAML file
-        for details in config['cv']['education'].values():
-            y += 10
-            # Set current position
-            self.set_xy(x = x, y = y)
-            # Add education details to the PDF
-            self.cell(0, 10, details, 0, 1)
-        # Add line break
-        self.ln(10)
-        current_y = self.get_y()
-        return current_y
-
-    def work_experience(self, current_y):
-        # Set font for the work experience section
-        self.set_font(font, 'B', header_font_size)
-        # Set current position
-        x = x_coordinate_bar + 10
-        y = current_y
-        self.set_xy(x = x, y = y)
-        # Add section title
-        self.cell(0, 10, 'Work Experience', 0, 1)
-        # Set font for the work experience details
-        self.set_font(font, '', details_font_size)
-        # Loop through work experience details in the YAML file
-        for details in config['cv']['experience'].values():
-            y += 10
-            # Set current position
-            self.set_xy(x = x, y = y)
-            # Add experience details to the PDF
-            self.cell(0, 10, details, 0, 1)
-        # Add line break
-        self.ln(10)
+def add_section(section_title, section_details, current_y):
+    pdf.set_font(font, 'B', header_font_size)
+    x = x_coordinate_bar + 10
+    y = current_y
+    pdf.set_xy(x=x, y=y)
+    pdf.cell(0, 10, section_title, 0, 1)
+    
+    # Add a line underneath the section header
+    pdf.line(x, y + 10, x + 190, y + 10)
+    
+    pdf.set_font(font, '', details_font_size)
+    for details in section_details:
+        y += 10
+        pdf.set_xy(x=x, y=y)
+        pdf.cell(0, 10, details, 0, 1)
+    pdf.ln(10)
+    return pdf.get_y()
 
 pdf = PDF()
 pdf.add_page()
 pdf.add_profile_picture()
 pdf.personal_info()
-pdf.education()
-current_y=pdf.education()
-pdf.work_experience(current_y=current_y)
+
+# Add "Education" section
+education_details = config['cv']['education'].values()
+current_y = add_section("Education", education_details, 20)  # Starting from y=20
+
+# Add "Work Experience" section
+experience_details = config['cv']['experience'].values()
+add_section("Work Experience", experience_details, current_y)
+
 pdf.output(f'{name}_cv.pdf', 'F')
 print("CV created succesfully!")
