@@ -2,7 +2,7 @@ cv:
   layout:
     font: Arial
     header-font-size: 14
-    details-font-size: 12
+    details-font-size: 10
     red: 50
     green: 50
     blue: 100
@@ -12,10 +12,15 @@ cv:
     address: AnAddress
     phone-number: +03161111118
     email-address: w@gmail.com
-  education:
-    first: High School # add year
-    second: Bachelor on an interesting subject, University of a Place # add year
-    third: Master on an interesting subject, University of a Place # add year
-  experience:
-    first: Intersting Job # Job Title, Company Name, Year
-    second: Intersting Job number 2 # Job Title, Company Name, Year
+education:
+  - time-frame: 2006-2013
+    details: High School
+  - time-frame: 2014-2017
+    details: Bachelor on an interesting subject, University of a Place # add year
+  - time-frame: 2017-2019
+    details: Master on an interesting subject, University of a Place # add year
+experience:
+  - time-frame: 2019-2020
+    details: Intersting Job # Job Title, Company Name, Year
+  - time-frame: 2021-Now
+    details: Intersting Job number 2 # Job Title, Company Name, Year

@@ -58,7 +58,7 @@ class PDF(FPDF):
         current_y = self.get_y()
         return current_y
 
-def add_section(section_title, section_details, current_y):
+def add_section(section_title, section_timeframe, section_details, current_y):
     pdf.set_font(font, 'B', header_font_size)
     x = x_coordinate_bar + 10
     y = current_y
@@ -70,10 +70,11 @@ def add_section(section_title, section_details, current_y):
     pdf.line(x, y + 10, x + 190, y + 10)
     
     pdf.set_font(font, '', details_font_size)
-    for details in section_details:
+    for time_range, details in zip(section_timeframe, section_details):
         y += 10
         pdf.set_xy(x=x, y=y)
-        pdf.cell(0, 10, details, 0, 1)
+        time_range_and_details = f"{time_range}     {details}"
+        pdf.cell(0, 10, time_range_and_details, 0, 1)
     pdf.ln(10)
     return pdf.get_y()
 
@@ -83,12 +84,14 @@ pdf.add_profile_picture()
 pdf.personal_info()
 
 # Add "Education" section
-education_details = config['cv']['education'].values()
-current_y = add_section("Education", education_details, 20)  # Starting from y=20
+education_time_frames = [item['time-frame'] for item in config['education']]
+education_details = [item['details'] for item in config['education']]
+current_y = add_section("Education", education_time_frames, education_details, 20)  # Starting from y=20
 
 # Add "Work Experience" section
-experience_details = config['cv']['experience'].values()
-add_section("Work Experience", experience_details, current_y)
+experience_time_frames = [item['time-frame'] for item in config['experience']]
+experience_details = [item['details'] for item in config['experience']]
+add_section("Work Experience", experience_time_frames, experience_details, current_y)
 
 pdf.output(f'{name}_cv.pdf', 'F')
 print("CV created succesfully!")
