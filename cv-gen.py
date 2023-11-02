@@ -84,13 +84,13 @@ pdf.add_profile_picture()
 pdf.personal_info()
 
 # Add "Education" section
-education_time_frames = [item['time-frame'] for item in config['education']]
-education_details = [item['details'] for item in config['education']]
+education_time_frames = [item['time-frame'] for item in config['cv']['education']]
+education_details = [item['details'] for item in config['cv']['education']]
 current_y = add_section("Education", education_time_frames, education_details, 20)  # Starting from y=20
 
 # Add "Work Experience" section
-experience_time_frames = [item['time-frame'] for item in config['experience']]
-experience_details = [item['details'] for item in config['experience']]
+experience_time_frames = [item['time-frame'] for item in config['cv']['experience']]
+experience_details = [item['details'] for item in config['cv']['experience']]
 add_section("Work Experience", experience_time_frames, experience_details, current_y)
 
 pdf.output(f'{name}_cv.pdf', 'F')
