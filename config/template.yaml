@@ -12,6 +12,15 @@ cv:
     address: AnAddress
     phone-number: +03161111118
     email-address: w@gmail.com
+  languages:
+    - name: Dutch
+      proficiency: ****
+    - name: English
+      proficiency: ****
+    - name: German
+      proficiency: ***
+    - name: Spanish
+      proficiency: **
   education:
     - time-frame: 2006-2013
       details: High School
