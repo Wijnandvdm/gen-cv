@@ -18,7 +18,8 @@ font = config['cv']['layout']['font']
 header_font_size = config['cv']['layout']['header-font-size']
 details_font_size = config['cv']['layout']['details-font-size']
 x_coordinate_bar = config['cv']['layout']['x-coordinate-bar']
-theme_color = (config['cv']['layout']['red'], config['cv']['layout']['green'], config['cv']['layout']['blue'])
+first_theme_color = (config['cv']['layout']['first-color']['red'], config['cv']['layout']['first-color']['green'], config['cv']['layout']['first-color']['blue'])
+second_theme_color = (config['cv']['layout']['second-color']['red'], config['cv']['layout']['second-color']['green'], config['cv']['layout']['second-color']['blue'])
 
 class PDF(FPDF):
     def add_profile_picture(self):
@@ -26,7 +27,7 @@ class PDF(FPDF):
         self.image('profile_picture.png', 10, 10, 40)
     
     def header(self):
-        self.set_fill_color(*theme_color)
+        self.set_fill_color(*first_theme_color)
         self.WIDTH = 210
         self.HEIGHT = 297
         self.rect(0, 0, x_coordinate_bar, self.HEIGHT, 'F')
@@ -42,6 +43,8 @@ class PDF(FPDF):
     def personal_info(self):
         # Set font for the personal info
         self.set_font(font, '', details_font_size)
+        # Set font color
+        self.set_text_color(*second_theme_color)
         # Set current position
         x = 10
         y = 50
@@ -55,6 +58,23 @@ class PDF(FPDF):
             self.cell(0, 10, details, 0, 1)
         # Add line break
         self.ln(10)
+
+        # Print languages and proficiency
+        self.set_font(font, 'B', header_font_size)
+        self.cell(0, 10, 'Languages', 0, 1)
+        self.set_font(font, '', details_font_size)
+        
+        for language in config['cv']['languages']:
+            y += 10
+            self.set_xy(x=x, y=y+20)
+            language_and_proficiency = f"{language['name']} {language['proficiency']}"
+            self.cell(0, 10, language_and_proficiency, 0, 1)
+
+        # Add line break
+        self.ln(10)
+        # Reset font color
+        self.set_text_color(0,0,0)
+
         current_y = self.get_y()
         return current_y
 
@@ -66,7 +86,7 @@ def add_section(section_title, section_timeframe, section_details, current_y):
     pdf.cell(0, 10, section_title, 0, 1)
     
     # Add a colored line underneath the section header
-    pdf.set_draw_color(*theme_color)
+    pdf.set_draw_color(*first_theme_color)
     pdf.line(x, y + 10, x + 190, y + 10)
     
     pdf.set_font(font, '', details_font_size)

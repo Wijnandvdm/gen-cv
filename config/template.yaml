@@ -2,10 +2,15 @@ cv:
   layout:
     font: Arial
     header-font-size: 14
-    details-font-size: 10
-    red: 50
-    green: 50
-    blue: 100
+    details-font-size: 11
+    first-color:
+      red: 50
+      green: 50
+      blue: 100
+    second-color:
+      red: 180
+      green: 180
+      blue: 200
     x-coordinate-bar: 80
   personal-info:
     name: Wijnand van der Meijs
@@ -14,13 +19,13 @@ cv:
     email-address: w@gmail.com
   languages:
     - name: Dutch
-      proficiency: ****
+      proficiency: '****'
     - name: English
-      proficiency: ****
+      proficiency: '****'
     - name: German
-      proficiency: ***
+      proficiency: '***'
     - name: Spanish
-      proficiency: **
+      proficiency: '**'
   education:
     - time-frame: 2006-2013
       details: High School
@@ -30,6 +35,6 @@ cv:
       details: Master on an interesting subject, University of a Place # add year
   experience:
     - time-frame: 2019-2020
-      details: Intersting Job # Job Title, Company Name, Year
+      details: Interesting Job # Job Title, Company Name, Year
     - time-frame: 2021-Now
-      details: Intersting Job number 2 # Job Title, Company Name, Year
+      details: Interesting Job number 2 # Job Title, Company Name, Year
