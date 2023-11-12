@@ -78,25 +78,25 @@ class PDF(FPDF):
         current_y = self.get_y()
         return current_y
 
-def add_section(section_title, section_timeframe, section_details, current_y):
-    pdf.set_font(font, 'B', header_font_size)
-    x = x_coordinate_bar + 10
-    y = current_y
-    pdf.set_xy(x=x, y=y)
-    pdf.cell(0, 10, section_title, 0, 1)
-    
-    # Add a colored line underneath the section header
-    pdf.set_draw_color(*first_theme_color)
-    pdf.line(x, y + 10, x + 190, y + 10)
-    
-    pdf.set_font(font, '', details_font_size)
-    for time_range, details in zip(section_timeframe, section_details):
-        y += 10
-        pdf.set_xy(x=x, y=y)
-        time_range_and_details = f"{time_range}     {details}"
-        pdf.cell(0, 10, time_range_and_details, 0, 1)
-    pdf.ln(10)
-    return pdf.get_y()
+    def add_section(self, section_title, section_timeframe, section_details, current_y):
+        self.set_font(font, 'B', header_font_size)
+        x = x_coordinate_bar + 10
+        y = current_y
+        self.set_xy(x=x, y=y)
+        self.cell(0, 10, section_title, 0, 1)
+        
+        # Add a colored line underneath the section header
+        self.set_draw_color(*first_theme_color)
+        self.line(x, y + 10, x + 190, y + 10)
+        
+        self.set_font(font, '', details_font_size)
+        for time_range, details in zip(section_timeframe, section_details):
+            y += 10
+            self.set_xy(x=x, y=y)
+            time_range_and_details = f"{time_range}     {details}"
+            self.cell(0, 10, time_range_and_details, 0, 1)
+        self.ln(10)
+        return self.get_y()
 
 pdf = PDF()
 pdf.add_page()
@@ -106,12 +106,12 @@ pdf.personal_info()
 # Add "Education" section
 education_time_frames = [item['time-frame'] for item in config['cv']['education']]
 education_details = [item['details'] for item in config['cv']['education']]
-current_y = add_section("Education", education_time_frames, education_details, 20)  # Starting from y=20
+current_y = pdf.add_section("Education", education_time_frames, education_details, 20)  # Starting from y=20
 
 # Add "Work Experience" section
 experience_time_frames = [item['time-frame'] for item in config['cv']['experience']]
 experience_details = [item['details'] for item in config['cv']['experience']]
-add_section("Work Experience", experience_time_frames, experience_details, current_y)
+pdf.add_section("Work Experience", experience_time_frames, experience_details, current_y)
 
 pdf.output(f'{name}_cv.pdf', 'F')
 print("CV created succesfully!")
