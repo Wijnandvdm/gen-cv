@@ -75,8 +75,7 @@ class PDF(FPDF):
         # Reset font color
         self.set_text_color(0,0,0)
 
-        current_y = self.get_y()
-        return current_y
+        return self.get_y()
 
     def add_section(self, section_title, section_timeframe, section_details, current_y):
         self.set_font(font, 'B', header_font_size)
