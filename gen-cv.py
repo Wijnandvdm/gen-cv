@@ -1,11 +1,15 @@
 from fpdf import FPDF
 import yaml
 import sys
+import utils
 
 # Check if the correct number of arguments are provided
 if len(sys.argv) != 2:
     print("Wrong input. Instead use: python3 gen-cv.py template")
     sys.exit(1)
+
+# Example usage
+utils.check_package("fpdf")
 
 # Get the config file name from the command-line argument
 name = sys.argv[1]
