@@ -11,7 +11,7 @@ cv:
       red: 180
       green: 180
       blue: 200
-    x-coordinate-bar: 80
+    x-coordinate-bar: 65
   personal-info:
     name: Wijnand van der Meijs
     address: AnAddress
@@ -35,6 +35,16 @@ cv:
       details: Master on an interesting subject, University of a Place # add year
   experience:
     - time-frame: 2019-2020
-      details: Interesting Job # Job Title, Company Name, Year
+      details:
+        title: Interesting Job
+        company: Company Name
+        description: |
+            - Created some stuff
+            - Created some more stuff
     - time-frame: 2021-Now
-      details: Interesting Job number 2 # Job Title, Company Name, Year
+      details:
+        title: Interesting Job number 2
+        company: Company Name 2
+        description: |
+            - Did some stuff
+            - Did some more stuff

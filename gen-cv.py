@@ -77,7 +77,7 @@ class PDF(FPDF):
 
         return self.get_y()
 
-    def add_section(self, section_title, section_timeframe, section_details, current_y):
+    def add_education_section(self, section_title, section_timeframe, section_details, current_y):
         self.set_font(font, 'B', header_font_size)
         x = x_coordinate_bar + 10
         y = current_y
@@ -92,10 +92,54 @@ class PDF(FPDF):
         for time_range, details in zip(section_timeframe, section_details):
             y += 10
             self.set_xy(x=x, y=y)
-            time_range_and_details = f"{time_range}     {details}"
-            self.cell(0, 10, time_range_and_details, 0, 1)
+            self.cell(30, 10, time_range)
+            self.cell(0, 10, details)
         self.ln(10)
         return self.get_y()
+    
+    def add_work_experience_section(self, current_y):
+        self.set_font(font, 'B', header_font_size)
+        x = x_coordinate_bar + 10
+        y = current_y
+        self.set_xy(x=x, y=y)
+        self.cell(0, 10, 'Work Experience', 0, 1)
+        
+        
+        # Set font for work experience
+        self.set_font(font, '', details_font_size)
+        # Set current position
+
+        self.set_xy(x=x, y=y)
+        # Add a colored line underneath the section header
+        self.set_draw_color(*first_theme_color)
+        self.line(x, y + 10, x + 190, y + 10)
+        # Add "Work Experience" section
+        for item in config['cv']['experience']:
+            y += 10
+            self.set_xy(x=x, y=y)
+            time_range = f"{item['time-frame']}"
+            job_title = f"{item['details']['title']}"
+            self.cell(30, 10, time_range)
+            self.cell(0, 10, job_title)
+            # time_range_and_details = f"{item['time-frame']}     {item['details']['title']}, {item['details']['company']}"
+            # self.cell(0, 10, time_range_and_details, 0, 1)
+
+            # Add description
+            y += 5  # Adjust for space
+            self.set_xy(x=x, y=y)
+            self.cell(30, 10, "")
+            self.multi_cell(0, 10, item['details']['description'])
+            self.ln(5)  # Add extra line for spacing
+
+            # Add additional details
+            y += 5  # Adjust for space
+            # self.set_xy(x=x, y=y)
+            self.multi_cell(0, 10, item['details'].get('AdditionalDetails', ''))
+
+            # Add extra space between experiences
+            y += 10
+
+        return y
 
 pdf = PDF()
 pdf.add_page()
@@ -105,12 +149,10 @@ pdf.personal_info()
 # Add "Education" section
 education_time_frames = [item['time-frame'] for item in config['cv']['education']]
 education_details = [item['details'] for item in config['cv']['education']]
-current_y = pdf.add_section("Education", education_time_frames, education_details, 20)  # Starting from y=20
+current_y = pdf.add_education_section("Education", education_time_frames, education_details, 20)  # Starting from y=20
 
 # Add "Work Experience" section
-experience_time_frames = [item['time-frame'] for item in config['cv']['experience']]
-experience_details = [item['details'] for item in config['cv']['experience']]
-pdf.add_section("Work Experience", experience_time_frames, experience_details, current_y)
+current_y = pdf.add_work_experience_section(current_y)
 
 pdf.output(f'{name}_cv.pdf', 'F')
 print("CV created succesfully!")
