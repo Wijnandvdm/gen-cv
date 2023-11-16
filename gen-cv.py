@@ -4,7 +4,7 @@ import sys
 
 # Check if the correct number of arguments are provided
 if len(sys.argv) != 2:
-    print("Wrong input. Instead use: python3 cv-gen.py template")
+    print("Wrong input. Instead use: python3 gen-cv.py template")
     sys.exit(1)
 
 # Get the config file name from the command-line argument
