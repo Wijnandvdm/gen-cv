@@ -38,13 +38,14 @@ cv:
       details:
         title: Interesting Job
         company: Company Name
-        description: |
+        description:
             - Created some stuff
             - Created some more stuff
     - time-frame: 2021-Now
       details:
         title: Interesting Job number 2
         company: Company Name 2
-        description: |
+        description:
             - Did some stuff
             - Did some more stuff
+            - Did even more stuff

@@ -125,20 +125,12 @@ class PDF(FPDF):
             self.cell(0, 10, f"{item['details']['title']}")
 
             # Add description
-            y += 5  # Adjust for space
-            self.set_xy(x=x, y=y)
-            self.cell(30, 10, "")
-            self.multi_cell(0, 10, item['details']['description'])
-            self.ln(5)  # Add extra line for spacing
-
-            # Add additional details
-            y += 5  # Adjust for space
-            # self.set_xy(x=x, y=y)
-            self.multi_cell(0, 10, item['details'].get('AdditionalDetails', ''))
-
-            # Add extra space between experiences
-            y += 10
-
+            for description in item['details']['description']:
+                y += 5  # Adjust for space
+                self.set_xy(x=x, y=y)
+                self.cell(30, 10, "")
+                self.cell(0, 10, description)
+                self.ln(5)  # Add extra line for spacing
         return y
 
 pdf = PDF()
