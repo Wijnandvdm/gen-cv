@@ -121,12 +121,8 @@ class PDF(FPDF):
         for item in config['cv']['experience']:
             y += 10
             self.set_xy(x=x, y=y)
-            time_range = f"{item['time-frame']}"
-            job_title = f"{item['details']['title']}"
-            self.cell(30, 10, time_range)
-            self.cell(0, 10, job_title)
-            # time_range_and_details = f"{item['time-frame']}     {item['details']['title']}, {item['details']['company']}"
-            # self.cell(0, 10, time_range_and_details, 0, 1)
+            self.cell(30, 10, f"{item['time-frame']}")
+            self.cell(0, 10, f"{item['details']['title']}")
 
             # Add description
             y += 5  # Adjust for space
