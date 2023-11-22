@@ -26,6 +26,13 @@ first_theme_color = (config['cv']['layout']['first-color']['red'], config['cv'][
 second_theme_color = (config['cv']['layout']['second-color']['red'], config['cv']['layout']['second-color']['green'], config['cv']['layout']['second-color']['blue'])
 
 class PDF(FPDF):
+    def make_a_cell(self, width, text, bold, font_size):
+        if bold == True:
+            self.set_font(font, 'B', font_size)
+        else bold == not True
+            self.set_font(font, '', font_size)
+        self.cell(width, 10, text)
+
     def add_profile_picture(self):
         # Add profile picture
         self.image('profile_picture.png', 10, 10, 40)
