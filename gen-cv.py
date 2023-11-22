@@ -28,10 +28,12 @@ second_theme_color = (config['cv']['layout']['second-color']['red'], config['cv'
 class PDF(FPDF):
     def make_a_cell(self, width, text, bold, font_size):
         if bold == True:
-            self.set_font(font, 'B', font_size)
-        else bold == not True
-            self.set_font(font, '', font_size)
-        self.cell(width, 10, text)
+            self.set_font("Arial", 'B', font_size)
+        elif bold == False:
+            self.set_font("Arial", '', font_size)
+        else:
+            print("toot")
+        self.cell(width, 10, text, 0 , 0)
 
     def add_profile_picture(self):
         # Add profile picture
@@ -47,6 +49,8 @@ class PDF(FPDF):
         # Move to the right
         self.cell(x_coordinate_bar)
         # Title
+        # self.make_a_cell(width=0,text="Curriculum Vitae", bold=True,font_size=15)
+
         self.cell(0, 10, 'Curriculum Vitae', 0, 0)
         # Line break
         self.ln(20)
