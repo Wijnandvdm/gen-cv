@@ -76,8 +76,8 @@ class PDF(FPDF):
         self.set_text_color(0,0,0)
 
         return self.get_y()
-
-    def add_education_section(self, section_title, section_timeframe, section_details, current_y):
+    
+    def add_section(self, section_title, section_details, current_y):
         x = width_bar + 10
         y = current_y
         self.set_xy(x=x, y=y)
@@ -86,56 +86,33 @@ class PDF(FPDF):
         # Add a colored line underneath the section header
         self.set_draw_color(*first_theme_color)
         self.line(x, y + 10, x + 190, y + 10)
-        # Add section details
-        for time_range, details in zip(section_timeframe, section_details):
-            y += 10
-            self.set_xy(x=x, y=y)
-            self.make_a_cell(width=30, text=time_range, bold=False,font_size=details_font_size)
-            self.make_a_cell(width=0,text=details, bold=False,font_size=details_font_size)
-        self.ln(10)
-        return self.get_y()
-    
-    def add_work_experience_section(self, current_y):
-        x = width_bar + 10
-        y = current_y
-        self.set_xy(x=x, y=y)
-        self.make_a_cell(width=0,text="Work Experience", bold=True,font_size=header_font_size)
-        # Add a colored line underneath the section header
-        self.set_draw_color(*first_theme_color)
-        self.line(x, y + 10, x + 190, y + 10)
-        # Add "Work Experience" section
-        for item in config['cv']['experience']:
+        for item in config['cv'][f'{section_details}']:
             y += 10
             self.set_xy(x=x, y=y)
             self.make_a_cell(width=30,text=f"{item['time-frame']}", bold=False,font_size=details_font_size)
             self.make_a_cell(width=0,text=f"{item['details']['title']}", bold=False,font_size=details_font_size)
-            # Add description
-            for description in item['details']['description']:
-                y += 5  # Adjust for space
-                self.set_xy(x=x, y=y)
-                self.make_a_cell(width=30,text="", bold=False,font_size=details_font_size)
-                self.make_a_cell(width=0,text=description, bold=False,font_size=details_font_size)
-                self.ln(5)  # Add extra line for spacing
-        return y
+            # Check if 'description' exists in the 'experience' section
+            if f'{section_details}' in config['cv'] and all('description' in item['details'] for item in config['cv'][f'{section_details}']):
+                print("Description exists in the experience section, adding descriptions...")
+                # Add description
+                for description in item['details']['description']:
+                    y += 5  # Adjust for space
+                    self.set_xy(x=x, y=y)
+                    self.make_a_cell(width=30,text="", bold=False,font_size=details_font_size)
+                    self.make_a_cell(width=0,text=description, bold=False,font_size=details_font_size)
+                    self.ln(5)  # Add extra line for spacing
+            else:
+                print("Description does not exist in the experience section, proceeding...")
+        self.ln(10)
+        return self.get_y()
 
 pdf = PDF()
 pdf.add_page()
 pdf.add_profile_picture()
 pdf.personal_info()
 
-# Add "Education" section
-education_time_frames = [item['time-frame'] for item in config['cv']['education']]
-education_details = [item['details'] for item in config['cv']['education']]
-current_y = pdf.add_education_section("Education", education_time_frames, education_details, 20)  # Starting from y=20
-
-# Add "Work Experience" section
-current_y = pdf.add_work_experience_section(current_y)
+current_y = pdf.add_section("Education", "education", 20) # Starting from y=20
+current_y = pdf.add_section("Work Experience", "experience", current_y)
 
 pdf.output(f'{name}_cv.pdf', 'F')
 print("CV created succesfully!")
-
-# Check if 'description' exists in the 'experience' section
-if 'experience' in config['cv'] and all('description' in item['details'] for item in config['cv']['experience']):
-    print("Description exists in the experience section.")
-else:
-    print("Description does not exist in the experience section.")

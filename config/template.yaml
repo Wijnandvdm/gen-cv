@@ -31,11 +31,14 @@ cv:
       proficiency: '**'
   education:
     - time-frame: 2006-2013
-      details: High School
+      details: 
+        title: High School
     - time-frame: 2014-2017
-      details: Bachelor on an interesting subject, University of a Place # add year
+      details:
+        title: Bachelor on an interesting subject, University of a Place # add year
     - time-frame: 2017-2019
-      details: Master on an interesting subject, University of a Place # add year
+      details:
+        title: Master on an interesting subject, University of a Place # add year
   experience:
     - time-frame: 2019-2020
       details:
