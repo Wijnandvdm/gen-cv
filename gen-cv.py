@@ -32,7 +32,7 @@ class PDF(FPDF):
         elif bold == False:
             self.set_font("Arial", '', font_size)
         else:
-            print("toot")
+            print("Wrong input supplied")
         self.cell(width, 10, text, 0 , 0)
 
     def add_profile_picture(self):
@@ -44,14 +44,8 @@ class PDF(FPDF):
         self.WIDTH = 210
         self.HEIGHT = 297
         self.rect(0, 0, x_coordinate_bar, self.HEIGHT, 'F')
-        # Set font and size for the header text
-        self.set_font(font, 'B', 15)
-        # Move to the right
-        self.cell(x_coordinate_bar)
-        # Title
-        # self.make_a_cell(width=0,text="Curriculum Vitae", bold=True,font_size=15)
-
-        self.cell(0, 10, 'Curriculum Vitae', 0, 0)
+        self.make_a_cell(width=x_coordinate_bar, text="",bold=False,font_size=0)
+        self.make_a_cell(width=0,text="Curriculum Vitae", bold=True,font_size=15)
         # Line break
         self.ln(20)
 
