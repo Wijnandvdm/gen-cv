@@ -4,6 +4,7 @@ cv:
     title-font-size: 15
     header-font-size: 14
     details-font-size: 11
+    image-size: 40
     first-color:
       red: 50
       green: 50

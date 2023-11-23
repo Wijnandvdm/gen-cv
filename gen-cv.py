@@ -22,6 +22,7 @@ font = config['cv']['layout']['font']
 title_font_size = config['cv']['layout']['title-font-size']
 header_font_size = config['cv']['layout']['header-font-size']
 details_font_size = config['cv']['layout']['details-font-size']
+image_size = config['cv']['layout']['image-size']
 width_bar = config['cv']['layout']['width-bar']
 height_bar = config['cv']['layout']['height-bar']
 first_theme_color = (config['cv']['layout']['first-color']['red'], config['cv']['layout']['first-color']['green'], config['cv']['layout']['first-color']['blue'])
@@ -38,7 +39,7 @@ class PDF(FPDF):
         self.cell(width, 10, text, 0 , 0)
 
     def add_profile_picture(self):
-        self.image('profile_picture.png', 10, 10, 40)
+        self.image('profile_picture.png', 10, 10, image_size)
     
     def header(self):
         self.set_fill_color(*first_theme_color)
@@ -49,12 +50,11 @@ class PDF(FPDF):
         self.ln(20)
 
     def personal_info(self):
+        x = 10
+        y = image_size + 10
+        self.set_xy(x = x, y = y)
         # Set font color
         self.set_text_color(*second_theme_color)
-        # Set current position
-        x = 10
-        y = 50
-        self.set_xy(x = x, y = y)
         # Loop through education details in the YAML file
         for details in config['cv']['personal-info'].values():
             y += 10
@@ -100,8 +100,6 @@ class PDF(FPDF):
         y = current_y
         self.set_xy(x=x, y=y)
         self.make_a_cell(width=0,text="Work Experience", bold=True,font_size=header_font_size)
-        # Set current position
-        self.set_xy(x=x, y=y)
         # Add a colored line underneath the section header
         self.set_draw_color(*first_theme_color)
         self.line(x, y + 10, x + 190, y + 10)
