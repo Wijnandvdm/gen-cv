@@ -19,6 +19,7 @@ with open(f'config/{name}.yaml', 'r') as f:
     config = yaml.safe_load(f)
 
 font = config['cv']['layout']['font']
+title_font_size = config['cv']['layout']['title-font-size']
 header_font_size = config['cv']['layout']['header-font-size']
 details_font_size = config['cv']['layout']['details-font-size']
 width_bar = config['cv']['layout']['width-bar']
@@ -29,9 +30,9 @@ second_theme_color = (config['cv']['layout']['second-color']['red'], config['cv'
 class PDF(FPDF):
     def make_a_cell(self, width, text, bold, font_size):
         if bold == True:
-            self.set_font("Arial", 'B', font_size)
+            self.set_font(font, 'B', font_size)
         elif bold == False:
-            self.set_font("Arial", '', font_size)
+            self.set_font(font, '', font_size)
         else:
             print("Wrong input supplied")
         self.cell(width, 10, text, 0 , 0)
@@ -43,13 +44,11 @@ class PDF(FPDF):
         self.set_fill_color(*first_theme_color)
         self.rect(0, 0, width_bar, height_bar, 'F')
         self.make_a_cell(width=width_bar, text="",bold=False,font_size=0)
-        self.make_a_cell(width=0,text="Curriculum Vitae", bold=True,font_size=15)
+        self.make_a_cell(width=0,text="Curriculum Vitae", bold=True,font_size=title_font_size)
         # Line break
         self.ln(20)
 
     def personal_info(self):
-        # Set font for the personal info
-        self.set_font(font, '', details_font_size)
         # Set font color
         self.set_text_color(*second_theme_color)
         # Set current position
@@ -62,9 +61,9 @@ class PDF(FPDF):
             # Set current position
             self.set_xy(x = x, y = y)
             # Add education details to the PDF
-            self.cell(0, 10, details, 0, 1)
+            self.make_a_cell(width=0,text=details, bold=False,font_size=details_font_size)
         # Add line break
-        self.ln(10)
+        self.ln(20)
 
         # Print languages and proficiency
         self.set_font(font, 'B', header_font_size)

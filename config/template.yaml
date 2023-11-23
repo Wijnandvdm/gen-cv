@@ -1,6 +1,7 @@
 cv:
   layout:
     font: Arial
+    title-font-size: 15
     header-font-size: 14
     details-font-size: 11
     first-color:
