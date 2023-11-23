@@ -29,14 +29,14 @@ first_theme_color = (config['cv']['layout']['first-color']['red'], config['cv'][
 second_theme_color = (config['cv']['layout']['second-color']['red'], config['cv']['layout']['second-color']['green'], config['cv']['layout']['second-color']['blue'])
 
 class PDF(FPDF):
-    def make_a_cell(self, width, text, bold, font_size):
+    def make_a_cell(self, width, text, bold, font_size, url):
         if bold == True:
             self.set_font(font, 'B', font_size)
         elif bold == False:
             self.set_font(font, '', font_size)
         else:
             print("Wrong input supplied")
-        self.cell(width, 10, text, 0 , 0)
+        self.cell(width, 10, text, 0 , 0, link=url)
 
     def add_profile_picture(self):
         self.image('profile_picture.png', 10, 10, image_size)
@@ -44,8 +44,8 @@ class PDF(FPDF):
     def header(self):
         self.set_fill_color(*first_theme_color)
         self.rect(0, 0, width_bar, height_bar, 'F')
-        self.make_a_cell(width=width_bar, text="",bold=False,font_size=0)
-        self.make_a_cell(width=0,text="Curriculum Vitae", bold=True,font_size=title_font_size)
+        self.make_a_cell(width=width_bar, text="",bold=False,font_size=0,url="")
+        self.make_a_cell(width=0,text="Curriculum Vitae", bold=True,font_size=title_font_size,url="")
         # Line break
         self.ln(20)
 
@@ -61,17 +61,17 @@ class PDF(FPDF):
             # Set current position
             self.set_xy(x = x, y = y)
             # Add education details to the PDF
-            self.make_a_cell(width=0,text=details, bold=False,font_size=details_font_size)
+            self.make_a_cell(width=0,text=details, bold=False,font_size=details_font_size,url="")
         # Add line break
         self.ln(20)
 
         # Print languages and proficiency
-        self.make_a_cell(width=0,text="Languages", bold=True,font_size=header_font_size)
+        self.make_a_cell(width=0,text="Languages", bold=True,font_size=header_font_size,url="")
         for language in config['cv']['languages']:
             y += 10
             self.set_xy(x=x, y=y+20)            
-            self.make_a_cell(width=30, text=f"{language['name']}",bold=False,font_size=details_font_size)
-            self.make_a_cell(width=0,text=f"{language['proficiency']}", bold=True,font_size=header_font_size)
+            self.make_a_cell(width=30, text=f"{language['name']}",bold=False,font_size=details_font_size,url="")
+            self.make_a_cell(width=0,text=f"{language['proficiency']}", bold=True,font_size=header_font_size,url="")
         # Reset font color
         self.set_text_color(0,0,0)
 
@@ -82,15 +82,15 @@ class PDF(FPDF):
         y = current_y
         self.set_xy(x=x, y=y)
         # Add section title
-        self.make_a_cell(width=0,text=section_title, bold=True,font_size=header_font_size)
+        self.make_a_cell(width=0,text=section_title, bold=True,font_size=header_font_size,url="")
         # Add a colored line underneath the section header
         self.set_draw_color(*first_theme_color)
         self.line(x, y + 10, x + 190, y + 10)
         for item in config['cv'][f'{section_details}']:
             y += 10
             self.set_xy(x=x, y=y)
-            self.make_a_cell(width=30,text=f"{item['time-frame']}", bold=False,font_size=details_font_size)
-            self.make_a_cell(width=0,text=f"{item['details']['title']}", bold=False,font_size=details_font_size)
+            self.make_a_cell(width=30,text=f"{item['time-frame']}", bold=False,font_size=details_font_size,url="")
+            self.make_a_cell(width=0,text=f"{item['details']['title']}", bold=False,font_size=details_font_size,url="")
             # Check if 'description' exists in the 'experience' section
             if f'{section_details}' in config['cv'] and all('description' in item['details'] for item in config['cv'][f'{section_details}']):
                 print("Description exists in the experience section, adding descriptions...")
@@ -98,8 +98,8 @@ class PDF(FPDF):
                 for description in item['details']['description']:
                     y += 5  # Adjust for space
                     self.set_xy(x=x, y=y)
-                    self.make_a_cell(width=30,text="", bold=False,font_size=details_font_size)
-                    self.make_a_cell(width=0,text=description, bold=False,font_size=details_font_size)
+                    self.make_a_cell(width=30,text="", bold=False,font_size=details_font_size,url="")
+                    self.make_a_cell(width=0,text=description, bold=False,font_size=details_font_size,url="")
                     self.ln(5)  # Add extra line for spacing
             else:
                 print("Description does not exist in the experience section, proceeding...")
@@ -113,6 +113,7 @@ pdf.personal_info()
 
 current_y = pdf.add_section("Education", "education", 20) # Starting from y=20
 current_y = pdf.add_section("Work Experience", "experience", current_y)
+current_y = pdf.add_section("Certifications", "certifications", current_y)
 
 pdf.output(f'{name}_cv.pdf', 'F')
 print("CV created succesfully!")
