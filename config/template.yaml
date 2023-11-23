@@ -11,7 +11,8 @@ cv:
       red: 180
       green: 180
       blue: 200
-    x-coordinate-bar: 65
+    width-bar: 65
+    height-bar: 297
   personal-info:
     name: Wijnand van der Meijs
     address: AnAddress

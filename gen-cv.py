@@ -21,7 +21,8 @@ with open(f'config/{name}.yaml', 'r') as f:
 font = config['cv']['layout']['font']
 header_font_size = config['cv']['layout']['header-font-size']
 details_font_size = config['cv']['layout']['details-font-size']
-x_coordinate_bar = config['cv']['layout']['x-coordinate-bar']
+width_bar = config['cv']['layout']['width-bar']
+height_bar = config['cv']['layout']['height-bar']
 first_theme_color = (config['cv']['layout']['first-color']['red'], config['cv']['layout']['first-color']['green'], config['cv']['layout']['first-color']['blue'])
 second_theme_color = (config['cv']['layout']['second-color']['red'], config['cv']['layout']['second-color']['green'], config['cv']['layout']['second-color']['blue'])
 
@@ -36,15 +37,12 @@ class PDF(FPDF):
         self.cell(width, 10, text, 0 , 0)
 
     def add_profile_picture(self):
-        # Add profile picture
         self.image('profile_picture.png', 10, 10, 40)
     
     def header(self):
         self.set_fill_color(*first_theme_color)
-        self.WIDTH = 210
-        self.HEIGHT = 297
-        self.rect(0, 0, x_coordinate_bar, self.HEIGHT, 'F')
-        self.make_a_cell(width=x_coordinate_bar, text="",bold=False,font_size=0)
+        self.rect(0, 0, width_bar, height_bar, 'F')
+        self.make_a_cell(width=width_bar, text="",bold=False,font_size=0)
         self.make_a_cell(width=0,text="Curriculum Vitae", bold=True,font_size=15)
         # Line break
         self.ln(20)
@@ -88,7 +86,7 @@ class PDF(FPDF):
 
     def add_education_section(self, section_title, section_timeframe, section_details, current_y):
         self.set_font(font, 'B', header_font_size)
-        x = x_coordinate_bar + 10
+        x = width_bar + 10
         y = current_y
         self.set_xy(x=x, y=y)
         self.cell(0, 10, section_title, 0, 1)
@@ -108,7 +106,7 @@ class PDF(FPDF):
     
     def add_work_experience_section(self, current_y):
         self.set_font(font, 'B', header_font_size)
-        x = x_coordinate_bar + 10
+        x = width_bar + 10
         y = current_y
         self.set_xy(x=x, y=y)
         self.cell(0, 10, 'Work Experience', 0, 1)
