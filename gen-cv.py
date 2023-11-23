@@ -78,7 +78,6 @@ class PDF(FPDF):
         return self.get_y()
 
     def add_education_section(self, section_title, section_timeframe, section_details, current_y):
-        self.set_font(font, 'B', header_font_size)
         x = width_bar + 10
         y = current_y
         self.set_xy(x=x, y=y)
