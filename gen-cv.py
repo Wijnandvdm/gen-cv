@@ -133,3 +133,9 @@ current_y = pdf.add_work_experience_section(current_y)
 
 pdf.output(f'{name}_cv.pdf', 'F')
 print("CV created succesfully!")
+
+# Check if 'description' exists in the 'experience' section
+if 'experience' in config['cv'] and all('description' in item['details'] for item in config['cv']['experience']):
+    print("Description exists in the experience section.")
+else:
+    print("Description does not exist in the experience section.")
