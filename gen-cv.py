@@ -66,18 +66,12 @@ class PDF(FPDF):
         self.ln(20)
 
         # Print languages and proficiency
-        self.set_font(font, 'B', header_font_size)
-        self.cell(0, 10, 'Languages', 0, 1)
-        self.set_font(font, '', details_font_size)
-        
+        self.make_a_cell(width=0,text="Languages", bold=True,font_size=header_font_size)
         for language in config['cv']['languages']:
             y += 10
-            self.set_xy(x=x, y=y+20)
-            language_and_proficiency = f"{language['name']} {language['proficiency']}"
-            self.cell(0, 10, language_and_proficiency, 0, 1)
-
-        # Add line break
-        self.ln(10)
+            self.set_xy(x=x, y=y+20)            
+            self.make_a_cell(width=30, text=f"{language['name']}",bold=False,font_size=details_font_size)
+            self.make_a_cell(width=0,text=f"{language['proficiency']}", bold=True,font_size=header_font_size)
         # Reset font color
         self.set_text_color(0,0,0)
 
@@ -88,33 +82,26 @@ class PDF(FPDF):
         x = width_bar + 10
         y = current_y
         self.set_xy(x=x, y=y)
-        self.cell(0, 10, section_title, 0, 1)
-        
+        # Add section title
+        self.make_a_cell(width=0,text=section_title, bold=True,font_size=header_font_size)
         # Add a colored line underneath the section header
         self.set_draw_color(*first_theme_color)
         self.line(x, y + 10, x + 190, y + 10)
-        
-        self.set_font(font, '', details_font_size)
+        # Add section details
         for time_range, details in zip(section_timeframe, section_details):
             y += 10
             self.set_xy(x=x, y=y)
-            self.cell(30, 10, time_range)
-            self.cell(0, 10, details)
+            self.make_a_cell(width=30, text=time_range, bold=False,font_size=details_font_size)
+            self.make_a_cell(width=0,text=details, bold=False,font_size=details_font_size)
         self.ln(10)
         return self.get_y()
     
     def add_work_experience_section(self, current_y):
-        self.set_font(font, 'B', header_font_size)
         x = width_bar + 10
         y = current_y
         self.set_xy(x=x, y=y)
-        self.cell(0, 10, 'Work Experience', 0, 1)
-        
-        
-        # Set font for work experience
-        self.set_font(font, '', details_font_size)
+        self.make_a_cell(width=0,text="Work Experience", bold=True,font_size=header_font_size)
         # Set current position
-
         self.set_xy(x=x, y=y)
         # Add a colored line underneath the section header
         self.set_draw_color(*first_theme_color)
@@ -123,15 +110,14 @@ class PDF(FPDF):
         for item in config['cv']['experience']:
             y += 10
             self.set_xy(x=x, y=y)
-            self.cell(30, 10, f"{item['time-frame']}")
-            self.cell(0, 10, f"{item['details']['title']}")
-
+            self.make_a_cell(width=30,text=f"{item['time-frame']}", bold=False,font_size=details_font_size)
+            self.make_a_cell(width=0,text=f"{item['details']['title']}", bold=False,font_size=details_font_size)
             # Add description
             for description in item['details']['description']:
                 y += 5  # Adjust for space
                 self.set_xy(x=x, y=y)
-                self.cell(30, 10, "")
-                self.cell(0, 10, description)
+                self.make_a_cell(width=30,text="", bold=False,font_size=details_font_size)
+                self.make_a_cell(width=0,text=description, bold=False,font_size=details_font_size)
                 self.ln(5)  # Add extra line for spacing
         return y
 
