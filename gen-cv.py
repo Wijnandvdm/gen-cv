@@ -1,13 +1,12 @@
+import utils
+import sys
+utils.check_requirements()
 from fpdf import FPDF
 import yaml
-import sys
-import utils
 
 # Check if the correct number of arguments are provided
 if len(sys.argv) != 2:
     utils.usage()
-# Check requirements
-utils.check_requirements()
 
 # Get the config file name from the command-line argument
 name = sys.argv[1]
@@ -23,8 +22,16 @@ details_font_size = config['cv']['layout']['details-font-size']
 image_size = config['cv']['layout']['image-size']
 width_bar = config['cv']['layout']['width-bar']
 height_bar = config['cv']['layout']['height-bar']
-first_theme_color = (config['cv']['layout']['first-color']['red'], config['cv']['layout']['first-color']['green'], config['cv']['layout']['first-color']['blue'])
-second_theme_color = (config['cv']['layout']['second-color']['red'], config['cv']['layout']['second-color']['green'], config['cv']['layout']['second-color']['blue'])
+first_theme_color = (
+    config['cv']['layout']['first-color']['red'],
+    config['cv']['layout']['first-color']['green'],
+    config['cv']['layout']['first-color']['blue']
+)
+second_theme_color = (
+    config['cv']['layout']['second-color']['red'],
+     config['cv']['layout']['second-color']['green'],
+     config['cv']['layout']['second-color']['blue']
+)
 
 class PDF(FPDF):
     def make_a_cell(self, width, text, bold, font_size, url):
