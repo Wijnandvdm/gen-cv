@@ -7,9 +7,8 @@ import yaml
 # Check if the correct number of arguments are provided
 if len(sys.argv) != 2:
     utils.usage()
-
-# Get the config file name from the command-line argument
-name = sys.argv[1]
+else:
+    name = sys.argv[1]
 
 # import config yaml
 with open(f'config/{name}.yaml', 'r') as f:
@@ -52,18 +51,15 @@ class PDF(FPDF):
         x = 10
         y = image_size + 10
         self.set_xy(x = x, y = y)
-        # Set font color
         self.set_text_color(*second_theme_color)
-        # Loop through education details in the YAML file
         for details in config['cv']['personal-info'].values():
             y += 10
-            # Set current position
             self.set_xy(x = x, y = y)
             self.make_a_cell(width=0,text=details, bold=False,font_size=details_font_size,url="")
             # self.image('images/mail_icon.png', x, y, 10)
         self.ln(20)
 
-        # Print languages and proficiency
+        # Add languages and proficiency
         self.make_a_cell(width=0,text="Languages", bold=True,font_size=header_font_size,url="")
         for language in config['cv']['languages']:
             y += 10
@@ -78,7 +74,6 @@ class PDF(FPDF):
         x = width_bar + 10
         y = current_y
         self.set_xy(x=x, y=y)
-        # Add section title
         self.make_a_cell(width=0,text=section_title, bold=True,font_size=header_font_size,url="")
         # Add a colored line underneath the section header
         self.set_draw_color(*first_theme_color)
