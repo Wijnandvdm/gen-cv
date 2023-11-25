@@ -5,11 +5,9 @@ import utils
 
 # Check if the correct number of arguments are provided
 if len(sys.argv) != 2:
-    print("Wrong input. Instead use: python3 gen-cv.py template")
-    sys.exit(1)
-
-# Example usage
-utils.check_package("fpdf")
+    utils.usage()
+# Check requirements
+utils.check_requirements()
 
 # Get the config file name from the command-line argument
 name = sys.argv[1]
@@ -104,7 +102,6 @@ class PDF(FPDF):
                     self.set_xy(x=x, y=y)
                     self.make_a_cell(width=30,text="", bold=False,font_size=details_font_size,url="")
                     self.make_a_cell(width=0,text=description, bold=False,font_size=details_font_size,url="")
-                    self.ln(5)  # Add extra line for spacing
         self.ln(10)
         return self.get_y()
 
