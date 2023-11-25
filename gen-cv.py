@@ -22,16 +22,6 @@ details_font_size = config['cv']['layout']['details-font-size']
 image_size = config['cv']['layout']['image-size']
 width_bar = config['cv']['layout']['width-bar']
 height_bar = config['cv']['layout']['height-bar']
-first_theme_color = (
-    config['cv']['layout']['first-color']['red'],
-    config['cv']['layout']['first-color']['green'],
-    config['cv']['layout']['first-color']['blue']
-)
-second_theme_color = (
-    config['cv']['layout']['second-color']['red'],
-     config['cv']['layout']['second-color']['green'],
-     config['cv']['layout']['second-color']['blue']
-)
 
 class PDF(FPDF):
     def make_a_cell(self, width, text, bold, font_size, url):
@@ -45,7 +35,11 @@ class PDF(FPDF):
 
     def add_profile_picture(self):
         self.image('profile_picture.png', 10, 10, image_size)
-    
+
+    def hex_to_rgb(self, hex_color):
+        hex_color = hex_color.lstrip('#')
+        return tuple(int(hex_color[i:i+2], 16) for i in (0, 2, 4))
+
     def header(self):
         self.set_fill_color(*first_theme_color)
         self.rect(0, 0, width_bar, height_bar, 'F')
@@ -79,7 +73,6 @@ class PDF(FPDF):
             self.make_a_cell(width=0,text=f"{language['proficiency']}", bold=True,font_size=header_font_size,url="")
         # Reset font color
         self.set_text_color(0,0,0)
-
         return self.get_y()
     
     def add_section(self, section_title, section_details, current_y):
@@ -113,6 +106,8 @@ class PDF(FPDF):
         return self.get_y()
 
 pdf = PDF()
+first_theme_color = pdf.hex_to_rgb(config['cv']['layout']['first-color'])
+second_theme_color = pdf.hex_to_rgb(config['cv']['layout']['second-color'])
 pdf.add_page()
 pdf.add_profile_picture()
 pdf.personal_info()
