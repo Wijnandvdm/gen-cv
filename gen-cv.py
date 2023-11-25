@@ -89,11 +89,15 @@ class PDF(FPDF):
         for item in config['cv'][f'{section_details}']:
             y += 10
             self.set_xy(x=x, y=y)
-            self.make_a_cell(width=30,text=f"{item['time-frame']}", bold=False,font_size=details_font_size,url="")
-            self.make_a_cell(width=0,text=f"{item['details']['title']}", bold=False,font_size=details_font_size,url="")
-            # Check if 'description' exists in the 'experience' section
+            # Check if 'link' exists in the 'details' section
+            if 'details' in item and 'link' in item['details']:
+                self.make_a_cell(width=30,text=f"{item['time-frame']}", bold=False,font_size=details_font_size,url="")
+                self.make_a_cell(width=0,text=f"{item['details']['title']}", bold=False,font_size=details_font_size,url=f"{item['details']['link']}")
+            else:
+                self.make_a_cell(width=30,text=f"{item['time-frame']}", bold=False,font_size=details_font_size,url="")
+                self.make_a_cell(width=0,text=f"{item['details']['title']}", bold=False,font_size=details_font_size,url="")
+            # Check if 'description' exists in the 'experience-details' section
             if f'{section_details}' in config['cv'] and all('description' in item['details'] for item in config['cv'][f'{section_details}']):
-                print("Description exists in the experience section, adding descriptions...")
                 # Add description
                 for description in item['details']['description']:
                     y += 5  # Adjust for space
@@ -101,8 +105,6 @@ class PDF(FPDF):
                     self.make_a_cell(width=30,text="", bold=False,font_size=details_font_size,url="")
                     self.make_a_cell(width=0,text=description, bold=False,font_size=details_font_size,url="")
                     self.ln(5)  # Add extra line for spacing
-            else:
-                print("Description does not exist in the experience section, proceeding...")
         self.ln(10)
         return self.get_y()
 
