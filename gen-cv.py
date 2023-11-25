@@ -34,7 +34,7 @@ class PDF(FPDF):
         self.cell(width, 10, text, 0 , 0, link=url)
 
     def add_profile_picture(self):
-        self.image('profile_picture.png', 10, 10, image_size)
+        self.image('images/profile_picture.png', 10, 10, image_size)
 
     def hex_to_rgb(self, hex_color):
         hex_color = hex_color.lstrip('#')
@@ -61,6 +61,7 @@ class PDF(FPDF):
             self.set_xy(x = x, y = y)
             # Add education details to the PDF
             self.make_a_cell(width=0,text=details, bold=False,font_size=details_font_size,url="")
+            self.image('images/mail_icon.png', x, y, 10)
         # Add line break
         self.ln(20)
 
