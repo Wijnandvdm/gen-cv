@@ -59,10 +59,8 @@ class PDF(FPDF):
             y += 10
             # Set current position
             self.set_xy(x = x, y = y)
-            # Add education details to the PDF
             self.make_a_cell(width=0,text=details, bold=False,font_size=details_font_size,url="")
-            self.image('images/mail_icon.png', x, y, 10)
-        # Add line break
+            # self.image('images/mail_icon.png', x, y, 10)
         self.ln(20)
 
         # Print languages and proficiency
