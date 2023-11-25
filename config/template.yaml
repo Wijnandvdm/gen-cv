@@ -1,21 +1,70 @@
 cv:
   layout:
     font: Arial
+    title-font-size: 15
     header-font-size: 14
-    details-font-size: 12
-    red: 50
-    green: 50
-    blue: 100
-    x-coordinate-bar: 80
+    details-font-size: 11
+    image-size: 40
+    first-color:
+      red: 50
+      green: 50
+      blue: 100
+    second-color:
+      red: 180
+      green: 180
+      blue: 200
+    width-bar: 65
+    height-bar: 297
   personal-info:
     name: Wijnand van der Meijs
     address: AnAddress
     phone-number: +03161111118
     email-address: w@gmail.com
+  languages:
+    - name: Dutch
+      proficiency: '****'
+    - name: English
+      proficiency: '****'
+    - name: German
+      proficiency: '***'
+    - name: Spanish
+      proficiency: '**'
   education:
-    first: High School # add year
-    second: Bachelor on an interesting subject, University of a Place # add year
-    third: Master on an interesting subject, University of a Place # add year
+    - time-frame: 2006-2013
+      details: 
+        title: High School
+    - time-frame: 2014-2017
+      details:
+        title: Bachelor on an interesting subject, University of a Place
+    - time-frame: 2017-2019
+      details:
+        title: Master on an interesting subject, University of a Place
   experience:
-    first: Intersting Job # Job Title, Company Name, Year
-    second: Intersting Job number 2 # Job Title, Company Name, Year
+    - time-frame: 2019-2020
+      details:
+        title: Interesting Job
+        company: Company Name
+        description:
+            - Created some stuff
+            - Created some more stuff
+    - time-frame: 2021-Now
+      details:
+        title: Interesting Job number 2
+        company: Company Name 2
+        description:
+            - Did some stuff
+            - Did some more stuff
+            - Did even more stuff
+  certifications:
+    - time-frame: november 2021
+      details: 
+        title: Certified Kubernetes Application Developer
+        link: www.google.com
+    - time-frame: january 2021
+      details:
+        title: Microsoft Azure Data Engineer DP203
+        link: www.youtube.com
+    - time-frame: december 2022
+      details:
+        title: Microsoft Azure Data Engineer AZ204
+        link: "https://scholar.google.com/"
