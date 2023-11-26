@@ -12,5 +12,6 @@ Since Word continues its assault on nicely formatted pages in Curriculum Vitaes,
 # Future upgrades:
 - icons for mail e.g.
 - distance between languages smaller
+- personal information section at the top
 
 Watch for reminder on how cells in PDF class work: https://www.youtube.com/watch?v=qB44PreHWow&ab_channel=BigPlot
