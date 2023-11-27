@@ -56,14 +56,15 @@ class PDF(FPDF):
             y += 10
             self.set_xy(x = x, y = y)
             self.make_a_cell(width=0,text=details, bold=False,font_size=details_font_size,url="")
+            # y += 10
             # self.image('images/mail_icon.png', x, y, 10)
         self.ln(20)
 
         # Add languages and proficiency
         self.make_a_cell(width=0,text="Languages", bold=True,font_size=header_font_size,url="")
         for language in config['cv']['languages']:
-            y += 10
-            self.set_xy(x=x, y=y+20)            
+            y += 5
+            self.set_xy(x=x, y=y+15)            
             self.make_a_cell(width=30, text=f"{language['name']}",bold=False,font_size=details_font_size,url="")
             self.make_a_cell(width=0,text=f"{language['proficiency']}", bold=True,font_size=header_font_size,url="")
         # Reset font color
