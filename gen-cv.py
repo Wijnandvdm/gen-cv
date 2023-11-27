@@ -52,12 +52,17 @@ class PDF(FPDF):
         y = image_size + 10
         self.set_xy(x = x, y = y)
         self.set_text_color(*second_theme_color)
-        for details in config['cv']['personal-info'].values():
+        for detail in config['cv']['personal-info']:
             y += 10
             self.set_xy(x = x, y = y)
-            self.make_a_cell(width=0,text=details, bold=False,font_size=details_font_size,url="")
-            # y += 10
-            # self.image('images/mail_icon.png', x, y, 10)
+            self.make_a_cell(width=0,text=f"{detail['name']}", bold=False,font_size=details_font_size,url="")
+            if 'icon-path' in detail:
+                icon_size = f"{detail['icon-size']}"
+                icon_path = f"{detail['icon-path']}"
+                icon_x_coordinate = f"{detail['icon-x-coordinate']}"
+                y += 10
+                recolored_icon_path = utils.recolor_icon(icon_path,second_theme_color)
+                self.image(recolored_icon_path, int(icon_x_coordinate), y, int(icon_size))
         self.ln(20)
 
         # Add languages and proficiency

@@ -7,13 +7,18 @@ cv:
     image-size: 40
     first-color: "#001F3F"
     second-color: "#CCCCCC"
-    width-bar: 65
+    width-bar: 60
     height-bar: 297
   personal-info:
-    name: Wijnand van der Meijs
-    address: AnAddress
-    phone-number: +03161111118
-    email-address: w@gmail.com
+    - name: Wijnand van der Meijs
+    - name: +03161111118
+      icon-path: phone_icon.png
+      icon-size: 8
+      icon-x-coordinate: 25
+    - name: wijnand@gmail.com
+      icon-path: mail_icon.png
+      icon-size: 8
+      icon-x-coordinate: 25
   languages:
     - name: Dutch
       proficiency: '****'
