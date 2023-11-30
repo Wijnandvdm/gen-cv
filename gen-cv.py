@@ -69,7 +69,7 @@ class PDF(FPDF):
         self.make_a_cell(width=0,text="Languages", bold=True,font_size=header_font_size,url="")
         for language in config['cv']['languages']:
             y += 5
-            self.set_xy(x=x, y=y+15)            
+            self.set_xy(x=x, y=y+12)            
             self.make_a_cell(width=30, text=f"{language['name']}",bold=False,font_size=details_font_size,url="")
             self.make_a_cell(width=0,text=f"{language['proficiency']}", bold=True,font_size=header_font_size,url="")
         # Reset font color
