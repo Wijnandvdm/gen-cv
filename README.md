@@ -12,5 +12,4 @@ Since Word continues its assault on nicely formatted pages in Curriculum Vitaes,
 
 # Future upgrades:
 - add icons + links for linkedin, github and possible others
-- add personal information section at the top
 - add projects section

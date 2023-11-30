@@ -31,7 +31,7 @@ cv:
   profile:
     - time-frame: ""
       details: ""
-      content: "something \nsomething professional also something like this \nand this and even this"
+      content: "Big description \nof something \nalso something like this \nand this and even \nthis"
   education:
     - time-frame: 2006-2013
       details: 

@@ -14,14 +14,6 @@ else:
 with open(f'config/{name}.yaml', 'r') as f:
     config = yaml.safe_load(f)
 
-font = config['cv']['layout']['font']
-title_font_size = config['cv']['layout']['title-font-size']
-header_font_size = config['cv']['layout']['header-font-size']
-details_font_size = config['cv']['layout']['details-font-size']
-image_size = config['cv']['layout']['image-size']
-width_bar = config['cv']['layout']['width-bar']
-height_bar = config['cv']['layout']['height-bar']
-
 class PDF(FPDF):
     def make_a_cell(self, width, text, bold, font_size, url, multi_line_cell):
         if bold == True:
@@ -97,6 +89,7 @@ class PDF(FPDF):
                 y += 2
                 self.set_xy(x=x, y=y)
                 self.make_a_cell(width=0,text=f"{item['content']}",bold=False,font_size=details_font_size,url="",multi_line_cell=True)
+                y = self.get_y() - 10
             # Check if 'link' exists in the 'details' section
             elif 'details' in item and 'link' in item['details']:
                 self.make_a_cell(width=30,text=f"{item['time-frame']}",bold=False,font_size=details_font_size,url="",multi_line_cell=False)
@@ -112,10 +105,18 @@ class PDF(FPDF):
                     self.set_xy(x=x, y=y)
                     self.make_a_cell(width=30,text="",bold=False,font_size=details_font_size,url="",multi_line_cell=False)
                     self.make_a_cell(width=0,text=description,bold=False,font_size=details_font_size,url="",multi_line_cell=False)
-        self.ln(10)
+        y += 10
+        self.set_xy(x=x, y=y)
         return self.get_y()
 
 pdf = PDF()
+font = config['cv']['layout']['font']
+title_font_size = config['cv']['layout']['title-font-size']
+header_font_size = config['cv']['layout']['header-font-size']
+details_font_size = config['cv']['layout']['details-font-size']
+image_size = config['cv']['layout']['image-size']
+width_bar = config['cv']['layout']['width-bar']
+height_bar = config['cv']['layout']['height-bar']
 first_theme_color = pdf.hex_to_rgb(config['cv']['layout']['first-color'])
 second_theme_color = pdf.hex_to_rgb(config['cv']['layout']['second-color'])
 pdf.add_page()
