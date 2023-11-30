@@ -28,6 +28,10 @@ cv:
       proficiency: '***'
     - name: Spanish
       proficiency: '**'
+  profile:
+    - time-frame: ""
+      details: ""
+      content: "something \nsomething professional also something like this \nand this and even this"
   education:
     - time-frame: 2006-2013
       details: 
