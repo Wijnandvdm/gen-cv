@@ -73,15 +73,15 @@ class PDF(FPDF):
         self.set_text_color(0,0,0)
         return self.get_y()
     
-    def add_section(self, section_title, section_details, current_y):
+    def add_section(self, section_details, current_y):
         x = width_bar + 10
         y = current_y
         self.set_xy(x=x, y=y)
-        self.make_a_cell(width=0,text=section_title,bold=True,font_size=header_font_size,url="",multi_line_cell=False)
+        self.make_a_cell(width=0,text=config['cv'][f'{section_details}']['title'],bold=True,font_size=header_font_size,url="",multi_line_cell=False)
         # Add a colored line underneath the section header
         self.set_draw_color(*first_theme_color)
         self.line(x, y + 10, x + 190, y + 10)
-        for item in config['cv'][f'{section_details}']:
+        for item in config['cv'][f'{section_details}']['content']:
             y += 10
             self.set_xy(x=x, y=y)
             # Check if 'content' exists in the section
@@ -98,7 +98,7 @@ class PDF(FPDF):
                 self.make_a_cell(width=30,text=f"{item['time-frame']}",bold=False,font_size=details_font_size,url="",multi_line_cell=False)
                 self.make_a_cell(width=0,text=f"{item['details']['title']}",bold=False,font_size=details_font_size,url="",multi_line_cell=False)
             # Check if 'description' exists in the 'experience-details' section
-            if f'{section_details}' in config['cv'] and all('description' in item['details'] for item in config['cv'][f'{section_details}']):
+            if f'{section_details}' in config['cv'] and all('description' in item['details'] for item in config['cv'][f'{section_details}']['content']):
                 # Add description
                 for description in item['details']['description']:
                     y += 5  # Adjust for space
@@ -123,10 +123,10 @@ pdf.add_page()
 pdf.add_profile_picture()
 pdf.personal_info()
 current_y = 20 # Starting from y=20
-current_y = pdf.add_section("Profile", "profile", current_y)
-current_y = pdf.add_section("Education", "education", current_y)
-current_y = pdf.add_section("Work Experience", "experience", current_y)
-current_y = pdf.add_section("Certifications", "certifications", current_y)
+current_y = pdf.add_section("profile", current_y)
+current_y = pdf.add_section("education", current_y)
+current_y = pdf.add_section("experience", current_y)
+current_y = pdf.add_section("certifications", current_y)
 
 pdf.output(f'{name}_cv.pdf', 'F')
 print("CV created succesfully!")
