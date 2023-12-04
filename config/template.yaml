@@ -28,54 +28,55 @@ cv:
       proficiency: '***'
     - name: Spanish
       proficiency: '**'
-  profile:
-    title: Profile
-    content:
-      - time-frame: ""
-        details: ""
-        content: "Big description \nof something \nalso something like this \nand this and even \nthis"
-  education:
-    title: Education
-    content:
-      - time-frame: 2006-2013
-        details: 
-          title: High School
-      - time-frame: 2014-2017
-        details:
-          title: Bachelor on an interesting subject, University of a Place
-      - time-frame: 2017-2019
-        details:
-          title: Master on an interesting subject, University of a Place
-  experience:
-    title: Work History
-    content:
-      - time-frame: 2019-2020
-        details:
-          title: Interesting Job
-          company: Company Name
-          description:
-              - Created some stuff
-              - Created some more stuff
-      - time-frame: 2021-Now
-        details:
-          title: Interesting Job number 2
-          company: Company Name 2
-          description:
-              - Did some stuff
-              - Did some more stuff
-              - Did even more stuff
-  certifications:
-    title: Certifications
-    content:
-      - time-frame: november 2021
-        details: 
-          title: Certified Kubernetes Application Developer
-          link: www.google.com
-      - time-frame: january 2021
-        details:
-          title: Microsoft Azure Data Engineer DP203
-          link: www.youtube.com
-      - time-frame: december 2022
-        details:
-          title: Microsoft Azure Data Engineer AZ204
-          link: "https://scholar.google.com/"
+  sections:
+    profile:
+      title: Profile
+      section-content:
+        - time-frame: ""
+          details: ""
+          content: "Big description \nof something \nalso something like this \nand this and even \nthis"
+    education:
+      title: Education
+      section-content:
+        - time-frame: 2006-2013
+          details: 
+            title: High School
+        - time-frame: 2014-2017
+          details:
+            title: Bachelor on an interesting subject, University of a Place
+        - time-frame: 2017-2019
+          details:
+            title: Master on an interesting subject, University of a Place
+    experience:
+      title: Work History
+      section-content:
+        - time-frame: 2019-2020
+          details:
+            title: Interesting Job
+            company: Company Name
+            description:
+                - Created some stuff
+                - Created some more stuff
+        - time-frame: 2021-Now
+          details:
+            title: Interesting Job number 2
+            company: Company Name 2
+            description:
+                - Did some stuff
+                - Did some more stuff
+                - Did even more stuff
+    certifications:
+      title: Certifications
+      section-content:
+        - time-frame: november 2021
+          details: 
+            title: Certified Kubernetes Application Developer
+            link: www.google.com
+        - time-frame: january 2021
+          details:
+            title: Microsoft Azure Data Engineer DP203
+            link: www.youtube.com
+        - time-frame: december 2022
+          details:
+            title: Microsoft Azure Data Engineer AZ204
+            link: "https://scholar.google.com/"
