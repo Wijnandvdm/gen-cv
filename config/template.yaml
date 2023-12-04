@@ -35,36 +35,29 @@ cv:
         - time-frame: ""
           details: ""
           content: "Big description \nof something \nalso something like this \nand this and even \nthis"
-    education:
-      title: Education
-      section-content:
-        - time-frame: 2006-2013
-          details: 
-            title: High School
-        - time-frame: 2014-2017
-          details:
-            title: Bachelor on an interesting subject, University of a Place
-        - time-frame: 2017-2019
-          details:
-            title: Master on an interesting subject, University of a Place
     experience:
       title: Work History
       section-content:
         - time-frame: 2019-2020
           details:
             title: Interesting Job
-            company: Company Name
             description:
                 - Created some stuff
                 - Created some more stuff
         - time-frame: 2021-Now
           details:
             title: Interesting Job number 2
-            company: Company Name 2
             description:
                 - Did some stuff
                 - Did some more stuff
                 - Did even more stuff
+    projects:
+      title: Projects
+        - time-frame: 2022-2023
+          details:
+            title: Awesome Project 01
+            image-path: images/project_01.png
+            link: ""
     certifications:
       title: Certifications
       section-content:
@@ -80,3 +73,15 @@ cv:
           details:
             title: Microsoft Azure Data Engineer AZ204
             link: "https://scholar.google.com/"
+    education:
+      title: Education
+      section-content:
+        - time-frame: 2006-2013
+          details: 
+            title: High School
+        - time-frame: 2014-2017
+          details:
+            title: Bachelor on an interesting subject, University of a Place
+        - time-frame: 2017-2019
+          details:
+            title: Master on an interesting subject, University of a Place
