@@ -53,6 +53,7 @@ cv:
                 - Did even more stuff
     projects:
       title: Projects
+      section-content:
         - time-frame: 2022-2023
           details:
             title: Awesome Project 01
