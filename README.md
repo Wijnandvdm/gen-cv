@@ -11,5 +11,4 @@ Since Word continues its assault on nicely formatted pages in Curriculum Vitaes,
 7. you have your very own nicely formatted and personalized CV in PDF format!
 
 # Future upgrades:
-- add icons + links for linkedin, github and possible others
-- add projects section
+- refactoring

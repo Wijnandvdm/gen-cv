@@ -65,9 +65,12 @@ cv:
       section-content:
         - time-frame: 2022-2023
           details:
-            title: Awesome Project 01
-            image-path: images/project_01.png
-            link: ""
+            title: Generate a CV PDF from a yaml configuration
+            image-path: images/project_001.png
+            image-x-coordinate: 70
+            image-y-coordinate: 10
+            image-size: 50
+            image-link: "www.google.com"
     certifications:
       title: Certifications
       section-content:
