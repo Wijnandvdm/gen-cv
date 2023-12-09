@@ -9,6 +9,15 @@ cv:
     second-color: "#CCCCCC"
     width-bar: 60
     height-bar: 297
+  online-presence:
+    - icon-path: linkedin_icon.png
+      icon-size: 8
+      icon-x-coordinate: 20
+      link: www.google.com
+    - icon-path: github_icon.png
+      icon-size: 8
+      icon-x-coordinate: 30
+      link: www.google.com
   personal-info:
     - item: Wijnand van der Meijs
     - item: +03161111118

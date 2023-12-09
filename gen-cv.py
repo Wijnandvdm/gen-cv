@@ -51,19 +51,24 @@ class PDF(FPDF):
             self.set_xy(x = x, y = y)
             self.make_a_cell(width=0,text=f"{detail['item']}",bold=False,font_size=details_font_size,url="",multi_line_cell=False)
             if 'icon-path' in detail:
-                icon_size = f"{detail['icon-size']}"
-                icon_path = f"{detail['icon-path']}"
-                icon_x_coordinate = f"{detail['icon-x-coordinate']}"
                 y += 10
-                recolored_icon_path = utils.recolor_icon(icon_path,second_theme_color)
-                self.image(recolored_icon_path, int(icon_x_coordinate), y, int(icon_size))
-        self.ln(20)
-
+                recolored_icon_path = utils.recolor_icon(f"{detail['icon-path']}",second_theme_color)
+                self.image(recolored_icon_path, int(f"{detail['icon-x-coordinate']}"), y, int(f"{detail['icon-size']}"))
+        # Add online presence
+        y += 15
+        for icon in config['cv']['online-presence']:
+            x += 10
+            self.set_xy(x = x, y = y)
+            recolored_icon_path = utils.recolor_icon(f"{icon['icon-path']}",second_theme_color)
+            self.image(recolored_icon_path, int(f"{icon['icon-x-coordinate']}"), y, int(f"{icon['icon-size']}"), link=f"{icon['link']}")
+        y += 10
+        x = 10
+        self.set_xy(x = x, y = y)
         # Add languages and proficiency
         self.make_a_cell(width=0,text="Languages",bold=True,font_size=header_font_size,url="",multi_line_cell=False)
         for language in config['cv']['languages']:
             y += 5
-            self.set_xy(x=x, y=y+12)            
+            self.set_xy(x=x, y=y+2)            
             self.make_a_cell(width=30, text=f"{language['language']}",bold=False,font_size=details_font_size,url="",multi_line_cell=False)
             self.make_a_cell(width=0,text=f"{language['proficiency']}",bold=True,font_size=header_font_size,url="",multi_line_cell=False)
         # Reset font color
