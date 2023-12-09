@@ -10,23 +10,23 @@ cv:
     width-bar: 60
     height-bar: 297
   personal-info:
-    - name: Wijnand van der Meijs
-    - name: +03161111118
+    - item: Wijnand van der Meijs
+    - item: +03161111118
       icon-path: phone_icon.png
       icon-size: 8
       icon-x-coordinate: 25
-    - name: wijnand@gmail.com
+    - item: wijnand@gmail.com
       icon-path: mail_icon.png
       icon-size: 8
       icon-x-coordinate: 25
   languages:
-    - name: Dutch
+    - language: Dutch
       proficiency: '****'
-    - name: English
+    - language: English
       proficiency: '****'
-    - name: German
+    - language: German
       proficiency: '***'
-    - name: Spanish
+    - language: Spanish
       proficiency: '**'
   sections:
     profile:

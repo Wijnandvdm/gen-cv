@@ -28,10 +28,6 @@ class PDF(FPDF):
         else:
             print("Wrong input supplied")
         
-
-    def add_profile_picture(self):
-        self.image('images/profile_picture.png', 10, 10, image_size)
-
     def hex_to_rgb(self, hex_color):
         hex_color = hex_color.lstrip('#')
         return tuple(int(hex_color[i:i+2], 16) for i in (0, 2, 4))
@@ -45,6 +41,7 @@ class PDF(FPDF):
         self.ln(20)
 
     def personal_info(self):
+        self.image('images/profile_picture.png', 10, 10, image_size)
         x = 10
         y = image_size + 10
         self.set_xy(x = x, y = y)
@@ -52,7 +49,7 @@ class PDF(FPDF):
         for detail in config['cv']['personal-info']:
             y += 10
             self.set_xy(x = x, y = y)
-            self.make_a_cell(width=0,text=f"{detail['name']}",bold=False,font_size=details_font_size,url="",multi_line_cell=False)
+            self.make_a_cell(width=0,text=f"{detail['item']}",bold=False,font_size=details_font_size,url="",multi_line_cell=False)
             if 'icon-path' in detail:
                 icon_size = f"{detail['icon-size']}"
                 icon_path = f"{detail['icon-path']}"
@@ -67,7 +64,7 @@ class PDF(FPDF):
         for language in config['cv']['languages']:
             y += 5
             self.set_xy(x=x, y=y+12)            
-            self.make_a_cell(width=30, text=f"{language['name']}",bold=False,font_size=details_font_size,url="",multi_line_cell=False)
+            self.make_a_cell(width=30, text=f"{language['language']}",bold=False,font_size=details_font_size,url="",multi_line_cell=False)
             self.make_a_cell(width=0,text=f"{language['proficiency']}",bold=True,font_size=header_font_size,url="",multi_line_cell=False)
         # Reset font color
         self.set_text_color(0,0,0)
@@ -120,7 +117,6 @@ height_bar = config['cv']['layout']['height-bar']
 first_theme_color = pdf.hex_to_rgb(config['cv']['layout']['first-color'])
 second_theme_color = pdf.hex_to_rgb(config['cv']['layout']['second-color'])
 pdf.add_page()
-pdf.add_profile_picture()
 pdf.personal_info()
 current_y = 20 # Starting from y=20
 for item in config['cv']['sections']:
