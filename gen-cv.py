@@ -100,7 +100,7 @@ class PDF(FPDF):
                 self.make_a_cell(width=30,text=f"{item['time-frame']}",bold=False,font_size=details_font_size,url="",multi_line_cell=False)
                 self.make_a_cell(width=0,text=f"{item['details']['title']}",bold=False,font_size=details_font_size,url="",multi_line_cell=False)
             # Check if 'description' exists in the 'experience-details' section
-            if f'{section_details}' in config['cv'] and all('description' in item['details'] for item in config['cv']['sections'][f'{section_details}']['section-content']):
+            if all('description' in item['details'] for item in config['cv']['sections'][f'{section_details}']['section-content']):
                 # Add description
                 for description in item['details']['description']:
                     y += 5  # Adjust for space
