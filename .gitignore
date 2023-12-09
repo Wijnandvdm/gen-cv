@@ -1,3 +1,4 @@
 *.pdf
 wijnand.yaml
 __pycache__
+images/recolored_*

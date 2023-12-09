@@ -7,58 +7,94 @@ cv:
     image-size: 40
     first-color: "#001F3F"
     second-color: "#CCCCCC"
-    width-bar: 65
+    width-bar: 60
     height-bar: 297
+  online-presence:
+    - icon-path: linkedin_icon.png
+      icon-size: 8
+      icon-x-coordinate: 20
+      link: www.google.com
+    - icon-path: github_icon.png
+      icon-size: 8
+      icon-x-coordinate: 30
+      link: www.google.com
   personal-info:
-    name: Wijnand van der Meijs
-    address: AnAddress
-    phone-number: +03161111118
-    email-address: w@gmail.com
+    - item: Wijnand van der Meijs
+    - item: +03161111118
+      icon-path: phone_icon.png
+      icon-size: 8
+      icon-x-coordinate: 25
+    - item: wijnand@gmail.com
+      icon-path: mail_icon.png
+      icon-size: 8
+      icon-x-coordinate: 25
   languages:
-    - name: Dutch
+    - language: Dutch
       proficiency: '****'
-    - name: English
+    - language: English
       proficiency: '****'
-    - name: German
+    - language: German
       proficiency: '***'
-    - name: Spanish
+    - language: Spanish
       proficiency: '**'
-  education:
-    - time-frame: 2006-2013
-      details: 
-        title: High School
-    - time-frame: 2014-2017
-      details:
-        title: Bachelor on an interesting subject, University of a Place
-    - time-frame: 2017-2019
-      details:
-        title: Master on an interesting subject, University of a Place
-  experience:
-    - time-frame: 2019-2020
-      details:
-        title: Interesting Job
-        company: Company Name
-        description:
-            - Created some stuff
-            - Created some more stuff
-    - time-frame: 2021-Now
-      details:
-        title: Interesting Job number 2
-        company: Company Name 2
-        description:
-            - Did some stuff
-            - Did some more stuff
-            - Did even more stuff
-  certifications:
-    - time-frame: november 2021
-      details: 
-        title: Certified Kubernetes Application Developer
-        link: www.google.com
-    - time-frame: january 2021
-      details:
-        title: Microsoft Azure Data Engineer DP203
-        link: www.youtube.com
-    - time-frame: december 2022
-      details:
-        title: Microsoft Azure Data Engineer AZ204
-        link: "https://scholar.google.com/"
+  sections:
+    profile:
+      title: Profile
+      section-content:
+        - time-frame: ""
+          details: ""
+          content: "Big description \nof something \nalso something like this \nand this and even \nthis"
+    experience:
+      title: Work History
+      section-content:
+        - time-frame: 2019-2020
+          details:
+            title: Interesting Job
+            description:
+                - Created some stuff
+                - Created some more stuff
+        - time-frame: 2021-Now
+          details:
+            title: Interesting Job number 2
+            description:
+                - Did some stuff
+                - Did some more stuff
+                - Did even more stuff
+    projects:
+      title: Projects
+      section-content:
+        - time-frame: 2022-2023
+          details:
+            title: Generate a CV PDF from a yaml configuration
+            image-path: images/project_001.png
+            image-x-coordinate: 70
+            image-y-coordinate: 10
+            image-size: 50
+            image-link: "www.google.com"
+    certifications:
+      title: Certifications
+      section-content:
+        - time-frame: november 2021
+          details: 
+            title: Certified Kubernetes Application Developer
+            link: www.google.com
+        - time-frame: january 2021
+          details:
+            title: Microsoft Azure Data Engineer DP203
+            link: www.youtube.com
+        - time-frame: december 2022
+          details:
+            title: Microsoft Azure Data Engineer AZ204
+            link: "https://scholar.google.com/"
+    education:
+      title: Education
+      section-content:
+        - time-frame: 2006-2013
+          details: 
+            title: High School
+        - time-frame: 2014-2017
+          details:
+            title: Bachelor on an interesting subject, University of a Place
+        - time-frame: 2017-2019
+          details:
+            title: Master on an interesting subject, University of a Place
