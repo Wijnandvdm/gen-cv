@@ -95,10 +95,10 @@ class PDF(FPDF):
             # Check if 'link' exists in the 'details' section
             elif 'details' in item and 'link' in item['details']:
                 self.make_a_cell(width=30,text=f"{item['time-frame']}",bold=False,font_size=details_font_size,url="",multi_line_cell=False)
-                self.make_a_cell(width=0,text=f"{item['details']['title']}",bold=False,font_size=details_font_size,url=f"{item['details']['link']}",multi_line_cell=False)
+                self.make_a_cell(width=0,text=f"{item['details']['title']}",bold=True,font_size=details_font_size,url=f"{item['details']['link']}",multi_line_cell=False)
             elif 'details' in item and 'image-path' in item['details']:
                 self.make_a_cell(width=30,text=f"{item['time-frame']}",bold=False,font_size=details_font_size,url="",multi_line_cell=False)
-                self.make_a_cell(width=0,text=f"{item['details']['title']}",bold=False,font_size=details_font_size,url=f"{item['details']['image-link']}",multi_line_cell=False)
+                self.make_a_cell(width=0,text=f"{item['details']['title']}",bold=True,font_size=details_font_size,url=f"{item['details']['image-link']}",multi_line_cell=False)
                 y += 10
                 self.set_xy(x=x, y=y)
                 self.image(f"{item['details']['image-path']}", int(f"{item['details']['image-x-coordinate']}"), y, int(f"{item['details']['image-size']}"), link=f"{item['details']['image-link']}")
@@ -106,7 +106,7 @@ class PDF(FPDF):
                 self.set_xy(x=x, y=y)
             elif 'details' in item:
                 self.make_a_cell(width=30,text=f"{item['time-frame']}",bold=False,font_size=details_font_size,url="",multi_line_cell=False)
-                self.make_a_cell(width=0,text=f"{item['details']['title']}",bold=False,font_size=details_font_size,url="",multi_line_cell=False)
+                self.make_a_cell(width=0,text=f"{item['details']['title']}",bold=True,font_size=details_font_size,url="",multi_line_cell=False)
             # Check if 'description' exists in the 'experience-details' section
             if all('description' in item['details'] for item in config['cv']['sections'][f'{section_details}']['section-content']):
                 # Add description
