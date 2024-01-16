@@ -111,11 +111,12 @@ class PDF(FPDF):
             if all('description' in item['details'] for item in config['cv']['sections'][f'{section_details}']['section-content']):
                 # Add description
                 for description in item['details']['description']:
-                    y += 5  # Adjust for space
+                    y += 10  # Adjust for space
                     self.set_xy(x=x, y=y)
                     self.make_a_cell(width=30,text="",bold=False,font_size=details_font_size,url="",multi_line_cell=False)
-                    self.make_a_cell(width=0,text=description,bold=False,font_size=details_font_size,url="",multi_line_cell=False)
-        y += 10
+                    self.make_a_cell(width=0,text=description,bold=False,font_size=details_font_size,url="",multi_line_cell=True)
+                    y = self.get_y()
+        y += 10  # Add extra space after the section
         self.set_xy(x=x, y=y)
         return self.get_y()
 
