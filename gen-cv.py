@@ -78,6 +78,10 @@ class PDF(FPDF):
     def add_section(self, section_details, current_y):
         x = width_bar + 10
         y = current_y
+        remaining_space = self.h - self.get_y()
+        if remaining_space < 50:
+            self.add_page() # Add a new page if there's not enough space
+            y = 20  # Reset y-coordinate for the new page
         self.set_xy(x=x, y=y)
         self.make_a_cell(width=0,text=config['cv']['sections'][f'{section_details}']['title'],bold=True,font_size=header_font_size,url="",multi_line_cell=False)
         # Add a colored line underneath the section header
