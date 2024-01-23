@@ -90,36 +90,49 @@ class PDF(FPDF):
         for item in config['cv']['sections'][f'{section_details}']['section-content']:
             y += 10
             self.set_xy(x=x, y=y)
-            # Check if 'content' exists in the section
-            if 'content' in item:
+            if section_details == "profile":
                 y += 2
                 self.set_xy(x=x, y=y)
                 self.make_a_cell(width=0,text=f"{item['content']}",bold=False,font_size=details_font_size,url="",multi_line_cell=True)
                 y = self.get_y() - 10
-            # Check if 'link' exists in the 'details' section
-            elif 'details' in item and 'link' in item['details']:
+            elif section_details == "certifications":
                 self.make_a_cell(width=30,text=f"{item['time-frame']}",bold=False,font_size=details_font_size,url="",multi_line_cell=False)
                 self.make_a_cell(width=0,text=f"{item['details']['title']}",bold=True,font_size=details_font_size,url=f"{item['details']['link']}",multi_line_cell=False)
-            elif 'details' in item and 'image-path' in item['details']:
+            elif section_details == "projects":
                 self.make_a_cell(width=30,text=f"{item['time-frame']}",bold=False,font_size=details_font_size,url="",multi_line_cell=False)
                 self.make_a_cell(width=0,text=f"{item['details']['title']}",bold=True,font_size=details_font_size,url=f"{item['details']['image-link']}",multi_line_cell=False)
                 y += 10
                 self.set_xy(x=x, y=y)
+                self.make_a_cell(width=30,text="",bold=False,font_size=details_font_size,url="",multi_line_cell=False)
+                self.make_a_cell(width=0,text=f"{item['details']['description']}",bold=False,font_size=details_font_size,url="",multi_line_cell=True)
+                y = (self.get_y() + 5)
+                self.set_xy(x=x, y=y)
                 self.image(f"{item['details']['image-path']}", int(f"{item['details']['image-x-coordinate']}"), y, int(f"{item['details']['image-size']}"), link=f"{item['details']['image-link']}")
                 y += int(f"{item['details']['image-y-coordinate']}")
                 self.set_xy(x=x, y=y)
-            elif 'details' in item:
+            elif section_details == "education":
+                y = self.get_y()
+                self.set_xy(x=x, y=y)
                 self.make_a_cell(width=30,text=f"{item['time-frame']}",bold=False,font_size=details_font_size,url="",multi_line_cell=False)
                 self.make_a_cell(width=0,text=f"{item['details']['title']}",bold=True,font_size=details_font_size,url="",multi_line_cell=False)
-            # Check if 'description' exists in the 'experience-details' section
-            if all('description' in item['details'] for item in config['cv']['sections'][f'{section_details}']['section-content']):
+            elif section_details == "experience":
+                self.make_a_cell(width=30,text=f"{item['time-frame']}",bold=False,font_size=details_font_size,url="",multi_line_cell=False)
+                self.make_a_cell(width=0,text=f"{item['details']['title']}",bold=True,font_size=details_font_size,url="",multi_line_cell=False)
+                y += 5  # Adjust for space
                 # Add description
                 for description in item['details']['description']:
-                    y += 10  # Adjust for space
+                    y += 5  # Adjust for space
                     self.set_xy(x=x, y=y)
                     self.make_a_cell(width=30,text="",bold=False,font_size=details_font_size,url="",multi_line_cell=False)
                     self.make_a_cell(width=0,text=description,bold=False,font_size=details_font_size,url="",multi_line_cell=True)
                     y = self.get_y()
+                    self.set_xy(x=x, y=y)
+            else:
+                print("Yaml is not conform template, please review names of sections.")
+            remaining_space = self.h - self.get_y()
+            if remaining_space < 50:
+                self.add_page() # Add a new page if there's not enough space
+                y = 20  # Reset y-coordinate for the new page
         y += 10  # Add extra space after the section
         self.set_xy(x=x, y=y)
         return self.get_y()

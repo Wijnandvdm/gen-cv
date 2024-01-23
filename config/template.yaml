@@ -45,7 +45,7 @@ cv:
           details: ""
           content: "Big description \nof something \nalso something like this \nand this and even \nthis"
     experience:
-      title: Work History
+      title: Work Experience
       section-content:
         - time-frame: 2019-2020
           details:
