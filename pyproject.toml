@@ -1,0 +1,17 @@
+[project]
+name = "gen-cv"
+version = "0.1.0"
+description = "Since Word continues its assault on nicely formatted pages in Curriculum Vitaes, with this repository you are able to generate your very own nicely formatted CV in PDF format."
+authors = [
+    {name = "Wijnand van der Meijs"}
+]
+
+requires-python = ">=3.10"
+dependencies = [
+    "fpdf (>=1.7.2,<2.0.0)",
+    "pillow (>=9.3,<9.5)",
+    "pyyaml (>=6.0.2,<7.0.0)"
+]
+
+[tool.poetry]
+package-mode = false
