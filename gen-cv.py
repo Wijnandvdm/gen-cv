@@ -1,6 +1,5 @@
 import utils
 import sys
-utils.check_requirements()
 from fpdf import FPDF
 import yaml
 
@@ -79,6 +78,14 @@ class PDF(FPDF):
         x = width_bar + 10
         y = current_y
         self.set_xy(x=x, y=y)
+
+        # Check if there is enough space for the section title + some content
+        if self.get_y() > 240:
+            self.add_page()
+            y = 20  # Reset to top of new page
+            self.set_xy(x=x, y=y)
+
+        
         self.make_a_cell(width=0,text=config['cv']['sections'][f'{section_details}']['title'],bold=True,font_size=header_font_size,url="",multi_line_cell=False)
         # Add a colored line underneath the section header
         self.set_draw_color(*first_theme_color)
