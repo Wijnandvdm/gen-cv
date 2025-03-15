@@ -1,8 +1,8 @@
 import utils
 import sys
-utils.check_requirements()
 from fpdf import FPDF
 import yaml
+from datetime import datetime
 
 # Check if the correct number of arguments are provided
 if len(sys.argv) != 2:
@@ -41,9 +41,9 @@ class PDF(FPDF):
         self.ln(20)
 
     def personal_info(self):
-        self.image('images/profile_picture.png', 10, 10, image_size)
         x = 10
         y = image_size + 10
+        self.image('images/profile_picture.png', 10, 10, image_size)
         self.set_xy(x = x, y = y)
         self.set_text_color(*second_theme_color)
         for detail in config['cv']['personal-info']:
@@ -79,6 +79,14 @@ class PDF(FPDF):
         x = width_bar + 10
         y = current_y
         self.set_xy(x=x, y=y)
+
+        # Check if there is enough space for the section title + some content
+        if self.get_y() > 240:
+            self.add_page()
+            y = 20  # Reset to top of new page
+            self.set_xy(x=x, y=y)
+
+        
         self.make_a_cell(width=0,text=config['cv']['sections'][f'{section_details}']['title'],bold=True,font_size=header_font_size,url="",multi_line_cell=False)
         # Add a colored line underneath the section header
         self.set_draw_color(*first_theme_color)
@@ -105,20 +113,32 @@ class PDF(FPDF):
                 y += int(f"{item['details']['image-y-coordinate']}")
                 self.set_xy(x=x, y=y)
             elif 'details' in item:
-                self.make_a_cell(width=30,text=f"{item['time-frame']}",bold=False,font_size=details_font_size,url="",multi_line_cell=False)
-                self.make_a_cell(width=0,text=f"{item['details']['title']}",bold=False,font_size=details_font_size,url="",multi_line_cell=False)
+                y = self.get_y()
+                y += 5
+                self.set_xy(x=x, y=y)
+                self.make_a_cell(width=30,text=f"{item['time-frame']}",bold=False,font_size=details_font_size,url="",multi_line_cell=True)
+                x = width_bar + 40
+                self.set_xy(x=x, y=y)
+                self.make_a_cell(width=0,text=f"{item['details']['title']}",bold=False,font_size=details_font_size,url="",multi_line_cell=True)
+                x = width_bar + 10
+                y = self.get_y()
+                self.set_xy(x=x, y=y)
             # Check if 'description' exists in the 'experience-details' section
             if all('description' in item['details'] for item in config['cv']['sections'][f'{section_details}']['section-content']):
                 # Add description
+                # y += 10 # Adjust for space
                 for description in item['details']['description']:
-                    y += 5  # Adjust for space
+                    # y += 5  # Adjust for space
                     self.set_xy(x=x, y=y)
                     self.make_a_cell(width=30,text="",bold=False,font_size=details_font_size,url="",multi_line_cell=False)
-                    self.make_a_cell(width=0,text=description,bold=False,font_size=details_font_size,url="",multi_line_cell=False)
+                    self.make_a_cell(width=0,text=description,bold=False,font_size=details_font_size,url="",multi_line_cell=True)
+                    y = self.get_y()
+                    self.set_xy(x=x, y=y)
         y += 10
         self.set_xy(x=x, y=y)
         return self.get_y()
 
+current_year = datetime.now().year
 pdf = PDF()
 font = config['cv']['layout']['font']
 title_font_size = config['cv']['layout']['title-font-size']
@@ -135,5 +155,5 @@ current_y = 20 # Starting from y=20
 for item in config['cv']['sections']:
     current_y = pdf.add_section(item, current_y)
 
-pdf.output(f'{name}_cv.pdf', 'F')
+pdf.output(f'cv_{current_year}_{name}.pdf', 'F')
 print("CV created succesfully!")

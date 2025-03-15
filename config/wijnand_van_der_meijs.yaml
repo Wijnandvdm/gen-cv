@@ -1,0 +1,148 @@
+cv:
+  layout:
+    font: Arial
+    title-font-size: 15
+    header-font-size: 14
+    details-font-size: 10
+    image-size: 40
+    first-color: "#001F3F"
+    second-color: "#CCCCCC"
+    width-bar: 65
+    height-bar: 297
+  online-presence:
+    - icon-path: linkedin_icon.png
+      icon-size: 8
+      icon-x-coordinate: 20
+      link: https://www.linkedin.com/in/wijnand-van-der-meijs-066a56a8/
+    - icon-path: github_icon.png
+      icon-size: 8
+      icon-x-coordinate: 30
+      link: https://github.com/Wijnandvdm
+  personal-info:
+    - item: Wijnand van der Meijs
+    - item: +031623238391
+      icon-size: 8
+      icon-x-coordinate: 25
+    - item: wijnand@honestdatasolutions.nl
+      icon-size: 8
+      icon-x-coordinate: 25
+  languages:
+    - language: Dutch
+      proficiency: '****'
+    - language: English
+      proficiency: '****'
+    - language: German
+      proficiency: '***'
+    - language: Spanish
+      proficiency: '**'
+  sections:
+    profile:
+      title: Profile
+      section-content:
+        - time-frame: ""
+          details: ""
+          content: "I am known as an honest, results-oriented person and a creative thinker, capable of developing and presenting complex matters clearly within the organization. With this analytical perspective and the IT skills I have acquired, I aim to achieve demonstrable growth for the organization."
+    experience:
+      title: Work Experience
+      section-content:
+        - time-frame: 2024-Now
+          details:
+            title: Freelance Data Engineer at TenneT via Honest Data Solutions
+            description:
+                - "On-premise work:"
+                - "Worked on ingestion with Python in Kubernetes and data modeling within an on-premise Oracle Data Warehouse."
+                - "Implemented CI/CD pipelines with Jenkins and ArgoCD for automated deployments."
+                - ""
+                - "On-premise migration to Azure:"
+                - "- Migrated on-premise Oracle Data Warehouse to Azure using Databricks."
+                - "- Implemented Databricks Asset Bundles in Azure DevOpsfor streamlined deployment and management."
+        - time-frame: 2021-2024
+          details:
+            title: Data Engineer at Jumbo via Virtual Sciences
+            description:
+                - "Developed dynamic data flows extracting, transforming, and loading different file formats (CSV, JSON, XML, Parquet, Delta, etc.), using Azure Data Factory (ADF) and Azure Databricks."
+                - "Worked on batch and streaming (with Databricks autoloader) patterns using Azure Databricks and Azure Functions."
+                - "Developed Glossary, lineage, and resource sets in Azure Purview for governance."
+                - "Hosted knowledge transfer sessions on dynamic pipelines, workshops on Purview, presentations on code and architecture, and acted as Scrum Master."
+                - ""
+                - "Conducted Azure Cloud courses:"
+                - "- Migrated on-premise MySQL DB to Azure MySQL DB."
+                - "- Used Infrastructure as Code (Bicep templates) to deploy MySQL DB and Virtual Machines."
+                - "- Implemented dynamic scaling with Virtual Machine Scale Sets."
+                - ""
+                - "Conducted Bash scripting courses."
+                - ""
+                - "Developed a logging and monitoring solution with the Elastic Stack:"
+                - "- Routed logs and metrics to an Azure Event Hub, consumed by Elastic Stack components."
+                - "- Hosted FileBeat, Logstash, Elasticsearch, and Kibana on Azure Kubernetes Service using Helm charts."
+                - "- Automated deployment via Azure DevOps pipeline across DTAP environments."
+                - ""
+                - "Integrated an assessment form in Microsoft Forms with an Azure Logic App:"
+                - "- Stored data in an Azure SQL database and a Data Lake for disaster recovery."
+                - "- Developed Infrastructure as Code (Bicep templates) for deployment."
+                - "- Implemented GDPR-compliant data archiving and deletion rules."
+                - ""
+                - "Developed a backend for a product catalog using IceCat:"
+                - "- Used ADF, Azure Databricks, and Event Hub for orchestration, ETL, and streaming."
+                - "- Set up Azure DevOps pipelines for ADF pipeline deployment."
+        - time-frame: 2019-2020
+          details:
+            title: PhD Candidate at Radboudumc
+            description:
+                - Developed strong analytical and problem-solving skills.
+                - Designed and executed a research project.
+                - Completed courses in project management.
+    certifications:
+      title: Certifications
+      section-content:
+        - time-frame: Sep 2023
+          details: 
+            title: Certified Kubernetes Application Developer
+            link: https://www.credly.com/badges/ab79eb02-446e-4fb4-bb1b-1ce24f1b094a/linked_in_profile
+        - time-frame: Feb 2023
+          details:
+            title: Databricks Certified Data Engineer Professional
+            link: https://credentials.databricks.com/50cf9b6f-183f-4b0a-8ef9-55f872d78bf5
+        - time-frame: Aug 2022
+          details:
+            title: Professional Scrum Master PSM1
+            link: https://www.credly.com/badges/b1986474-c561-4c0e-a0a3-b24c073cf03e/linked_in_profile
+        - time-frame: Jul 2022
+          details:
+            title: Microsoft Azure Developer Associate AZ 204
+            link: https://learn.microsoft.com/en-us/users/wijnand-9767/credentials/55549763c1536d9d
+        - time-frame: Jan 2022
+          details:
+            title: Microsoft Azure Data Engineer Associate DP 203
+            link: https://learn.microsoft.com/en-us/users/wijnand-9767/credentials/fc39743a89230ee2
+    projects:
+      title: Projects
+      section-content:
+        - time-frame: 2022-2023
+          details:
+            title: Generate a CV PDF from a YAML Configuration
+            image-path: images/project_001.drawio.png
+            image-x-coordinate: 70
+            image-y-coordinate: 10
+            image-size: 50
+            image-link: ""
+        - time-frame: 2024-2025
+          details:
+            title: NomStats - Recipe Management
+            image-path: images/project_002.drawio.png
+            image-x-coordinate: 70
+            image-y-coordinate: 30
+            image-size: 50
+            image-link: "https://nomstats.z6.web.core.windows.net/"
+    education:
+      title: Education
+      section-content:
+        - time-frame: 2017-2019
+          details:
+            title: MSc Neuroscience @ Radboud University
+        - time-frame: 2014-2017
+          details:
+            title: BSc Biology @ Radboud University
+        - time-frame: 2006-2013
+          details: 
+            title: VWO @ Valuascollege
