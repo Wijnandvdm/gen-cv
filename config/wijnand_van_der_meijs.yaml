@@ -55,7 +55,7 @@ cv:
                 - ""
                 - "On-premise migration to Azure:"
                 - "- Migrated on-premise Oracle Data Warehouse to Azure using Databricks."
-                - "- Implemented Databricks Asset Bundles in Azure DevOpsfor streamlined deployment and management."
+                - "- Implemented Databricks Asset Bundles in Azure DevOps for streamlined deployment and management."
         - time-frame: 2021-2024
           details:
             title: Data Engineer at Jumbo via Virtual Sciences
