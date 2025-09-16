@@ -2,3 +2,4 @@
 __pycache__
 images/recolored_*
 .venv/
+uv.lock
