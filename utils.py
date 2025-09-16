@@ -4,7 +4,7 @@ from PIL import Image
 
 def usage():
     print("""Script has not been called correctly. 
-Instead use: python3 gen-cv.py template""")
+Instead use: uv run python main.py wijnand_van_der_meijs""")
     sys.exit(1)
 
 def recolor_icon(input_image_path, icon_color):
