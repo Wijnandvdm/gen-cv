@@ -1,7 +1,6 @@
-# pdf_generator.py
 from fpdf import FPDF
 from models import CVConfig, Section
-from utils import recolor_icon  # your existing helper for icons
+from utils import recolor_icon
 
 
 class PDF(FPDF):
@@ -90,7 +89,7 @@ class PDF(FPDF):
             )
 
         # Languages
-        y += self.layout.spacing.section_gap
+        y += self.layout.spacing.section_gap + icon.icon_size
         x = 10
         self.set_xy(x, y)
         self.draw_text_cell(
@@ -122,10 +121,10 @@ class PDF(FPDF):
 
 
     def add_section(self, section_key: str, current_y: int):
-        """Draws a section and its content with unified spacing."""
         section: Section = self.config.sections[section_key]
         x = self.layout.width_bar + 10
-        y = current_y
+        y = current_y + self.layout.spacing.section_gap  # spacing comes BEFORE
+
         self.set_xy(x, y)
 
         # Page break check
@@ -172,7 +171,7 @@ class PDF(FPDF):
                 self.draw_text_cell(
                     width=30,
                     text=item.time_frame or "",
-                    style="normal",
+                    style="bold",
                     font_size=self.layout.details_font_size,
                 )
 
@@ -180,7 +179,7 @@ class PDF(FPDF):
                 self.draw_text_cell(
                     width=0,
                     text=item.details.title or "",
-                    style="normal",
+                    style="bold",
                     font_size=self.layout.details_font_size,
                     url=str(item.details.link) or "",
                 )
@@ -215,6 +214,4 @@ class PDF(FPDF):
 
             self.set_xy(x, y)
 
-        y += self.layout.spacing.section_gap
-        self.set_xy(x, y)
         return self.get_y()
