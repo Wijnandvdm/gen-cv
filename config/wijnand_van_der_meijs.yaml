@@ -126,7 +126,7 @@ cv:
           details:
             title: Generate a CV PDF from a YAML Configuration
             image-path: images/project_001.drawio.png
-            image-x-coordinate: 70
+            image-x-coordinate: 75
             image-y-coordinate: 10
             image-size: 50
             image-link: ""
@@ -134,7 +134,7 @@ cv:
           details:
             title: NomStats - Recipe Management
             image-path: images/project_002.drawio.png
-            image-x-coordinate: 70
+            image-x-coordinate: 75
             image-y-coordinate: 30
             image-size: 50
             image-link: "https://nomstats.z6.web.core.windows.net/"

@@ -1,12 +1,12 @@
 from config_utils import load_config
 from pdf_generator import PDF
 from datetime import datetime
+from utils import usage
 import sys
 
 def main():
     if len(sys.argv) != 2:
-        print("Usage: python main.py <config_name>")
-        sys.exit(1)
+        usage()
 
     name = sys.argv[1]
     config = load_config(name)
