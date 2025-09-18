@@ -17,7 +17,7 @@ Secondly, since Word continues its assault on nicely formatted pages in Curricul
    - Replace `profile_picture.png` with your own picture, ensuring the filename remains `profile_picture.png`.
 
 3. **CV Generation**:
-   - Run the script with `uv run python gen-cv.py <your_name>`.
+   - Run the script with `uv run python main.py <your_name>`.
    - Your personalized CV will be generated as a nicely formatted PDF!
 
 This of course does not explain the complete functionality of this project. Want to know more? Don't be shy, ask the creator of this repo!

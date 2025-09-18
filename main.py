@@ -1,7 +1,6 @@
-from config_utils import load_config
 from pdf_generator import PDF
 from datetime import datetime
-from utils import usage
+from utils import usage, load_config
 import sys
 
 def main():
