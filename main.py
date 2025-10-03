@@ -1,7 +1,9 @@
-from pdf_generator import PDF
-from datetime import datetime
-from utils import usage, load_config
 import sys
+from datetime import datetime
+
+from pdf_generator import PDF
+from utils import load_config, usage
+
 
 def main():
     if len(sys.argv) != 2:
@@ -21,6 +23,7 @@ def main():
     current_year = datetime.now().year
     pdf.output(f"cv_{current_year}_{name}.pdf", "F")
     print("CV created successfully!")
+
 
 if __name__ == "__main__":
     main()

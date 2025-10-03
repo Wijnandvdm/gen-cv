@@ -1,9 +1,11 @@
-import importlib
 import sys
-from PIL import Image
-import yaml
 from pathlib import Path
+
+import yaml
+from PIL import Image
+
 from models import CVConfig
+
 
 def usage():
     print("""Script has not been called correctly. 
@@ -16,15 +18,17 @@ def load_config(name: str) -> CVConfig:
     config_path = Path("config") / f"{name}.yaml"
     if not config_path.exists():
         raise FileNotFoundError(f"Config file not found: {config_path}")
-    
+
     with open(config_path, "r", encoding="utf-8") as f:
         raw = yaml.safe_load(f)
 
     return CVConfig(**raw["cv"])
 
+
 def hex_to_rgb(hex_color: str) -> tuple[int, int, int]:
     hex_color = hex_color.lstrip("#")
-    return tuple(int(hex_color[i:i+2], 16) for i in (0, 2, 4))
+    return tuple(int(hex_color[i : i + 2], 16) for i in (0, 2, 4))
+
 
 def recolor_icon(input_image_path, icon_color):
     # Open the image

@@ -1,10 +1,13 @@
+from typing import Dict, List, Optional, Union
+
 from pydantic import BaseModel, Field, HttpUrl
-from typing import List, Optional, Dict, Union
+
 
 class Spacing(BaseModel):
     section_gap: int
     line_gap: int
     after_title_gap: int
+
 
 class Layout(BaseModel):
     font: str
@@ -17,6 +20,7 @@ class Layout(BaseModel):
     width_bar: int = Field(alias="width-bar")
     height_bar: int = Field(alias="height-bar")
     spacing: Spacing
+
 
 class OnlinePresence(BaseModel):
     icon_path: str = Field(alias="icon-path")
