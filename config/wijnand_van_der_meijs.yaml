@@ -51,7 +51,7 @@ cv:
       section-content:
         - time-frame: 2024-Now
           details:
-            title: Freelance Data Engineer at TenneT via Honest Data Solutions
+            title: Freelance Data Engineer at TenneT
             description:
                 - "On-premise work:"
                 - "Worked on ingestion with Python in Kubernetes and data modeling within an on-premise Oracle Data Warehouse."
@@ -60,6 +60,7 @@ cv:
                 - "On-premise migration to Azure:"
                 - "- Migrated on-premise Oracle Data Warehouse to Azure using Databricks."
                 - "- Implemented Databricks Asset Bundles in Azure DevOps for streamlined deployment and management."
+                - "- Created CI/CD pipelines with Azure DevOps for deployment of Databricks Asset Bundles (DAB) and package publishing to Artifacts."
         - time-frame: 2021-2024
           details:
             title: Data Engineer at Jumbo via Virtual Sciences
@@ -138,6 +139,14 @@ cv:
             image-y-coordinate: 30
             image-size: 50
             image-link: "https://nomstats.z6.web.core.windows.net/"
+        - time-frame: "2025"
+          details:
+            title: Crisp VMs - Virtual Machine Management Tool
+            image-path: images/project_003.drawio.png
+            image-x-coordinate: 75
+            image-y-coordinate: 10
+            image-size: 50
+            image-link: "https://github.com/Wijnandvdm/crisp-vms"
     education:
       title: Education
       section-content:
