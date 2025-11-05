@@ -1,11 +1,34 @@
-import importlib
 import sys
+from pathlib import Path
+
+import yaml
 from PIL import Image
+
+from models import CVConfig
+
 
 def usage():
     print("""Script has not been called correctly. 
-Instead use: python3 gen-cv.py template""")
+Instead use: uv run python main.py wijnand_van_der_meijs""")
     sys.exit(1)
+
+
+def load_config(name: str) -> CVConfig:
+    """Load and validate CV YAML config into a CVConfig object."""
+    config_path = Path("config") / f"{name}.yaml"
+    if not config_path.exists():
+        raise FileNotFoundError(f"Config file not found: {config_path}")
+
+    with open(config_path, "r", encoding="utf-8") as f:
+        raw = yaml.safe_load(f)
+
+    return CVConfig(**raw["cv"])
+
+
+def hex_to_rgb(hex_color: str) -> tuple[int, int, int]:
+    hex_color = hex_color.lstrip("#")
+    return tuple(int(hex_color[i : i + 2], 16) for i in (0, 2, 4))
+
 
 def recolor_icon(input_image_path, icon_color):
     # Open the image
