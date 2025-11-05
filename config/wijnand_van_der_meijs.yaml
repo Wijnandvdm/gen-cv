@@ -130,7 +130,7 @@ cv:
             image-x-coordinate: 75
             image-y-coordinate: 10
             image-size: 50
-            image-link: ""
+            image-link: "https://github.com/Wijnandvdm/gen-cv"
         - time-frame: 2024-2025
           details:
             title: NomStats - Recipe Management
