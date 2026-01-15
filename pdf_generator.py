@@ -150,7 +150,7 @@ class PDF(FPDF):
                     item.details.title or "",
                     style="bold",
                     font_size=self.layout.details_font_size,
-                    url=str(item.details.link) or "",
+                    url=str(item.details.link) if item.details.link else "",
                 )
 
                 if item.details.description:
@@ -174,7 +174,7 @@ class PDF(FPDF):
                         item.details.image_x_coordinate or x,
                         y,
                         item.details.image_size or 40,
-                        link=item.details.image_link or "",
+                        link=item.details.image_link if item.details.image_link else "",
                     )
                     y += item.details.image_y_coordinate or 0
 

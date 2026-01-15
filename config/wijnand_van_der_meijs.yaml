@@ -59,16 +59,16 @@ cv:
                 - ""
                 - "On-premise migration to Azure:"
                 - "- Migrated on-premise Oracle Data Warehouse to Azure using Databricks."
-                - "- Implemented Databricks Asset Bundles in Azure DevOps for streamlined deployment and management."
-                - "- Created CI/CD pipelines with Azure DevOps for deployment of Databricks Asset Bundles (DAB) and package publishing to Artifacts."
+                - "- Developed ways of working regarding the processing of data throughout the lakehouse."
+                - "- Developed generic way of validating Azure data as compared to on-premise data."
+                - "- Implemented Databricks Asset Bundles (DABs) in Azure DevOps for streamlined deployment and management."
+                - "- Created CI/CD pipelines with Azure DevOps for deployment of DABs and package publishing to Artifacts."
         - time-frame: 2021-2024
           details:
             title: Data Engineer at Jumbo via Virtual Sciences
             description:
                 - "Developed dynamic data flows extracting, transforming, and loading different file formats (CSV, JSON, XML, Parquet, Delta, etc.), using Azure Data Factory (ADF) and Azure Databricks."
                 - "Worked on batch and streaming (with Databricks autoloader) patterns using Azure Databricks and Azure Functions."
-                - "Developed Glossary, lineage, and resource sets in Azure Purview for governance."
-                - "Hosted knowledge transfer sessions on dynamic pipelines, workshops on Purview, presentations on code and architecture, and acted as Scrum Master."
                 - ""
                 - "Conducted Azure Cloud courses:"
                 - "- Migrated on-premise MySQL DB to Azure MySQL DB."
@@ -76,7 +76,6 @@ cv:
                 - "- Implemented dynamic scaling with Virtual Machine Scale Sets."
                 - ""
                 - "Conducted Bash scripting courses."
-                - ""
                 - "Developed a logging and monitoring solution with the Elastic Stack:"
                 - "- Routed logs and metrics to an Azure Event Hub, consumed by Elastic Stack components."
                 - "- Hosted FileBeat, Logstash, Elasticsearch, and Kibana on Azure Kubernetes Service using Helm charts."
