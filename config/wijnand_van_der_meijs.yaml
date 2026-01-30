@@ -46,6 +46,12 @@ cv:
         - time-frame: ""
           details: ""
           content: "I am known as an honest, results-oriented person and a creative thinker, capable of developing and presenting complex matters clearly within the organization. With this analytical perspective and the IT skills I have acquired, I aim to achieve demonstrable growth for the organization."
+    # Bullet usage examples:
+    # Use plain list items in a description like:
+    #   - "- Item text"
+    #   - "  - Nested item text"  # two leading spaces -> nested bullet
+    # Supported bullet markers: '-', '*', '+' (leading spaces increase nesting level)
+    # The generator converts these patterns to indented bullets.
     experience:
       title: Work Experience
       section-content:

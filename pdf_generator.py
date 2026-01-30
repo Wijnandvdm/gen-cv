@@ -1,4 +1,5 @@
 from fpdf import FPDF
+import re
 
 from models import CVConfig, Section
 from utils import hex_to_rgb, recolor_icon
@@ -156,15 +157,48 @@ class PDF(FPDF):
                 if item.details.description:
                     for desc in item.details.description:
                         self.set_xy(x, self.get_y())
-                        self.draw_text_cell(
-                            30, "", font_size=self.layout.details_font_size
-                        )
-                        self.draw_text_cell(
-                            0,
-                            desc,
-                            style="multiline",
-                            font_size=self.layout.details_font_size,
-                        )
+
+                        # Empty lines should create spacing
+                        if not desc or not desc.strip():
+                            self.draw_text_cell(0, "", style="multiline", font_size=self.layout.details_font_size)
+                            y = self.get_y()
+                            continue
+
+                        # Detect bullet-like patterns (e.g., '- item', '* item') and optional indentation
+                        m = re.match(r"^(?P<indent>\s*)([-*+])\s+(?P<text>.+)$", desc)
+                        if m:
+                            indent_spaces = len(m.group('indent'))
+                            # base indent (after the time-frame column)
+                            base_indent = 30
+                            # increase indent for nested bullets (2 spaces per nest)
+                            nested_level = indent_spaces // 2
+                            extra_indent = nested_level * 8
+
+                            # Draw small filled bullet (square) to avoid encoding/font issues
+                            bullet_x = x + base_indent + extra_indent + 2
+                            bullet_y = self.get_y() + 2
+                            self.set_fill_color(*self.first_theme_color)
+                            # small square bullet (2x2)
+                            self.rect(bullet_x, bullet_y, 2, 2, 'F')
+
+                            # Draw the text after the bullet
+                            self.set_xy(x + base_indent + extra_indent + 8, self.get_y())
+                            self.draw_text_cell(
+                                0,
+                                m.group('text'),
+                                style="multiline",
+                                font_size=self.layout.details_font_size,
+                            )
+                        else:
+                            # regular description line
+                            self.draw_text_cell(30, "", font_size=self.layout.details_font_size)
+                            self.draw_text_cell(
+                                0,
+                                desc,
+                                style="multiline",
+                                font_size=self.layout.details_font_size,
+                            )
+
                         y = self.get_y()
 
                 if item.details.image_path:
