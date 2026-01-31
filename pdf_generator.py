@@ -174,12 +174,12 @@ class PDF(FPDF):
                             nested_level = indent_spaces // 2
                             extra_indent = nested_level * 8
 
-                            # Draw small filled bullet (square) to avoid encoding/font issues
+                            # Draw small filled bullet
                             bullet_x = x + base_indent + extra_indent + 2
                             bullet_y = self.get_y() + 2
                             self.set_fill_color(*self.first_theme_color)
-                            # small square bullet (2x2)
-                            self.rect(bullet_x, bullet_y, 2, 2, 'F')
+                            # ellipse(x_center, y_center, rx, ry, style='F') - center at +1
+                            self.ellipse(bullet_x + 1.5, bullet_y + 1.5, 1.5, 1.5, 'F')
 
                             # Draw the text after the bullet
                             self.set_xy(x + base_indent + extra_indent + 8, self.get_y())
