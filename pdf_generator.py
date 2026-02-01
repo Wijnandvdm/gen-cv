@@ -12,10 +12,12 @@ class PDF(FPDF):
         self.layout = config.layout
         self.first_theme_color = hex_to_rgb(self.layout.first_color)
         self.second_theme_color = hex_to_rgb(self.layout.second_color)
+        # self.page_number = 1
 
     def draw_text_cell(self, width, text, style="normal", font_size=12, url=""):
         styles = {"bold": "B", "normal": "", "multiline": "multiline"}
         font_style = styles.get(style, "")
+        print(f"font_style: {font_style}")
         self.set_font(
             self.layout.font, "" if style == "multiline" else font_style, font_size
         )
@@ -26,14 +28,6 @@ class PDF(FPDF):
             self.set_x(x_before)
         else:
             self.cell(width, 10, text, ln=1 if width == 0 else 0, link=url)
-
-    def next_line(self, y, step=None):
-        """Move Y down by line_gap or custom step."""
-        return y + (step or self.layout.spacing.line_gap)
-
-    def next_section(self, y):
-        """Move Y down by section_gap."""
-        return y + self.layout.spacing.section_gap
 
     def header(self):
         self.set_fill_color(*self.first_theme_color)
@@ -50,12 +44,12 @@ class PDF(FPDF):
 
         self.set_text_color(*self.second_theme_color)
         for detail in self.config.personal_info:
-            y = self.next_line(y)
+            y = y + self.layout.spacing.line_gap
             self.set_xy(x, y)
             self.draw_text_cell(0, detail.item, font_size=self.layout.details_font_size)
 
         # Online presence
-        y = self.next_line(y)
+        y = y + self.layout.spacing.line_gap
         for icon in self.config.online_presence:
             x += self.layout.spacing.line_gap
             recolored = recolor_icon(icon.icon_path, self.second_theme_color)
@@ -68,14 +62,14 @@ class PDF(FPDF):
             )
 
         # Languages
-        y = self.next_section(y + icon.icon_size)
+        y = y + self.layout.spacing.section_gap + icon.icon_size
         self.set_xy(10, y)
         self.draw_text_cell(
             0, "Languages", style="bold", font_size=self.layout.header_font_size
         )
 
         for lang in self.config.languages:
-            y = self.next_line(y)
+            y = y + self.layout.spacing.line_gap
             self.set_xy(10, y)
             self.draw_text_cell(
                 30, lang.language, font_size=self.layout.details_font_size
@@ -100,10 +94,25 @@ class PDF(FPDF):
             self.set_xy(x, y)
         return y
 
+    # def ensure_page_space(self):
+    #     """Ensure there's space left, otherwise create a new page and reset Y."""
+        # self.page_number = self.page_no()
+        # if self.page_number != self.page_no():
+        #     self.page_number = self.page_number + 1
+        #     print(f"Creating new page: {self.page_number}")
+        #     print(f"current y is: {self.get_y()}")
+        #     self.add_page()
+        #     print(f"new page y is: {self.get_y()}")
+        #     current_y = self.get_y() + 20
+        #     self.set_xy(self.layout.width_bar + 10, current_y)
+        # else:
+        #     print(f"Continuing on page: {self.page_number} with y {self.get_y()}")
+
+
     def add_section(self, section_key: str, current_y: int):
         section: Section = self.config.sections[section_key]
         x = self.layout.width_bar + 10
-        y = self.next_section(current_y)
+        y = current_y + self.layout.spacing.section_gap
         self.set_xy(x, y)
         y = self.ensure_page_space(x, y)
 
@@ -118,11 +127,11 @@ class PDF(FPDF):
             x + 190,
             y + self.layout.spacing.line_gap,
         )
-        y = self.next_section(y)
+        y = y + self.layout.spacing.section_gap
 
         # Content
         for item in section.section_content:
-            y = self.next_line(y)
+            y = y + self.layout.spacing.line_gap
             self.set_xy(x, y)
 
             if item.content:
@@ -202,7 +211,7 @@ class PDF(FPDF):
                         y = self.get_y()
 
                 if item.details.image_path:
-                    y = self.next_line(y)
+                    y = y + self.layout.spacing.line_gap
                     self.image(
                         item.details.image_path,
                         item.details.image_x_coordinate or x,
