@@ -15,10 +15,12 @@ def main():
     pdf = PDF(config)
     pdf.add_page()
     pdf.personal_info()
+    pdf.set_xy(pdf.layout.width_bar + 10, pdf.starting_y)
 
-    current_y = 20
+    # current_y = 20
     for section_key in config.sections:
-        current_y = pdf.add_section(section_key, current_y)
+        # current_y = pdf.add_section(section_key, current_y)
+        pdf.add_section(section_key)
 
     current_year = datetime.now().year
     pdf.output(f"cv_{current_year}_{name}.pdf", "F")

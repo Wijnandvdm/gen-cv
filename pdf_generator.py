@@ -13,7 +13,7 @@ class PDF(FPDF):
         self.layout = config.layout
         self.first_theme_color = hex_to_rgb(self.layout.first_color)
         self.second_theme_color = hex_to_rgb(self.layout.second_color)
-        # self.page_number = 1
+        self.starting_y = 20
 
     def draw_text_cell(self, width, text, bold=False, multiline=False, font_size=12, url=""):
         self.set_font(self.layout.font, "B" if bold else "", font_size)
@@ -71,23 +71,20 @@ class PDF(FPDF):
             )
 
         self.set_text_color(0, 0, 0)
-        return y
 
-    def ensure_page_space(self, x: int, y: int, threshold: int = 240, reset_y: int = 20) -> int:
+    def ensure_page_space(self, threshold: int = 240, reset_y: int = 20) -> int:
         """Ensure there's space left, otherwise create a new page and reset Y."""
         if self.get_y() > threshold:
             self.add_page()
-            y = reset_y
-            self.set_xy(x, reset_y)
-        return y
+            self.set_xy(self.layout.width_bar + 10, reset_y)
 
-    def add_section(self, section_key: str, current_y: int):
+    # def add_section(self, section_key: str, current_y: int):
+    def add_section(self, section_key: str):
         section: Section = self.config.sections[section_key]
         x = self.layout.width_bar + 10
-        # y = current_y + self.layout.spacing.section_gap
-        y = current_y
+        y = self.get_y()
         self.set_xy(x, y)
-        y = self.ensure_page_space(x, y)
+        self.ensure_page_space()
 
         # Header
         self.draw_text_cell(0, section.title, bold=True, font_size=self.layout.header_font_size)
@@ -170,4 +167,4 @@ class PDF(FPDF):
 
             self.set_xy(x, y)
 
-        return y
+        # return y
