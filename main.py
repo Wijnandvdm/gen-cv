@@ -22,6 +22,9 @@ def main():
         # current_y = pdf.add_section(section_key, current_y)
         pdf.add_section(section_key)
 
+    # debug: show how many pages were generated before writing file
+    print("Pages:", pdf.page_no())
+
     current_year = datetime.now().year
     pdf.output(f"cv_{current_year}_{name}.pdf", "F")
     print("CV created successfully!")

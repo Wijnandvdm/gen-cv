@@ -14,6 +14,7 @@ class PDF(FPDF):
         self.first_theme_color = hex_to_rgb(self.layout.first_color)
         self.second_theme_color = hex_to_rgb(self.layout.second_color)
         self.starting_y = 20
+        self.page_break_trigger = 240
 
     def draw_text_cell(self, width, text, bold=False, multiline=False, font_size=12, url=""):
         self.set_font(self.layout.font, "B" if bold else "", font_size)
@@ -72,22 +73,36 @@ class PDF(FPDF):
 
         self.set_text_color(0, 0, 0)
 
-    def ensure_page_space(self, threshold: int = 240, reset_y: int = 20) -> int:
-        """Ensure there's space left, otherwise create a new page and reset Y."""
-        if self.get_y() > threshold:
+    def ensure_page_space(self, needed_height: int) -> bool:
+        """Ensure there's space left; if not, create a new page and reset X/Y.
+
+        Uses the actual remaining space on the page (considering bottom margin) instead
+        of a fixed trigger. Returns True when a page was added.
+        """
+        # remaining printable vertical space on this page
+        remaining = self.h - self.get_y() - self.b_margin
+        if needed_height >= remaining:
             self.add_page()
-            self.set_xy(self.layout.width_bar + 10, reset_y)
+            # place cursor at the start of the right column/header area
+            self.set_xy(self.layout.width_bar + 10, self.starting_y)
+            return True
+        return False
 
     # def add_section(self, section_key: str, current_y: int):
     def add_section(self, section_key: str):
         section: Section = self.config.sections[section_key]
         x = self.layout.width_bar + 10
         y = self.get_y()
+        # ensure there is room for the section header + a little content
+        if self.ensure_page_space(self.layout.header_font_size + self.layout.spacing.section_gap + 10):
+            # page was added; reset y to the new page start
+            y = self.get_y()
         self.set_xy(x, y)
-        self.ensure_page_space()
 
         # Header
         self.draw_text_cell(0, section.title, bold=True, font_size=self.layout.header_font_size)
+        # ensure cursor stays in the right column after drawing a width=0 cell
+        self.set_xy(x, self.get_y())
         self.set_draw_color(*self.first_theme_color)
         self.line(x, y + self.layout.spacing.line_gap, x + 190, y + self.layout.spacing.line_gap)
         y = y + self.layout.spacing.section_gap
@@ -95,16 +110,19 @@ class PDF(FPDF):
         # Content
         for item in section.section_content:
             y = y + self.layout.spacing.line_gap
+            # make sure there is enough space for at least a couple of lines of this item
+            if self.ensure_page_space(self.layout.details_font_size * 3):
+                y = self.get_y()
             self.set_xy(x, y)
 
             if item.content:
                 self.draw_text_cell(0, item.content, multiline=True, font_size=self.layout.details_font_size)
                 y = self.get_y()
 
-            elif isinstance(item.details, str):
-                self.draw_text_cell(0, item.details, font_size=self.layout.details_font_size)
-
             elif item.details:
+                # ensure room for title + one line
+                if self.ensure_page_space(self.layout.details_font_size * 2):
+                    y = self.get_y()
                 self.draw_text_cell(30, item.time_frame or "", bold=True, font_size=self.layout.details_font_size)
                 self.draw_text_cell(
                     0,
@@ -113,10 +131,17 @@ class PDF(FPDF):
                     font_size=self.layout.details_font_size,
                     url=str(item.details.link) if item.details.link else "",
                 )
+                y = self.get_y()
+                # restore X to the section column so subsequent lines stay aligned
+                self.set_xy(x, y)
 
                 if item.details.description:
                     for desc in item.details.description:
-                        self.set_xy(x, self.get_y())
+                        # ensure space for the upcoming description line
+                        if self.ensure_page_space(self.layout.details_font_size * 2):
+                            self.set_xy(x, self.get_y())
+                        else:
+                            self.set_xy(x, self.get_y())
 
                         # Empty lines should create spacing
                         if not desc or not desc.strip():
@@ -155,7 +180,9 @@ class PDF(FPDF):
                         y = self.get_y()
 
                 if item.details.image_path:
-                    y = y + self.layout.spacing.line_gap
+                    # ensure there is room for the image
+                    if self.ensure_page_space(item.details.image_size + self.layout.spacing.line_gap):
+                        y = self.get_y()
                     self.image(
                         item.details.image_path,
                         item.details.image_x_coordinate or x,
@@ -167,4 +194,3 @@ class PDF(FPDF):
 
             self.set_xy(x, y)
 
-        # return y
