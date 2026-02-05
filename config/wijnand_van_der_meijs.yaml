@@ -133,7 +133,7 @@ cv:
             title: Generate a CV PDF from a YAML Configuration
             image-path: images/project_001.drawio.png
             image-x-coordinate: 75
-            image-y-coordinate: 10
+            image-y-coordinate: 20
             image-size: 50
             image-link: "https://github.com/Wijnandvdm/gen-cv"
         - time-frame: 2024-2025
@@ -141,7 +141,7 @@ cv:
             title: NomStats - Recipe Management
             image-path: images/project_002.drawio.png
             image-x-coordinate: 75
-            image-y-coordinate: 30
+            image-y-coordinate: 40
             image-size: 50
             image-link: "https://nomstats.z6.web.core.windows.net/"
         - time-frame: "2025"
@@ -149,7 +149,7 @@ cv:
             title: Crisp VMs - Virtual Machine Management Tool
             image-path: images/project_003.drawio.png
             image-x-coordinate: 75
-            image-y-coordinate: 10
+            image-y-coordinate: 20
             image-size: 50
             image-link: "https://github.com/Wijnandvdm/crisp-vms"
     education:

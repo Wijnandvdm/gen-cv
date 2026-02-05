@@ -2,7 +2,7 @@ import re
 
 from fpdf import FPDF
 
-from models import CVConfig, Section
+from models import CVConfig
 from utils import hex_to_rgb, recolor_icon
 
 
@@ -14,7 +14,7 @@ class PDF(FPDF):
         self.first_theme_color = hex_to_rgb(self.layout.first_color)
         self.second_theme_color = hex_to_rgb(self.layout.second_color)
         self.starting_y = 20
-        self.page_break_trigger = 240
+        self.page_break_trigger = 250
 
     def draw_text_cell(self, width, text, bold=False, multiline=False, font_size=12, url=""):
         self.set_font(self.layout.font, "B" if bold else "", font_size)
@@ -88,109 +88,145 @@ class PDF(FPDF):
             return True
         return False
 
-    # def add_section(self, section_key: str, current_y: int):
-    def add_section(self, section_key: str):
-        section: Section = self.config.sections[section_key]
+    def add_section(self, section_key):
+        section = self.config.sections[section_key]
+
+        if section_key == "profile":
+            self.render_profile(section)
+        elif section_key == "experience":
+            self.render_experience(section)
+        elif section_key == "certifications":
+            self.render_certifications(section)
+        elif section_key == "projects":
+            self.render_projects(section)
+        elif section_key == "education":
+            self.render_education(section)
+
+    def render_profile(self, section):
         x = self.layout.width_bar + 10
-        y = self.get_y()
-        # ensure there is room for the section header + a little content
-        if self.ensure_page_space(self.layout.header_font_size + self.layout.spacing.section_gap + 10):
-            # page was added; reset y to the new page start
-            y = self.get_y()
-        self.set_xy(x, y)
 
-        # Header
-        self.draw_text_cell(0, section.title, bold=True, font_size=self.layout.header_font_size)
-        # ensure cursor stays in the right column after drawing a width=0 cell
+        # header
+        self.ensure_page_space(30)
         self.set_xy(x, self.get_y())
-        self.set_draw_color(*self.first_theme_color)
-        self.line(x, y + self.layout.spacing.line_gap, x + 190, y + self.layout.spacing.line_gap)
-        y = y + self.layout.spacing.section_gap
+        self.draw_text_cell(0, section.title, bold=True, font_size=self.layout.header_font_size)
+        self.ln(self.layout.spacing.section_gap)
 
-        # Content
+        # single text blob
         for item in section.section_content:
-            y = y + self.layout.spacing.line_gap
-            # make sure there is enough space for at least a couple of lines of this item
-            if self.ensure_page_space(self.layout.details_font_size * 3):
-                y = self.get_y()
-            self.set_xy(x, y)
+            self.ensure_page_space(40)
+            self.set_xy(x, self.get_y())
+            self.draw_text_cell(0, item.content, multiline=True, font_size=self.layout.details_font_size)
+            self.ln(self.layout.spacing.line_gap)
 
-            if item.content:
-                self.draw_text_cell(0, item.content, multiline=True, font_size=self.layout.details_font_size)
-                y = self.get_y()
+    def render_experience(self, section):
+        x = self.layout.width_bar + 10
 
-            elif item.details:
-                # ensure room for title + one line
-                if self.ensure_page_space(self.layout.details_font_size * 2):
-                    y = self.get_y()
-                self.draw_text_cell(30, item.time_frame or "", bold=True, font_size=self.layout.details_font_size)
-                self.draw_text_cell(
-                    0,
-                    item.details.title or "",
-                    bold=True,
-                    font_size=self.layout.details_font_size,
-                    url=str(item.details.link) if item.details.link else "",
-                )
-                y = self.get_y()
-                # restore X to the section column so subsequent lines stay aligned
-                self.set_xy(x, y)
+        # header
+        self.ensure_page_space(0)
+        self.set_xy(x, self.get_y())
+        self.draw_text_cell(0, section.title, bold=True, font_size=self.layout.header_font_size)
+        self.ln(self.layout.spacing.section_gap)
 
-                if item.details.description:
-                    for desc in item.details.description:
-                        # ensure space for the upcoming description line
-                        if self.ensure_page_space(self.layout.details_font_size * 2):
-                            self.set_xy(x, self.get_y())
-                        else:
-                            self.set_xy(x, self.get_y())
+        for item in section.section_content:
+            # time frame + title must stay together
+            self.ensure_page_space(0)
+            self.set_xy(x, self.get_y())
 
-                        # Empty lines should create spacing
-                        if not desc or not desc.strip():
-                            self.draw_text_cell(0, "", multiline=True, font_size=self.layout.details_font_size)
-                            y = self.get_y()
-                            continue
+            self.draw_text_cell(30, item.time_frame or "", bold=True, font_size=self.layout.details_font_size)
+            self.draw_text_cell(0, item.details.title, bold=True, font_size=self.layout.details_font_size)
 
-                        # Detect bullet-like patterns (e.g., '- item', '* item') and optional indentation
-                        m = re.match(r"^(?P<indent>\s*)([-*+])\s+(?P<text>.+)$", desc)
-                        if m:
-                            indent_spaces = len(m.group("indent"))
-                            # base indent (after the time-frame column)
-                            base_indent = 30
-                            # increase indent for nested bullets (2 spaces per nest)
-                            nested_level = indent_spaces // 2
-                            extra_indent = nested_level * 8
+            if item.details.description:
+                for desc in item.details.description:
+                    self.ensure_page_space(0)
+                    self.set_xy(x, self.get_y())
 
-                            # Draw small filled bullet
-                            bullet_x = x + base_indent + extra_indent + 2
-                            bullet_y = self.get_y() + 2
-                            self.set_fill_color(*self.first_theme_color)
-                            # ellipse(x_center, y_center, rx, ry, style='F') - center at +1
-                            self.ellipse(bullet_x + 1.5, bullet_y + 1.5, 1.5, 1.5, "F")
+                    if not desc.strip():
+                        self.ln(self.layout.spacing.line_gap)
+                        continue
 
-                            # Draw the text after the bullet
-                            self.set_xy(x + base_indent + extra_indent + 8, self.get_y())
-                            self.draw_text_cell(
-                                0, m.group("text"), multiline=True, font_size=self.layout.details_font_size
-                            )
-                        else:
-                            # regular description line
-                            self.draw_text_cell(30, "", font_size=self.layout.details_font_size)
+                    m = re.match(r"^(?P<indent>\s*)([-*+])\s+(?P<text>.+)$", desc)
+                    if m:
+                        indent = len(m.group("indent")) // 2
+                        base_indent = 30
+                        extra = indent * 8
 
-                            self.draw_text_cell(0, desc, multiline=True, font_size=self.layout.details_font_size)
+                        bullet_x = x + base_indent + extra + 2
+                        bullet_y = self.get_y() + 2
+                        self.set_fill_color(*self.first_theme_color)
+                        self.ellipse(bullet_x + 1.5, bullet_y + 1.5, 1.5, 1.5, "F")
 
-                        y = self.get_y()
+                        self.set_xy(x + base_indent + extra + 8, self.get_y())
+                        self.draw_text_cell(0, m.group("text"), multiline=True, font_size=self.layout.details_font_size)
+                    else:
+                        self.draw_text_cell(30, "", font_size=self.layout.details_font_size)
+                        self.draw_text_cell(0, desc, multiline=True, font_size=self.layout.details_font_size)
 
-                if item.details.image_path:
-                    # ensure there is room for the image
-                    if self.ensure_page_space(item.details.image_size + self.layout.spacing.line_gap):
-                        y = self.get_y()
-                    self.image(
-                        item.details.image_path,
-                        item.details.image_x_coordinate or x,
-                        y,
-                        item.details.image_size or 40,
-                        link=item.details.image_link if item.details.image_link else "",
-                    )
-                    y += item.details.image_y_coordinate or 0
+            self.ln(self.layout.spacing.section_gap)
 
-            self.set_xy(x, y)
+    def render_certifications(self, section):
+        x = self.layout.width_bar + 10
 
+        self.ensure_page_space(30)
+        self.set_xy(x, self.get_y())
+        self.draw_text_cell(0, section.title, bold=True, font_size=self.layout.header_font_size)
+        self.ln(self.layout.spacing.section_gap)
+
+        for item in section.section_content:
+            self.ensure_page_space(15)
+            self.set_xy(x, self.get_y())
+
+            self.draw_text_cell(30, item.time_frame, bold=True, font_size=self.layout.details_font_size)
+            self.draw_text_cell(
+                0,
+                item.details.title,
+                font_size=self.layout.details_font_size,
+                url=str(item.details.link) if item.details.link else "",
+            )
+
+    def render_projects(self, section):
+        x = self.layout.width_bar + 10
+
+        self.ensure_page_space(30)
+        self.set_xy(x, self.get_y())
+        self.draw_text_cell(0, section.title, bold=True, font_size=self.layout.header_font_size)
+        self.ln(self.layout.spacing.section_gap)
+
+        for item in section.section_content:
+            img_size = item.details.image_size or 40
+
+            # header + image must stay together
+            self.ensure_page_space(img_size)
+
+            self.set_xy(x, self.get_y())
+            self.draw_text_cell(30, item.time_frame or "", bold=True, font_size=self.layout.details_font_size)
+            self.draw_text_cell(
+                0, item.details.title, bold=True, font_size=self.layout.details_font_size, url=item.details.link or ""
+            )
+
+            self.ln(2)
+
+            img_x = item.details.image_x_coordinate or x
+            img_y = self.get_y()
+
+            self.image(item.details.image_path, img_x, img_y, img_size, link=item.details.image_link or "")
+            self.set_y(img_y + item.details.image_y_coordinate)
+
+    def render_education(self, section):
+        x = self.layout.width_bar + 10
+
+        self.ensure_page_space(30)
+        self.set_xy(x, self.get_y())
+        self.draw_text_cell(
+            0,
+            section.title,
+            bold=True,
+            font_size=self.layout.header_font_size,
+        )
+        self.ln(self.layout.spacing.section_gap)
+
+        for item in section.section_content:
+            self.ensure_page_space(15)
+            self.set_xy(x, self.get_y())
+
+            self.draw_text_cell(30, item.time_frame, bold=True, font_size=self.layout.details_font_size)
+            self.draw_text_cell(0, item.details.title, font_size=self.layout.details_font_size)
