@@ -14,7 +14,7 @@ class PDF(FPDF):
         self.first_theme_color = hex_to_rgb(self.layout.first_color)
         self.second_theme_color = hex_to_rgb(self.layout.second_color)
         self.starting_y = 20
-        self.page_break_trigger = 250
+        self.page_break_trigger = 260
 
     def draw_text_cell(self, width, text, bold=False, multiline=False, font_size=12, url=""):
         self.set_font(self.layout.font, "B" if bold else "", font_size)
