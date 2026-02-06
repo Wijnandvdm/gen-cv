@@ -11,8 +11,8 @@ cv:
     height-bar: 297
     spacing:
       section_gap: 3      # space before/after section lines
-      line_gap: 10          # space between lines of text
-      after_title_gap: 20  # space after "Curriculum Vitae" title
+      line_gap: 5          # space between lines of text
+      after_title_gap: 5  # space after "Curriculum Vitae" title
   online-presence:
     - icon-path: linkedin_icon.png
       icon-size: 8
@@ -82,6 +82,7 @@ cv:
                 - "- Implemented dynamic scaling with Virtual Machine Scale Sets."
                 - ""
                 - "Conducted Bash scripting courses."
+                - ""
                 - "Developed a logging and monitoring solution with the Elastic Stack:"
                 - "- Routed logs and metrics to an Azure Event Hub, consumed by Elastic Stack components."
                 - "- Hosted FileBeat, Logstash, Elasticsearch, and Kibana on Azure Kubernetes Service using Helm charts."

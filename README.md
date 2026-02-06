@@ -21,3 +21,7 @@ Secondly, since Word continues its assault on nicely formatted pages in Curricul
    - Your personalized CV will be generated as a nicely formatted PDF!
 
 This of course does not explain the complete functionality of this project. Want to know more? Don't be shy, ask the creator of this repo!
+
+# TODO:
+- Put my current work experience section at the bottom of the CV
+- Have a short and goldfish attention span work experience section at the current spot of work experience

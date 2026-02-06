@@ -14,7 +14,7 @@ class PDF(FPDF):
         self.first_theme_color = hex_to_rgb(self.layout.first_color)
         self.second_theme_color = hex_to_rgb(self.layout.second_color)
         self.starting_y = 20
-        self.page_break_trigger = 260
+        self.page_break_trigger = 270
 
     def draw_text_cell(self, width, text, bold=False, multiline=False, font_size=12, url=""):
         self.set_font(self.layout.font, "B" if bold else "", font_size)
@@ -38,14 +38,13 @@ class PDF(FPDF):
 
         self.set_text_color(*self.second_theme_color)
         for detail in self.config.personal_info:
-            y = y + self.layout.spacing.line_gap
+            y = y + 10
             self.set_xy(x, y)
             self.draw_text_cell(0, detail.item, font_size=self.layout.details_font_size)
 
         # Online presence
-        y = y + self.layout.spacing.line_gap
+        y = y + 10
         for icon in self.config.online_presence:
-            x += self.layout.spacing.line_gap
             recolored = recolor_icon(icon.icon_path, self.second_theme_color)
             self.image(
                 recolored,
@@ -109,7 +108,6 @@ class PDF(FPDF):
         self.ensure_page_space(30)
         self.set_xy(x, self.get_y())
         self.draw_text_cell(0, section.title, bold=True, font_size=self.layout.header_font_size)
-        self.ln(self.layout.spacing.section_gap)
 
         # single text blob
         for item in section.section_content:
@@ -125,7 +123,6 @@ class PDF(FPDF):
         self.ensure_page_space(0)
         self.set_xy(x, self.get_y())
         self.draw_text_cell(0, section.title, bold=True, font_size=self.layout.header_font_size)
-        self.ln(self.layout.spacing.section_gap)
 
         for item in section.section_content:
             # time frame + title must stay together
@@ -186,7 +183,7 @@ class PDF(FPDF):
     def render_projects(self, section):
         x = self.layout.width_bar + 10
 
-        self.ensure_page_space(30)
+        self.ensure_page_space(70)
         self.set_xy(x, self.get_y())
         self.draw_text_cell(0, section.title, bold=True, font_size=self.layout.header_font_size)
         self.ln(self.layout.spacing.section_gap)
