@@ -49,6 +49,7 @@ class SectionItemDetails(BaseModel):
     image_y_coordinate: Optional[int] = Field(default=None, alias="image-y-coordinate")
     image_size: Optional[int] = Field(default=None, alias="image-size")
     image_link: Optional[str] = Field(default=None, alias="image-link")
+    bullets: Optional[List[str]] = None
 
 
 class SectionItem(BaseModel):

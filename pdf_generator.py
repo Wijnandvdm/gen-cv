@@ -92,12 +92,14 @@ class PDF(FPDF):
 
         if section_key == "profile":
             self.render_profile(section)
-        elif section_key == "experience":
-            self.render_experience(section)
+        elif section_key == "experience_tldr":
+            self.render_experience_tldr(section)
         elif section_key == "certifications":
             self.render_certifications(section)
         elif section_key == "projects":
             self.render_projects(section)
+        elif section_key == "experience":
+            self.render_experience(section)
         elif section_key == "education":
             self.render_education(section)
 
@@ -115,6 +117,63 @@ class PDF(FPDF):
             self.set_xy(x, self.get_y())
             self.draw_text_cell(0, item.content, multiline=True, font_size=self.layout.details_font_size)
             self.ln(self.layout.spacing.line_gap)
+
+    def render_experience_tldr(self, section):
+        x = self.layout.width_bar + 10
+
+        # header
+        self.ensure_page_space(20)
+        self.set_xy(x, self.get_y())
+        self.draw_text_cell(
+            0,
+            section.title,
+            bold=True,
+            font_size=self.layout.header_font_size,
+        )
+        self.ln(self.layout.spacing.section_gap)
+
+        for item in section.section_content:
+            self.ensure_page_space(20)
+            self.set_xy(x, self.get_y())
+
+            # timeframe + title
+            self.draw_text_cell(
+                30,
+                item.time_frame or "",
+                bold=True,
+                font_size=self.layout.details_font_size,
+            )
+            self.draw_text_cell(
+                0,
+                item.details.title,
+                bold=True,
+                font_size=self.layout.details_font_size,
+            )
+
+            bullets = item.details.bullets or []
+
+            for bullet in bullets[:5]:  # hard cap, no mercy
+                self.ensure_page_space(8)
+                self.set_xy(x, self.get_y())
+
+                base_indent = 30
+                bullet_x = x + base_indent + 2
+                bullet_y = self.get_y() + 2
+
+                self.set_fill_color(*self.first_theme_color)
+                self.ellipse(bullet_x + 1.5, bullet_y + 1.5, 1.5, 1.5, "F")
+
+                self.set_xy(x + base_indent + 8, self.get_y())
+                self.draw_text_cell(
+                    0,
+                    bullet,
+                    multiline=True,
+                    font_size=self.layout.details_font_size,
+                )
+
+            self.ln(self.layout.spacing.section_gap)
+
+
 
     def render_experience(self, section):
         x = self.layout.width_bar + 10
