@@ -46,31 +46,25 @@ cv:
         - time-frame: ""
           details: ""
           content: "I am known as an honest, results-oriented person and a creative thinker, capable of developing and presenting complex matters clearly within the organization. With this analytical perspective and the IT skills I have acquired, I aim to achieve demonstrable growth for the organization."
-    # Bullet usage examples:
-    # Use plain list items in a description like:
-    #   - "- Item text"
-    #   - "  - Nested item text"  # two leading spaces -> nested bullet
-    # Supported bullet markers: '-', '*', '+' (leading spaces increase nesting level)
-    # The generator converts these patterns to indented bullets.
     experience_tldr:
-      title: Work Experience (TL;DR)
+      title: Work Experience
       section-content:
         - time-frame: 2024-Now
           details:
             title: Freelance Data Engineer @ TenneT
             bullets:
-              - Migrated on-prem Oracle DWH to Azure (Databricks)
-              - Built CI/CD with Azure DevOps & DABs
-              - Defined lakehouse data standards
-              - Validated Azure vs on-prem data parity
+              - "* Migrated on-prem Oracle DWH to Azure (Databricks)"
+              - "* Built CI/CD with Azure DevOps & DABs"
+              - "* Defined lakehouse data standards"
+              - "* Validated Azure vs on-prem data parity"
         - time-frame: 2021-2024
           details:
             title: Data Engineer @ Jumbo
             bullets:
-              - Built ETL pipelines (ADF + Databricks)
-              - Implemented batch & streaming ingestion
-              - Taught Azure Cloud & Bash courses
-              - Built logging platform with Elastic Stack
+              - "* Built ETL pipelines (ADF + Databricks)"
+              - "* Implemented batch & streaming ingestion"
+              - "* Taught Azure Cloud & Bash courses"
+              - "* Built logging platform with Elastic Stack"
     certifications:
       title: Certifications
       section-content:
@@ -133,11 +127,11 @@ cv:
                 - "Implemented CI/CD pipelines with Jenkins and ArgoCD for automated deployments."
                 - ""
                 - "On-premise migration to Azure:"
-                - "- Migrated on-premise Oracle Data Warehouse to Azure using Databricks."
-                - "- Developed ways of working regarding the processing of data throughout the lakehouse."
-                - "- Developed generic way of validating Azure data as compared to on-premise data."
-                - "- Implemented Databricks Asset Bundles (DABs) in Azure DevOps for streamlined deployment and management."
-                - "- Created CI/CD pipelines with Azure DevOps for deployment of DABs and package publishing to Artifacts."
+                - "* Migrated on-premise Oracle Data Warehouse to Azure using Databricks."
+                - "* Developed ways of working regarding the processing of data throughout the lakehouse."
+                - "* Developed generic way of validating Azure data as compared to on-premise data."
+                - "* Implemented Databricks Asset Bundles (DABs) in Azure DevOps for streamlined deployment and management."
+                - "* Created CI/CD pipelines with Azure DevOps for deployment of DABs and package publishing to Artifacts."
         - time-frame: 2021-2024
           details:
             title: Data Engineer at Jumbo via Virtual Sciences
@@ -146,25 +140,25 @@ cv:
                 - "Worked on batch and streaming (with Databricks autoloader) patterns using Azure Databricks and Azure Functions."
                 - ""
                 - "Conducted Azure Cloud courses:"
-                - "- Migrated on-premise MySQL DB to Azure MySQL DB."
-                - "- Used Infrastructure as Code (Bicep templates) to deploy MySQL DB and Virtual Machines."
-                - "- Implemented dynamic scaling with Virtual Machine Scale Sets."
+                - "* Migrated on-premise MySQL DB to Azure MySQL DB."
+                - "* Used Infrastructure as Code (Bicep templates) to deploy MySQL DB and Virtual Machines."
+                - "* Implemented dynamic scaling with Virtual Machine Scale Sets."
                 - ""
                 - "Conducted Bash scripting courses."
                 - ""
                 - "Developed a logging and monitoring solution with the Elastic Stack:"
-                - "- Routed logs and metrics to an Azure Event Hub, consumed by Elastic Stack components."
-                - "- Hosted FileBeat, Logstash, Elasticsearch, and Kibana on Azure Kubernetes Service using Helm charts."
-                - "- Automated deployment via Azure DevOps pipeline across DTAP environments."
+                - "* Routed logs and metrics to an Azure Event Hub, consumed by Elastic Stack components."
+                - "* Hosted FileBeat, Logstash, Elasticsearch, and Kibana on Azure Kubernetes Service using Helm charts."
+                - "* Automated deployment via Azure DevOps pipeline across DTAP environments."
                 - ""
                 - "Integrated an assessment form in Microsoft Forms with an Azure Logic App:"
-                - "- Stored data in an Azure SQL database and a Data Lake for disaster recovery."
-                - "- Developed Infrastructure as Code (Bicep templates) for deployment."
-                - "- Implemented GDPR-compliant data archiving and deletion rules."
+                - "* Stored data in an Azure SQL database and a Data Lake for disaster recovery."
+                - "* Developed Infrastructure as Code (Bicep templates) for deployment."
+                - "* Implemented GDPR-compliant data archiving and deletion rules."
                 - ""
                 - "Developed a backend for a product catalog using IceCat:"
-                - "- Used ADF, Azure Databricks, and Event Hub for orchestration, ETL, and streaming."
-                - "- Set up Azure DevOps pipelines for ADF pipeline deployment."
+                - "* Used ADF, Azure Databricks, Python and Event Hub for orchestration, ETL, and streaming."
+                - "* Set up Azure DevOps pipelines for ADF pipeline deployment."
         - time-frame: 2019-2020
           details:
             title: PhD Candidate at Radboudumc

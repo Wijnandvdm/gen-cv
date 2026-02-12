@@ -87,6 +87,28 @@ class PDF(FPDF):
             return True
         return False
 
+    def draw_bullets(self,lines: list[str],x: int,base_indent: int = 30):
+        """
+        Draw lines that may or may not be bullets.
+        Bullet lines must start with '* '.
+        """
+        for line in lines:
+            self.ensure_page_space(8)
+            self.set_xy(x, self.get_y())
+
+            if line.startswith("* "):
+                text = line[2:]
+                bullet_x = x + base_indent + 2
+                bullet_y = self.get_y()
+                self.ellipse(bullet_x + 1.5, bullet_y + 1.5, 1.5, 1.5, "F")
+
+                self.set_xy(x + base_indent + 8, self.get_y())
+                self.draw_text_cell(0,text,multiline=True,font_size=self.layout.details_font_size)
+            else:
+                self.draw_text_cell(30, "", font_size=self.layout.details_font_size)
+                self.draw_text_cell(0,line,multiline=True,font_size=self.layout.details_font_size)
+
+
     def add_section(self, section_key):
         section = self.config.sections[section_key]
 
@@ -120,71 +142,28 @@ class PDF(FPDF):
 
     def render_experience_tldr(self, section):
         x = self.layout.width_bar + 10
-
-        # header
         self.ensure_page_space(20)
         self.set_xy(x, self.get_y())
-        self.draw_text_cell(
-            0,
-            section.title,
-            bold=True,
-            font_size=self.layout.header_font_size,
-        )
+        self.draw_text_cell(0,section.title,bold=True,font_size=self.layout.header_font_size)
         self.ln(self.layout.spacing.section_gap)
 
         for item in section.section_content:
             self.ensure_page_space(20)
             self.set_xy(x, self.get_y())
-
-            # timeframe + title
-            self.draw_text_cell(
-                30,
-                item.time_frame or "",
-                bold=True,
-                font_size=self.layout.details_font_size,
-            )
-            self.draw_text_cell(
-                0,
-                item.details.title,
-                bold=True,
-                font_size=self.layout.details_font_size,
-            )
-
-            bullets = item.details.bullets or []
-
-            for bullet in bullets[:5]:  # hard cap, no mercy
-                self.ensure_page_space(8)
-                self.set_xy(x, self.get_y())
-
-                base_indent = 30
-                bullet_x = x + base_indent + 2
-                bullet_y = self.get_y() + 2
-
-                self.set_fill_color(*self.first_theme_color)
-                self.ellipse(bullet_x + 1.5, bullet_y + 1.5, 1.5, 1.5, "F")
-
-                self.set_xy(x + base_indent + 8, self.get_y())
-                self.draw_text_cell(
-                    0,
-                    bullet,
-                    multiline=True,
-                    font_size=self.layout.details_font_size,
-                )
-
+            self.draw_text_cell(30,item.time_frame or "",bold=True,font_size=self.layout.details_font_size)
+            self.draw_text_cell(0,item.details.title,bold=True,font_size=self.layout.details_font_size)
+            self.draw_bullets(lines=item.details.bullets,x=x,base_indent=30)
             self.ln(self.layout.spacing.section_gap)
-
 
 
     def render_experience(self, section):
         x = self.layout.width_bar + 10
 
-        # header
         self.ensure_page_space(0)
         self.set_xy(x, self.get_y())
         self.draw_text_cell(0, section.title, bold=True, font_size=self.layout.header_font_size)
 
         for item in section.section_content:
-            # time frame + title must stay together
             self.ensure_page_space(0)
             self.set_xy(x, self.get_y())
 
@@ -192,30 +171,7 @@ class PDF(FPDF):
             self.draw_text_cell(0, item.details.title, bold=True, font_size=self.layout.details_font_size)
 
             if item.details.description:
-                for desc in item.details.description:
-                    self.ensure_page_space(0)
-                    self.set_xy(x, self.get_y())
-
-                    if not desc.strip():
-                        self.ln(self.layout.spacing.line_gap)
-                        continue
-
-                    m = re.match(r"^(?P<indent>\s*)([-*+])\s+(?P<text>.+)$", desc)
-                    if m:
-                        indent = len(m.group("indent")) // 2
-                        base_indent = 30
-                        extra = indent * 8
-
-                        bullet_x = x + base_indent + extra + 2
-                        bullet_y = self.get_y() + 2
-                        self.set_fill_color(*self.first_theme_color)
-                        self.ellipse(bullet_x + 1.5, bullet_y + 1.5, 1.5, 1.5, "F")
-
-                        self.set_xy(x + base_indent + extra + 8, self.get_y())
-                        self.draw_text_cell(0, m.group("text"), multiline=True, font_size=self.layout.details_font_size)
-                    else:
-                        self.draw_text_cell(30, "", font_size=self.layout.details_font_size)
-                        self.draw_text_cell(0, desc, multiline=True, font_size=self.layout.details_font_size)
+                self.draw_bullets(lines=item.details.description,x=x,base_indent=30)
 
             self.ln(self.layout.spacing.section_gap)
 
