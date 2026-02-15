@@ -120,7 +120,7 @@ cv:
       section-content:
         - time-frame: 2024-Now
           details:
-            title: Freelance Data Engineer at TenneT
+            title: Freelance Data Engineer @ TenneT
             description:
                 - "On-premise work:"
                 - "Worked on ingestion with Python in Kubernetes and data modeling within an on-premise Oracle Data Warehouse."
@@ -134,7 +134,7 @@ cv:
                 - "* Created CI/CD pipelines with Azure DevOps for deployment of DABs and package publishing to Artifacts."
         - time-frame: 2021-2024
           details:
-            title: Data Engineer at Jumbo via Virtual Sciences
+            title: Data Engineer @ Jumbo via Virtual Sciences
             description:
                 - "Developed dynamic data flows extracting, transforming, and loading different file formats (CSV, JSON, XML, Parquet, Delta, etc.), using Azure Data Factory (ADF) and Azure Databricks."
                 - "Worked on batch and streaming (with Databricks autoloader) patterns using Azure Databricks and Azure Functions."
@@ -161,7 +161,7 @@ cv:
                 - "* Set up Azure DevOps pipelines for ADF pipeline deployment."
         - time-frame: 2019-2020
           details:
-            title: PhD Candidate at Radboudumc
+            title: PhD Candidate @ Radboudumc
             description:
                 - Developed strong analytical and problem-solving skills.
                 - Designed and executed a research project.
