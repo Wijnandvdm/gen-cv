@@ -15,6 +15,7 @@ cv:
     width-bar: 65
     height-bar: 297
     timeline-width: 30
+    header-icon-size: 6
     spacing:
       section_gap: 3      # space before/after section lines
       line_gap: 5          # space between lines of text
@@ -51,12 +52,14 @@ cv:
   sections:
     profile:
       title: Profile
+      icon-path: images/profile_icon.png
       section-content:
         - time-frame: ""
           details: ""
           content: "I am known as an honest, results-oriented person and a creative thinker, capable of developing and presenting complex matters clearly within the organization. With this analytical perspective and the IT skills I have acquired, I aim to achieve demonstrable growth for the organization."
     experience_tldr:
       title: Work Experience
+      icon-path: images/briefcase_icon.png
       section-content:
         - time-frame: 2024-Now
           details:
@@ -76,6 +79,7 @@ cv:
               - "* Built logging platform with Elastic Stack"
     certifications:
       title: Certifications
+      icon-path: images/certification_icon.png
       section-content:
         - time-frame: Sep 2023
           details: 
@@ -99,6 +103,7 @@ cv:
             link: https://learn.microsoft.com/en-us/users/wijnand-9767/credentials/fc39743a89230ee2
     projects:
       title: Projects
+      icon-path: images/project_icon.png
       section-content:
         - time-frame: 2022-2023
           details:
@@ -126,6 +131,7 @@ cv:
             image-link: "https://github.com/Wijnandvdm/crisp-vms"
     experience:
       title: Work Experience Detailed
+      icon-path: images/briefcase_icon.png
       section-content:
         - time-frame: 2024-Now
           details:
@@ -177,6 +183,7 @@ cv:
                 - Completed courses in project management.
     education:
       title: Education
+      icon-path: images/education_icon.png
       section-content:
         - time-frame: 2017-2019
           details:

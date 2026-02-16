@@ -23,9 +23,12 @@ class PDF(FPDF):
         else:
             self.cell(width, 10, text, ln=1 if width == 0 else 0, link=url)
 
-    def draw_section_header(self, title, necessary_page_space=30):
+    def draw_section_header(self, title, necessary_page_space=30, icon_path=None):
         self.ensure_page_space(necessary_page_space)
         self.set_x(self.outlined_x)
+        if icon_path:
+            self.image(icon_path, self.get_x(), self.get_y() + 2, self.layout.header_icon_size)
+            self.set_x(self.get_x() + self.layout.header_icon_size + 2)
         self.draw_text_cell(0, title, bold=True, font_size=self.layout.header_font_size)
         self.set_draw_color(*self.first_theme_color)
         self.line(self.outlined_x, self.get_y(), self.outlined_x + 190, self.get_y())
@@ -97,7 +100,7 @@ class PDF(FPDF):
         getattr(self, f"render_{section_key}")(self.config.sections[section_key])
 
     def render_profile(self, section):
-        self.draw_section_header(section.title)
+        self.draw_section_header(section.title, icon_path=section.icon)
         for item in section.section_content:
             self.ensure_page_space(40)
             self.set_x(self.outlined_x)
@@ -105,7 +108,7 @@ class PDF(FPDF):
             self.ln(self.layout.spacing.line_gap)
 
     def render_experience_tldr(self, section):
-        self.draw_section_header(section.title, necessary_page_space=20)
+        self.draw_section_header(section.title, necessary_page_space=20, icon_path=section.icon)
         for item in section.section_content:
             self.ensure_page_space(20)
             self.set_x(self.outlined_x)
@@ -114,7 +117,7 @@ class PDF(FPDF):
             self.ln(self.layout.spacing.section_gap)
 
     def render_experience(self, section):
-        self.draw_section_header(section.title, necessary_page_space=0)
+        self.draw_section_header(section.title, necessary_page_space=0, icon_path=section.icon)
         for item in section.section_content:
             self.ensure_page_space(0)
             self.set_x(self.outlined_x)
@@ -124,14 +127,14 @@ class PDF(FPDF):
             self.ln(self.layout.spacing.section_gap)
 
     def render_certifications(self, section):
-        self.draw_section_header(section.title)
+        self.draw_section_header(section.title, icon_path=section.icon)
         for item in section.section_content:
             self.ensure_page_space(15)
             self.set_x(self.outlined_x)
             self.draw_timeline_row(item, bold_title=False, url=str(item.details.link) if item.details.link else "")
 
     def render_projects(self, section):
-        self.draw_section_header(section.title, necessary_page_space=70)
+        self.draw_section_header(section.title, necessary_page_space=70, icon_path=section.icon)
         for item in section.section_content:
             self.ensure_page_space(item.details.image_size)
             self.set_x(self.outlined_x)
@@ -143,7 +146,7 @@ class PDF(FPDF):
             self.set_y(img_y + item.details.image_y_coordinate)
 
     def render_education(self, section):
-        self.draw_section_header(section.title)
+        self.draw_section_header(section.title, icon_path=section.icon)
         for item in section.section_content:
             self.ensure_page_space(15)
             self.set_x(self.outlined_x)

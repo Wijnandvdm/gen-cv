@@ -30,6 +30,7 @@ class Layout(BaseModel):
     width_bar: int = Field(alias="width-bar")
     height_bar: int = Field(alias="height-bar")
     timeline_width: int = Field(alias="timeline-width")
+    header_icon_size: int = Field(alias="header-icon-size")
     spacing: Spacing
     bullets: Bullets
 
@@ -72,6 +73,7 @@ class SectionItem(BaseModel):
 
 class Section(BaseModel):
     title: str
+    icon: Optional[str] = Field(default=None, alias="icon-path")
     section_content: List[SectionItem] = Field(alias="section-content")
 
 
