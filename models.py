@@ -9,17 +9,29 @@ class Spacing(BaseModel):
     after_title_gap: int
 
 
+class Bullets(BaseModel):
+    base_indent: int = Field(alias="base-indent")
+    size: float
+
+
 class Layout(BaseModel):
+    starting_x: int = Field(alias="starting-x")
+    starting_y: int = Field(alias="starting-y")
+    new_page_y: int = Field(alias="new-page-y")
+    outlined_x: int = Field(alias="outlined-x")
     font: str
     title_font_size: int = Field(alias="title-font-size")
     header_font_size: int = Field(alias="header-font-size")
     details_font_size: int = Field(alias="details-font-size")
+    image_path: str = Field(alias="image-path")
     image_size: int = Field(alias="image-size")
     first_color: str = Field(alias="first-color")
     second_color: str = Field(alias="second-color")
     width_bar: int = Field(alias="width-bar")
     height_bar: int = Field(alias="height-bar")
+    timeline_width: int = Field(alias="timeline-width")
     spacing: Spacing
+    bullets: Bullets
 
 
 class OnlinePresence(BaseModel):

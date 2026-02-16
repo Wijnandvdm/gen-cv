@@ -23,5 +23,5 @@ Secondly, since Word continues its assault on nicely formatted pages in Curricul
 This of course does not explain the complete functionality of this project. Want to know more? Don't be shy, ask the creator of this repo!
 
 # TODO:
-- Put my current work experience section at the bottom of the CV
-- Have a short and goldfish attention span work experience section at the current spot of work experience
+- Fancy icons at all titles
+- Include overview of all tools (applied knowledge)
