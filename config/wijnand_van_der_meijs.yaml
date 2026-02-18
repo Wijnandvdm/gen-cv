@@ -11,15 +11,15 @@ cv:
     image-path: images/profile_picture.png
     image-size: 40
     first-color: "#001F3F"
-    second-color: "#CCCCCC"
+    second-color: "#A8BFD0"
     width-bar: 65
     height-bar: 297
     timeline-width: 30
     header-icon-size: 6
     spacing:
-      section_gap: 3      # space before/after section lines
-      line_gap: 5          # space between lines of text
-      after_title_gap: 5  # space after "Curriculum Vitae" title
+      section_gap: 3
+      line_gap: 5
+      after_title_gap: 5
     bullets:
       base-indent: 32
       size: 1.5
