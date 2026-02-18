@@ -24,11 +24,11 @@ cv:
       base-indent: 32
       size: 1.5
   online-presence:
-    - icon-path: linkedin_icon.png
+    - icon-path: images/linkedin_icon.png
       icon-size: 8
       icon-x-coordinate: 20
       link: https://www.linkedin.com/in/wijnand-van-der-meijs-066a56a8/
-    - icon-path: github_icon.png
+    - icon-path: images/github_icon.png
       icon-size: 8
       icon-x-coordinate: 30
       link: https://github.com/Wijnandvdm

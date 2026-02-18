@@ -27,9 +27,12 @@ class PDF(FPDF):
         self.ensure_page_space(necessary_page_space)
         self.set_x(self.outlined_x)
         if icon_path:
-            self.image(icon_path, self.get_x(), self.get_y() + 2, self.layout.header_icon_size)
+            recolored_icon_path = recolor_icon(icon_path, self.first_theme_color)
+            self.image(recolored_icon_path, self.get_x(), self.get_y() + 2, self.layout.header_icon_size)
             self.set_x(self.get_x() + self.layout.header_icon_size + 2)
+        self.set_text_color(*self.first_theme_color)
         self.draw_text_cell(0, title, bold=True, font_size=self.layout.header_font_size)
+        self.set_text_color(0, 0, 0)
         self.set_draw_color(*self.first_theme_color)
         self.line(self.outlined_x, self.get_y(), self.outlined_x + 190, self.get_y())
         self.ln(self.layout.spacing.section_gap)
@@ -38,7 +41,9 @@ class PDF(FPDF):
         self.set_fill_color(*self.first_theme_color)
         self.rect(0, 0, self.layout.width_bar, self.layout.height_bar, "F")
         self.set_xy(self.outlined_x, 10)
+        self.set_text_color(*self.first_theme_color)
         self.draw_text_cell(0, "Curriculum Vitae", bold=True, font_size=self.layout.title_font_size)
+        self.set_text_color(0, 0, 0)
         self.ln(self.layout.spacing.after_title_gap)
 
     def personal_info(self):

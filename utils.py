@@ -32,7 +32,7 @@ def hex_to_rgb(hex_color: str) -> tuple[int, int, int]:
 
 def recolor_icon(input_image_path, icon_color):
     # Open the image
-    img = Image.open(f"images/{input_image_path}").convert("RGBA")
+    img = Image.open(f"{input_image_path}").convert("RGBA")
 
     # Separate the image into individual channels
     r, g, b, alpha_channel = img.split()
@@ -44,7 +44,12 @@ def recolor_icon(input_image_path, icon_color):
     # Composite the new color with the alpha channel of the original image
     img = Image.merge("RGBA", (new_icon_r, new_icon_g, new_icon_b, alpha_channel))
 
-    output_image_path = f"images/recolored_{input_image_path}"
+    # check if the image contains the string images/ in its path
+    if "images/" in input_image_path:
+        output_image_path = input_image_path.replace("images/", "images/recolored_")
+    else:
+        raise ValueError(f"Input image path must contain 'images/': {input_image_path}")
+            
     # Save the result
     img.save(output_image_path)
     return output_image_path
