@@ -94,10 +94,11 @@ class PDF(FPDF):
                 self.set_x(bullet_x + self.layout.bullets.size + 3)
                 self.draw_text_cell(0, text, multiline=True, font_size=self.layout.details_font_size)
             else:
-                self.draw_text_cell(self.layout.timeline_width, "", font_size=self.layout.details_font_size)
+                self.set_x(self.get_x() + self.layout.timeline_width)
                 self.draw_text_cell(0, line, multiline=True, font_size=self.layout.details_font_size)
 
     def draw_timeline_row(self, item, bold_title=True, url=""):
+        self.set_x(self.outlined_x)
         self.draw_text_cell(self.layout.timeline_width, item.time_frame or "", bold=True, font_size=self.layout.details_font_size)
         self.draw_text_cell(0, item.details.title, bold=bold_title, font_size=self.layout.details_font_size, url=url)
 
@@ -116,7 +117,6 @@ class PDF(FPDF):
         self.draw_section_header(section.title, necessary_page_space=20, icon_path=section.icon)
         for item in section.section_content:
             self.ensure_page_space(20)
-            self.set_x(self.outlined_x)
             self.draw_timeline_row(item)
             self.draw_bullets(lines=item.details.bullets, x=self.outlined_x)
             self.ln(self.layout.spacing.section_gap)
@@ -125,7 +125,6 @@ class PDF(FPDF):
         self.draw_section_header(section.title, necessary_page_space=0, icon_path=section.icon)
         for item in section.section_content:
             self.ensure_page_space(0)
-            self.set_x(self.outlined_x)
             self.draw_timeline_row(item)
             if item.details.description:
                 self.draw_bullets(lines=item.details.description, x=self.outlined_x)
@@ -135,14 +134,12 @@ class PDF(FPDF):
         self.draw_section_header(section.title, icon_path=section.icon)
         for item in section.section_content:
             self.ensure_page_space(15)
-            self.set_x(self.outlined_x)
             self.draw_timeline_row(item, bold_title=False, url=str(item.details.link) if item.details.link else "")
 
     def render_projects(self, section):
         self.draw_section_header(section.title, necessary_page_space=70, icon_path=section.icon)
         for item in section.section_content:
             self.ensure_page_space(item.details.image_size)
-            self.set_x(self.outlined_x)
             self.draw_timeline_row(item, url=item.details.link or "")
             self.ln(2)
             img_x = item.details.image_x_coordinate or self.outlined_x
@@ -154,5 +151,4 @@ class PDF(FPDF):
         self.draw_section_header(section.title, icon_path=section.icon)
         for item in section.section_content:
             self.ensure_page_space(15)
-            self.set_x(self.outlined_x)
             self.draw_timeline_row(item, bold_title=False)
