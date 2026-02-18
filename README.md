@@ -23,5 +23,5 @@ Secondly, since Word continues its assault on nicely formatted pages in Curricul
 This of course does not explain the complete functionality of this project. Want to know more? Don't be shy, ask the creator of this repo!
 
 # TODO:
-- Fancy icons at all titles (colored?)
-- Include overview of all tools (applied knowledge)
+- Include overview of all tools (applied knowledge or something as title) with icons?
+- Reorganize code into logical folders and files insofar this is necessary
