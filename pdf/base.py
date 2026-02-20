@@ -12,7 +12,6 @@ class PDF(FPDF, SectionRenderers):
         self.layout = config.layout
         self.first_theme_color = hex_to_rgb(self.layout.first_color)
         self.second_theme_color = hex_to_rgb(self.layout.second_color)
-        self.starting_y = 20
         self.outlined_x = self.layout.width_bar + 10
 
     def draw_text_cell(self, width: int, text: str, bold: bool = False, multiline: bool = False, font_size: int = 12, url: str = "") -> None:
@@ -78,7 +77,7 @@ class PDF(FPDF, SectionRenderers):
         remaining = self.h - self.get_y() - self.b_margin
         if needed_height > remaining:
             self.add_page()
-            self.set_xy(self.outlined_x, self.starting_y)
+            self.set_xy(self.outlined_x, self.layout.new_page_y)
             return True
         return False
 
