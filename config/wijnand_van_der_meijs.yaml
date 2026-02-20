@@ -82,19 +82,90 @@ cv:
               - "* Built logging platform with Elastic Stack"
     tooling:
       title: Tools & Technologies
-      tools:
-        azure:
-          title: Azure
-          icon-path: images/tooling_icons/azure_icon.png
-        databricks:
-          title: Databricks
-          icon-path: images/tooling_icons/databricks_icon.png
-        python:
-          title: Python
-          icon-path: images/tooling_icons/python_icon.png
-        bash:
-          title: Bash
-          icon-path: images/tooling_icons/bash_icon.png
+      tool-icon-size: 10
+      tool-slot-width: 25
+      categories:
+        cloud_and_platform:
+          label: Cloud & Platform
+          tools:
+            azure:
+              title: Azure
+              icon-path: images/tooling_icons/azure_icon.png
+            kubernetes:
+              title: Kubernetes
+              icon-path: images/tooling_icons/kubernetes_icon.png
+            docker:
+              title: Docker
+              icon-path: images/tooling_icons/docker_icon.png
+            helm:
+              title: Helm
+              icon-path: images/tooling_icons/helm_icon.png
+        data_engineering:
+          label: Data Engineering
+          tools:
+            databricks:
+              title: Databricks
+              icon-path: images/tooling_icons/databricks_icon.png
+            spark:
+              title: Spark
+              icon-path: images/tooling_icons/spark_icon.png
+            adf:
+              title: Data Factory
+              icon-path: images/tooling_icons/adf_icon.png
+            function_app:
+              title: Function App
+              icon-path: images/tooling_icons/function_app_icon.png
+            elastic:
+              title: Elastic Stack
+              icon-path: images/tooling_icons/elastic_icon.png
+        coding:
+          label: Coding
+          tools:
+            python:
+              title: Python
+              icon-path: images/tooling_icons/python_icon.png
+            sql:
+              title: SQL
+              icon-path: images/tooling_icons/sql_icon.png
+            bash:
+              title: Bash
+              icon-path: images/tooling_icons/bash_icon.png
+            c_sharp:
+              title: C#
+              icon-path: images/tooling_icons/c_sharp_icon.png
+        cicd_and_iac:
+          label: CI/CD & IaC
+          tools:
+            azure_devops:
+              title: Azure DevOps
+              icon-path: images/tooling_icons/azure_devops_icon.png
+            bicep:
+              title: Bicep
+              icon-path: images/tooling_icons/bicep_icon.png
+            argocd:
+              title: ArgoCD
+              icon-path: images/tooling_icons/argocd_icon.png
+            jenkins:
+              title: Jenkins
+              icon-path: images/tooling_icons/jenkins_icon.png
+            terraform:
+              title: Terraform
+              icon-path: images/tooling_icons/terraform_icon.png
+        version_control:
+          label: Version Control
+          tools:
+            github:
+              title: GitHub
+              icon-path: images/tooling_icons/github_icon.png
+            azure_devops:
+              title: Azure DevOps
+              icon-path: images/tooling_icons/azure_devops_icon.png
+            gitlab:
+              title: GitLab
+              icon-path: images/tooling_icons/gitlab_icon.png
+            bitbucket:
+              title: Bitbucket
+              icon-path: images/tooling_icons/bitbucket_icon.png
     certifications:
       title: Certifications
       icon-path: images/certification_icon.png

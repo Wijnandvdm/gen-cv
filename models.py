@@ -82,10 +82,17 @@ class ToolItem(BaseModel):
     icon_path: str = Field(alias="icon-path")
 
 
+class ToolCategory(BaseModel):
+    label: str
+    tools: Dict[str, ToolItem]
+
+
 class ToolingSection(BaseModel):
     title: str
     icon: Optional[str] = Field(default=None, alias="icon-path")
-    tools: Dict[str, ToolItem]
+    tool_icon_size: int = Field(alias="tool-icon-size")
+    tool_slot_width: int = Field(alias="tool-slot-width")
+    categories: Dict[str, ToolCategory]
 
 
 class CVConfig(BaseModel):

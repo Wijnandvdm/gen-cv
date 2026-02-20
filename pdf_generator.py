@@ -149,17 +149,20 @@ class PDF(FPDF):
 
     def render_tooling(self, section):
         self.draw_section_header(section.title, icon_path=section.icon)
-        self.set_x(self.outlined_x)
-        tool_item_width = 30
-        page_right = self.outlined_x + 125
-        for tool in section.tools.values():
-            if self.get_x() + tool_item_width > page_right:
-                self.ln(8)
-                self.set_x(self.outlined_x)
-            self.image(tool.icon_path, self.get_x(), self.get_y() + 2, self.layout.header_icon_size)
-            self.set_x(self.get_x() + self.layout.header_icon_size + 2)
-            self.draw_text_cell(tool_item_width - self.layout.header_icon_size - 2, tool.title, font_size=self.layout.details_font_size)
-        self.ln(self.layout.spacing.section_gap + 8)
+        for category in section.categories.values():
+            self.set_x(self.outlined_x)
+            self.draw_text_cell(0, category.label, bold=True, font_size=self.layout.details_font_size)
+            icon_y = self.get_y()
+            for i, tool in enumerate(category.tools.values()):
+                icon_x = self.outlined_x + i * section.tool_slot_width + (section.tool_slot_width - section.tool_icon_size) / 2
+                self.image(tool.icon_path, icon_x, icon_y, section.tool_icon_size)
+                self.set_y(icon_y)
+            self.set_y(icon_y + section.tool_icon_size + 1)
+            self.set_font(self.layout.font, "", self.layout.details_font_size)
+            for i, tool in enumerate(category.tools.values()):
+                self.set_x(self.outlined_x + i * section.tool_slot_width)
+                self.cell(section.tool_slot_width, 4, tool.title, align='C')
+            self.ln(4 + self.layout.spacing.section_gap)
 
     def render_education(self, section):
         self.draw_section_header(section.title, icon_path=section.icon)
