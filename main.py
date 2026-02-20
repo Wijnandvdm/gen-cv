@@ -1,27 +1,30 @@
 import sys
 from datetime import datetime
 
-from pdf_generator import PDF
-from utils import load_config, usage
+from config import load_config, usage
+from images import prepare_icons
+from pdf import PDF
 
 
-def main():
+def main() -> None:
     if len(sys.argv) != 2:
         usage()
 
     name = sys.argv[1]
+    prepare_icons()
     config = load_config(name)
 
     pdf = PDF(config)
     pdf.add_page()
     pdf.personal_info()
+    pdf.set_xy(pdf.layout.width_bar + 10, pdf.starting_y)
 
-    current_y = 20
     for section_key in config.sections:
-        current_y = pdf.add_section(section_key, current_y)
+        pdf.add_section(section_key)
 
-    current_year = datetime.now().year
-    pdf.output(f"cv_{current_year}_{name}.pdf", "F")
+    print("Pages:", pdf.page_no())
+
+    pdf.output(f"cv_{datetime.now().year}_{name}.pdf", "F")
     print("CV created successfully!")
 
 

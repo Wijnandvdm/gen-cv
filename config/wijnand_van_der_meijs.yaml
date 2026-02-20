@@ -1,24 +1,34 @@
 cv:
   layout:
+    starting-x: 7
+    starting-y: 10
+    new-page-y: 20
+    outlined-x: 75
     font: Arial
     title-font-size: 15
     header-font-size: 14
     details-font-size: 10
+    image-path: images/profile_picture.png
     image-size: 40
     first-color: "#001F3F"
-    second-color: "#CCCCCC"
+    second-color: "#A8BFD0"
     width-bar: 65
     height-bar: 297
+    timeline-width: 22
+    header-icon-size: 6
     spacing:
-      section_gap: 3      # space before/after section lines
-      line_gap: 10          # space between lines of text
-      after_title_gap: 20  # space after "Curriculum Vitae" title
+      section_gap: 3
+      line_gap: 5
+      after_title_gap: 5
+    bullets:
+      base-indent: 24
+      size: 1.5
   online-presence:
-    - icon-path: linkedin_icon.png
+    - icon-path: images/linkedin_icon.png
       icon-size: 8
       icon-x-coordinate: 20
       link: https://www.linkedin.com/in/wijnand-van-der-meijs-066a56a8/
-    - icon-path: github_icon.png
+    - icon-path: images/github_icon.png
       icon-size: 8
       icon-x-coordinate: 30
       link: https://github.com/Wijnandvdm
@@ -42,62 +52,123 @@ cv:
   sections:
     profile:
       title: Profile
+      icon-path: images/profile_icon.png
       section-content:
         - time-frame: ""
           details: ""
           content: "I am known as an honest, results-oriented person and a creative thinker, capable of developing and presenting complex matters clearly within the organization. With this analytical perspective and the IT skills I have acquired, I aim to achieve demonstrable growth for the organization."
-    experience:
+    experience_tldr:
       title: Work Experience
+      icon-path: images/briefcase_icon.png
       section-content:
         - time-frame: 2024-Now
           details:
-            title: Freelance Data Engineer at TenneT
-            description:
-                - "On-premise work:"
-                - "Worked on ingestion with Python in Kubernetes and data modeling within an on-premise Oracle Data Warehouse."
-                - "Implemented CI/CD pipelines with Jenkins and ArgoCD for automated deployments."
-                - ""
-                - "On-premise migration to Azure:"
-                - "- Migrated on-premise Oracle Data Warehouse to Azure using Databricks."
-                - "- Developed ways of working regarding the processing of data throughout the lakehouse."
-                - "- Developed generic way of validating Azure data as compared to on-premise data."
-                - "- Implemented Databricks Asset Bundles (DABs) in Azure DevOps for streamlined deployment and management."
-                - "- Created CI/CD pipelines with Azure DevOps for deployment of DABs and package publishing to Artifacts."
+            title: Freelance Data Engineer @ TenneT
+            bullets:
+              - "* Created ingestions with Kubernetes, ArgoCD and Jenkins"
+              - "* Processed data through Oracle DWH into dims & facts"
+              - "* Lakehouse migration: Oracle DWH to Databricks"
+              - "* SCD type 2 processing with Change Data Feed, Spark, etc."
+              - "* Python processing package + Artifacts publishing"
+              - "* Repo scaffolding and DABs CI/CD with semantic versioning"
+              - "* Automated validation on-prem vs cloud"
         - time-frame: 2021-2024
           details:
-            title: Data Engineer at Jumbo via Virtual Sciences
-            description:
-                - "Developed dynamic data flows extracting, transforming, and loading different file formats (CSV, JSON, XML, Parquet, Delta, etc.), using Azure Data Factory (ADF) and Azure Databricks."
-                - "Worked on batch and streaming (with Databricks autoloader) patterns using Azure Databricks and Azure Functions."
-                - ""
-                - "Conducted Azure Cloud courses:"
-                - "- Migrated on-premise MySQL DB to Azure MySQL DB."
-                - "- Used Infrastructure as Code (Bicep templates) to deploy MySQL DB and Virtual Machines."
-                - "- Implemented dynamic scaling with Virtual Machine Scale Sets."
-                - ""
-                - "Conducted Bash scripting courses."
-                - "Developed a logging and monitoring solution with the Elastic Stack:"
-                - "- Routed logs and metrics to an Azure Event Hub, consumed by Elastic Stack components."
-                - "- Hosted FileBeat, Logstash, Elasticsearch, and Kibana on Azure Kubernetes Service using Helm charts."
-                - "- Automated deployment via Azure DevOps pipeline across DTAP environments."
-                - ""
-                - "Integrated an assessment form in Microsoft Forms with an Azure Logic App:"
-                - "- Stored data in an Azure SQL database and a Data Lake for disaster recovery."
-                - "- Developed Infrastructure as Code (Bicep templates) for deployment."
-                - "- Implemented GDPR-compliant data archiving and deletion rules."
-                - ""
-                - "Developed a backend for a product catalog using IceCat:"
-                - "- Used ADF, Azure Databricks, and Event Hub for orchestration, ETL, and streaming."
-                - "- Set up Azure DevOps pipelines for ADF pipeline deployment."
-        - time-frame: 2019-2020
-          details:
-            title: PhD Candidate at Radboudumc
-            description:
-                - Developed strong analytical and problem-solving skills.
-                - Designed and executed a research project.
-                - Completed courses in project management.
+            title: Data Engineer @ Jumbo
+            bullets:
+              - "* Built ETL pipelines (ADF, Databricks, etc.)"
+              - "* Implemented batch & streaming ingestion"
+              - "* Taught Azure Cloud & Bash courses"
+              - "* Built logging platform with Elastic Stack"
+    tooling:
+      title: Tools & Technologies
+      tool-icon-size: 10
+      tool-slot-width: 25
+      categories:
+        cloud_and_platform:
+          label: Cloud & Platform
+          tools:
+            azure:
+              title: Azure
+              icon-path: images/tooling_icons/azure_icon.png
+            kubernetes:
+              title: Kubernetes
+              icon-path: images/tooling_icons/kubernetes_icon.png
+            docker:
+              title: Docker
+              icon-path: images/tooling_icons/docker_icon.png
+            helm:
+              title: Helm
+              icon-path: images/tooling_icons/helm_icon.png
+        data_engineering:
+          label: Data Engineering
+          tools:
+            databricks:
+              title: Databricks
+              icon-path: images/tooling_icons/databricks_icon.png
+            spark:
+              title: Spark
+              icon-path: images/tooling_icons/spark_icon.png
+            adf:
+              title: Data Factory
+              icon-path: images/tooling_icons/adf_icon.png
+            function_app:
+              title: Function App
+              icon-path: images/tooling_icons/function_app_icon.png
+            elastic:
+              title: Elastic Stack
+              icon-path: images/tooling_icons/elastic_icon.png
+        coding:
+          label: Coding
+          tools:
+            python:
+              title: Python
+              icon-path: images/tooling_icons/python_icon.png
+            sql:
+              title: SQL
+              icon-path: images/tooling_icons/sql_icon.png
+            bash:
+              title: Bash
+              icon-path: images/tooling_icons/bash_icon.png
+            c_sharp:
+              title: C#
+              icon-path: images/tooling_icons/c_sharp_icon.png
+        cicd_and_iac:
+          label: CI/CD & IaC
+          tools:
+            azure_devops:
+              title: Azure DevOps
+              icon-path: images/tooling_icons/azure_devops_icon.png
+            bicep:
+              title: Bicep
+              icon-path: images/tooling_icons/bicep_icon.png
+            argocd:
+              title: ArgoCD
+              icon-path: images/tooling_icons/argocd_icon.png
+            jenkins:
+              title: Jenkins
+              icon-path: images/tooling_icons/jenkins_icon.png
+            terraform:
+              title: Terraform
+              icon-path: images/tooling_icons/terraform_icon.png
+        version_control:
+          label: Version Control
+          tools:
+            github:
+              title: GitHub
+              icon-path: images/tooling_icons/github_icon.png
+            azure_devops:
+              title: Azure DevOps
+              icon-path: images/tooling_icons/azure_devops_icon.png
+            gitlab:
+              title: GitLab
+              icon-path: images/tooling_icons/gitlab_icon.png
+            bitbucket:
+              title: Bitbucket
+              icon-path: images/tooling_icons/bitbucket_icon.png
     certifications:
       title: Certifications
+      icon-path: images/certification_icon.png
       section-content:
         - time-frame: Sep 2023
           details: 
@@ -121,21 +192,22 @@ cv:
             link: https://learn.microsoft.com/en-us/users/wijnand-9767/credentials/fc39743a89230ee2
     projects:
       title: Projects
+      icon-path: images/project_icon.png
       section-content:
-        - time-frame: 2022-2023
+        - time-frame: 2022-2026
           details:
             title: Generate a CV PDF from a YAML Configuration
             image-path: images/project_001.drawio.png
             image-x-coordinate: 75
-            image-y-coordinate: 10
+            image-y-coordinate: 20
             image-size: 50
             image-link: "https://github.com/Wijnandvdm/gen-cv"
-        - time-frame: 2024-2025
+        - time-frame: 2024-2026
           details:
             title: NomStats - Recipe Management
             image-path: images/project_002.drawio.png
             image-x-coordinate: 75
-            image-y-coordinate: 30
+            image-y-coordinate: 40
             image-size: 50
             image-link: "https://nomstats.z6.web.core.windows.net/"
         - time-frame: "2025"
@@ -143,11 +215,70 @@ cv:
             title: Crisp VMs - Virtual Machine Management Tool
             image-path: images/project_003.drawio.png
             image-x-coordinate: 75
-            image-y-coordinate: 10
+            image-y-coordinate: 20
             image-size: 50
             image-link: "https://github.com/Wijnandvdm/crisp-vms"
+    experience:
+      title: Work Experience Detailed
+      icon-path: images/briefcase_icon.png
+      section-content:
+        - time-frame: 2024-Now
+          details:
+            title: Freelance Data Engineer @ TenneT
+            description:
+                - "On-premise:"
+                - "* Documented on-prem ingestion stack and coached team members to use it (Kubernetes, ArgoCD, Jenkins)."
+                - "* Built ingestion flows, processing through Oracle DWH with SCD type 2 historization into dims and facts."
+                - "* Coached team on Python best practices, code reviews and branching strategies."
+                - ""
+                - "Lakehouse migration (Oracle DWH to Azure Databricks):"
+                - "* Designed full processing pipeline (Change Data Feed, Spark, etc.)."
+                - "* SCD type 2 historization to dimensional model views consumed by PowerBI."
+                - "* Published processing logic as a private Python package."
+                - "* Automated package publishing to Azure DevOps Artifacts via pipelines."
+                - "* Implemented DABs CI/CD with semantic versioning."
+                - "* Hosted knowledge sharing sessions on Databricks, DABs, Unity Catalog, and CI/CD best practices."
+                - "* Built Azure DevOps pipeline for repository scaffolding using Copier and Jinja."
+                - "* Built cloud ingestions with Databricks, Azure Data Factory, and Azure Function Apps."
+                - "* Developed generic automated validation framework (types, distinct counts, etc.)."
+                - "* Validated on-prem vs cloud data consistency at millions of records on cell-level."
+        - time-frame: 2021-2024
+          details:
+            title: Data Engineer @ Jumbo via Virtual Sciences
+            description:
+                - "Developed dynamic data flows extracting, transforming, and loading different file formats (CSV, JSON, XML, Parquet, Delta, etc.), using Azure Data Factory (ADF) and Azure Databricks."
+                - "Worked on batch and streaming (with Databricks autoloader) patterns using Azure Databricks and Azure Functions."
+                - ""
+                - "Conducted Azure Cloud courses:"
+                - "* Migrated on-premise MySQL DB to Azure MySQL DB."
+                - "* Used Infrastructure as Code (Bicep templates) to deploy MySQL DB and Virtual Machines."
+                - "* Implemented dynamic scaling with Virtual Machine Scale Sets."
+                - ""
+                - "Conducted Bash scripting courses."
+                - ""
+                - "Developed a logging and monitoring solution with the Elastic Stack:"
+                - "* Routed logs and metrics to an Azure Event Hub, consumed by Elastic Stack components."
+                - "* Hosted FileBeat, Logstash, Elasticsearch, and Kibana on Azure Kubernetes Service using Helm charts."
+                - "* Automated deployment via Azure DevOps pipeline across DTAP environments."
+                - ""
+                - "Integrated an assessment form in Microsoft Forms with an Azure Logic App:"
+                - "* Stored data in an Azure SQL database and a Data Lake for disaster recovery."
+                - "* Developed Infrastructure as Code (Bicep templates) for deployment."
+                - "* Implemented GDPR-compliant data archiving and deletion rules."
+                - ""
+                - "Developed a backend for a product catalog using IceCat:"
+                - "* Used ADF, Azure Databricks, Python and Event Hub for orchestration, ETL, and streaming."
+                - "* Set up Azure DevOps pipelines for ADF pipeline deployment."
+        - time-frame: 2019-2020
+          details:
+            title: PhD Candidate @ Radboudumc
+            description:
+                - Developed strong analytical and problem-solving skills.
+                - Designed and executed a research project.
+                - Completed courses in project management.
     education:
       title: Education
+      icon-path: images/education_icon.png
       section-content:
         - time-frame: 2017-2019
           details:
