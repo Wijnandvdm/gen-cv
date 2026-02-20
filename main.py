@@ -2,7 +2,7 @@ import sys
 from datetime import datetime
 
 from pdf_generator import PDF
-from utils import load_config, usage
+from utils import load_config, prepare_icons, usage
 
 
 def main():
@@ -10,6 +10,7 @@ def main():
         usage()
 
     name = sys.argv[1]
+    prepare_icons()
     config = load_config(name)
 
     pdf = PDF(config)

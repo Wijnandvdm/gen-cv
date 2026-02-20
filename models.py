@@ -77,9 +77,20 @@ class Section(BaseModel):
     section_content: List[SectionItem] = Field(alias="section-content")
 
 
+class ToolItem(BaseModel):
+    title: str
+    icon_path: str = Field(alias="icon-path")
+
+
+class ToolingSection(BaseModel):
+    title: str
+    icon: Optional[str] = Field(default=None, alias="icon-path")
+    tools: Dict[str, ToolItem]
+
+
 class CVConfig(BaseModel):
     layout: Layout
     online_presence: List[OnlinePresence] = Field(alias="online-presence")
     personal_info: List[PersonalInfo] = Field(alias="personal-info")
     languages: List[Language]
-    sections: Dict[str, Section]
+    sections: Dict[str, Union[Section, ToolingSection]]

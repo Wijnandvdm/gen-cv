@@ -147,6 +147,20 @@ class PDF(FPDF):
             self.image(item.details.image_path, img_x, img_y, item.details.image_size, link=item.details.image_link or "")
             self.set_y(img_y + item.details.image_y_coordinate)
 
+    def render_tooling(self, section):
+        self.draw_section_header(section.title, icon_path=section.icon)
+        self.set_x(self.outlined_x)
+        tool_item_width = 30
+        page_right = self.outlined_x + 125
+        for tool in section.tools.values():
+            if self.get_x() + tool_item_width > page_right:
+                self.ln(8)
+                self.set_x(self.outlined_x)
+            self.image(tool.icon_path, self.get_x(), self.get_y() + 2, self.layout.header_icon_size)
+            self.set_x(self.get_x() + self.layout.header_icon_size + 2)
+            self.draw_text_cell(tool_item_width - self.layout.header_icon_size - 2, tool.title, font_size=self.layout.details_font_size)
+        self.ln(self.layout.spacing.section_gap + 8)
+
     def render_education(self, section):
         self.draw_section_header(section.title, icon_path=section.icon)
         for item in section.section_content:

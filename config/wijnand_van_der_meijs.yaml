@@ -80,6 +80,21 @@ cv:
               - "* Implemented batch & streaming ingestion"
               - "* Taught Azure Cloud & Bash courses"
               - "* Built logging platform with Elastic Stack"
+    tooling:
+      title: Tools & Technologies
+      tools:
+        azure:
+          title: Azure
+          icon-path: images/tooling_icons/azure_icon.png
+        databricks:
+          title: Databricks
+          icon-path: images/tooling_icons/databricks_icon.png
+        python:
+          title: Python
+          icon-path: images/tooling_icons/python_icon.png
+        bash:
+          title: Bash
+          icon-path: images/tooling_icons/bash_icon.png
     certifications:
       title: Certifications
       icon-path: images/certification_icon.png
