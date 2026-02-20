@@ -21,6 +21,3 @@ Secondly, since Word continues its assault on nicely formatted pages in Curricul
    - Your personalized CV will be generated as a nicely formatted PDF!
 
 This of course does not explain the complete functionality of this project. Want to know more? Don't be shy, ask the creator of this repo!
-
-# TODO:
-- Reorganize code into logical folders and files insofar this is necessary

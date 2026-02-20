@@ -1,11 +1,12 @@
 import sys
 from datetime import datetime
 
-from pdf_generator import PDF
-from utils import load_config, prepare_icons, usage
+from config import load_config, usage
+from images import prepare_icons
+from pdf import PDF
 
 
-def main():
+def main() -> None:
     if len(sys.argv) != 2:
         usage()
 
