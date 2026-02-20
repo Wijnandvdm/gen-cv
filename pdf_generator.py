@@ -149,20 +149,19 @@ class PDF(FPDF):
 
     def render_tooling(self, section):
         self.draw_section_header(section.title, icon_path=section.icon)
+        slot_w, icon_s = section.tool_slot_width, section.tool_icon_size
         for category in section.categories.values():
             self.set_x(self.outlined_x)
             self.draw_text_cell(0, category.label, bold=True, font_size=self.layout.details_font_size)
             icon_y = self.get_y()
-            for i, tool in enumerate(category.tools.values()):
-                icon_x = self.outlined_x + i * section.tool_slot_width + (section.tool_slot_width - section.tool_icon_size) / 2
-                self.image(tool.icon_path, icon_x, icon_y, section.tool_icon_size)
-                self.set_y(icon_y)
-            self.set_y(icon_y + section.tool_icon_size + 1)
             self.set_font(self.layout.font, "", self.layout.details_font_size)
             for i, tool in enumerate(category.tools.values()):
-                self.set_x(self.outlined_x + i * section.tool_slot_width)
-                self.cell(section.tool_slot_width, 4, tool.title, align='C')
-            self.ln(4 + self.layout.spacing.section_gap)
+                x = self.outlined_x + i * slot_w
+                self.image(tool.icon_path, x + (slot_w - icon_s) / 2, icon_y, icon_s)
+                self.set_xy(x, icon_y + icon_s + 1)
+                self.cell(slot_w, 4, tool.title, align='C')
+                self.set_y(icon_y)
+            self.ln(icon_s + 5 + self.layout.spacing.section_gap)
 
     def render_education(self, section):
         self.draw_section_header(section.title, icon_path=section.icon)
