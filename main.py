@@ -17,7 +17,7 @@ def main() -> None:
     pdf = PDF(config)
     pdf.add_page()
     pdf.personal_info()
-    pdf.set_xy(pdf.layout.width_bar + 10, pdf.starting_y)
+    pdf.set_xy(pdf.layout.width_bar + 10, pdf.layout.new_page_y)
 
     for section_key in config.sections:
         pdf.add_section(section_key)

@@ -67,7 +67,7 @@ class SectionItemDetails(BaseModel):
 
 class SectionItem(BaseModel):
     time_frame: Optional[str] = Field(default=None, alias="time-frame")
-    details: Union[str, SectionItemDetails, None] = None
+    details: Optional[SectionItemDetails] = None
     content: Optional[str] = None
 
 

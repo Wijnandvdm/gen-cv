@@ -1,11 +1,10 @@
-from fpdf import FPDF
-
 from images import hex_to_rgb, recolor_icon
 from models import CVConfig, SectionItem
+
 from .renderers import SectionRenderers
 
 
-class PDF(FPDF, SectionRenderers):
+class PDF(SectionRenderers):
     def __init__(self, config: CVConfig) -> None:
         super().__init__()
         self.config = config
@@ -18,7 +17,7 @@ class PDF(FPDF, SectionRenderers):
         self.set_font(self.layout.font, "B" if bold else "", font_size)
         if multiline:
             x = self.get_x()
-            self.multi_cell(width, 5, txt=text)
+            self.multi_cell(width, 5, txt=text)  # type: ignore[call-arg]
             self.set_x(x)
         else:
             self.cell(width, 10, text, ln=1 if width == 0 else 0, link=url)
@@ -57,11 +56,13 @@ class PDF(FPDF, SectionRenderers):
             self.draw_text_cell(0, detail.item, font_size=self.layout.details_font_size)
 
         y = y + 10
+        icon_size = 0
         for icon in self.config.online_presence:
             recolored = recolor_icon(icon.icon_path, self.second_theme_color)
             self.image(recolored, icon.icon_x_coordinate, y, icon.icon_size, link=str(icon.link))
+            icon_size = icon.icon_size
 
-        y = y + self.layout.spacing.section_gap + icon.icon_size
+        y = y + self.layout.spacing.section_gap + icon_size
         self.set_xy(self.layout.starting_x, y)
         self.draw_text_cell(0, "Languages", bold=True, font_size=self.layout.header_font_size)
 
@@ -100,7 +101,8 @@ class PDF(FPDF, SectionRenderers):
     def draw_timeline_row(self, item: SectionItem, bold_title: bool = True, url: str = "") -> None:
         self.set_x(self.outlined_x)
         self.draw_text_cell(self.layout.timeline_width, item.time_frame or "", bold=True, font_size=self.layout.details_font_size)
-        self.draw_text_cell(0, item.details.title, bold=bold_title, font_size=self.layout.details_font_size, url=url)
+        title = item.details.title if item.details is not None else ""
+        self.draw_text_cell(0, title or "", bold=bold_title, font_size=self.layout.details_font_size, url=url)
 
     def add_section(self, section_key: str) -> None:
         getattr(self, f"render_{section_key}")(self.config.sections[section_key])
