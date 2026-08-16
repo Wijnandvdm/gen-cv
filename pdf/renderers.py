@@ -1,6 +1,7 @@
 from fpdf import FPDF
+from PIL import Image
 
-from models import Layout, Section, SectionItem, ToolingSection
+from models import Layout, Section, SectionItem, SectionItemDetails, ToolingSection
 
 
 class SectionRenderers(FPDF):
@@ -48,12 +49,24 @@ class SectionRenderers(FPDF):
             url = str(item.details.link) if item.details and item.details.link else ""
             self.draw_timeline_row(item, bold_title=False, url=url)
 
+    def project_block_height(self, details: SectionItemDetails) -> float:
+        """Title row + gap + the taller of the rendered image and the y-advance it is given.
+
+        image-size is a width; the drawn height follows from the image's aspect ratio.
+        """
+        width = details.image_size or 0
+        image_height = 0.0
+        if details.image_path and width:
+            with Image.open(details.image_path) as img:
+                image_height = width * img.height / img.width
+        return 12 + max(image_height, details.image_y_coordinate or 0)
+
     def render_projects(self, section: Section) -> None:
         self.draw_section_header(section.title, necessary_page_space=70, icon_path=section.icon)
         for item in section.section_content:
             if item.details is None:
                 continue
-            self.ensure_page_space(item.details.image_size or 0)
+            self.ensure_page_space(self.project_block_height(item.details))
             self.draw_timeline_row(item, url=str(item.details.link) if item.details.link else "")
             self.ln(2)
             img_x = item.details.image_x_coordinate or self.outlined_x
@@ -71,6 +84,8 @@ class SectionRenderers(FPDF):
         self.draw_section_header(section.title, icon_path=section.icon)
         slot_w, icon_s = section.tool_slot_width, section.tool_icon_size
         for category in section.categories.values():
+            # Label cell (10) + icon row (icon_s) + tool title (5): fits in one block or moves to the next page.
+            self.ensure_page_space(15 + icon_s)
             self.set_x(self.outlined_x)
             self.draw_text_cell(0, category.label, bold=True, font_size=self.layout.details_font_size)
             icon_y = self.get_y()
