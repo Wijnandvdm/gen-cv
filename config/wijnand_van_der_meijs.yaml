@@ -72,6 +72,8 @@ cv:
               - "* Python processing package + Artifacts publishing"
               - "* Repo scaffolding and DABs CI/CD with semantic versioning"
               - "* Automated validation on-prem vs cloud"
+              - "* Created Azure data platform with Terraform"
+              - "* Created ABAC, RBAC and connectivity with Terraform"
         - time-frame: 2021-2024
           details:
             title: Data Engineer @ Jumbo
@@ -82,6 +84,7 @@ cv:
               - "* Built logging platform with Elastic Stack"
     tooling:
       title: Tools & Technologies
+      icon-path: images/tools_and_technologies_icon.png
       tool-icon-size: 10
       tool-slot-width: 25
       categories:
@@ -242,6 +245,12 @@ cv:
                 - "* Built cloud ingestions with Databricks, Azure Data Factory, and Azure Function Apps."
                 - "* Developed generic automated validation framework (types, distinct counts, etc.)."
                 - "* Validated on-prem vs cloud data consistency at millions of records on cell-level."
+                - ""
+                - "Platform engineering (Terraform and Azure DevOps):"
+                - "* Built Terraform modules deploying the components data teams work on, e.g.: Azure Data Factory, Databricks, storage accounts and Key Vaults."
+                - "* Configured ABAC and RBAC on deployed resources."
+                - "* Set up private networking with VNets, subnets, NSGs and private endpoints."
+                - "* Automated deployments through Azure DevOps pipelines."
         - time-frame: 2021-2024
           details:
             title: Data Engineer @ Jumbo via Virtual Sciences
